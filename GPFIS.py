@@ -1,5 +1,13 @@
+from msilib.schema import Error
+
+
+from sqlite3 import Error
 from GPFDatabase import GPFDatabase as gpfd
-gp = gpfd()
+from GPFISCoordinator import GPFISCoordinator as gpfisc
+
+from Entity import EntityObj as EntObj
+#gp = gpfd()
+gp = gpfisc()
 
 def main_menu():
     print("                     ")
@@ -26,11 +34,13 @@ def main_menu():
             invoice_menu()
 
 def view_customers():
-    customers = gp.get_customers()
+    entities = gp.get_entities()
+    #print(entities.toList())
     i = 1
-    for cust in customers:
+    for cust in entities:
         print("------------------------------------------------------")
-        print(str(i) +") " + "Customer ID: " + str(cust[0]) + " Customer Name: " + cust[1]+" Customer Address: " + cust[2] + ", "+cust[3] + ", "+cust[4]+", "+cust[5])
+        print(str(i),") ",cust.getAsAddressString())
+        print(cust.toString())
         print("------------------------------------------------------")
         i += 1
 
@@ -120,8 +130,8 @@ def invoice_menu():
 def view_invoices():
     invoice_nums = gp.get_invoice_list()
     print (invoice_nums)
-    names = gp.get_invoice_columns()
-    print(names)
+    #names = gp.get_invoice_columns()
+    #print(names)
     #print(invoices)
     for nums in invoice_nums:
         #print(inv)
@@ -163,16 +173,17 @@ def add_customer():
         
         customer_id = int(input("Enter customer ID: "))
         customer_name = input("Enter customer name: ")
-        customer_address = input("Enter customer street address: ")
+        customer_street_number = input("Enter customer Street Number: ")
+        customer_street_name = input("Enter customer Street Name: ")
         customer_state = input("Enter customer state: ")
         customer_city = input("Enter customer city: ")
         customer_zip = input("Enter customer zipcode: ")
+        customer_country = input("Enter customer country: ")
+        customer_is_active = 1
 
-        new_customer = (customer_id, customer_name, customer_address, customer_city, customer_state, customer_zip)
-
+        new_customer = EntObj(id=customer_id, name=customer_name, street_number=customer_street_number, street_name=customer_street_name, city=customer_city, state=customer_state, zip=customer_zip, country=customer_country)
         try:
-            gp.insert_customer(new_customer)
-            gp.close_connection()
+            gp.insert_entity(EntityObj=new_customer)
         except Error as e:
             print(e)
 
@@ -186,7 +197,7 @@ def edit_print_cust_info(cust):
 
 def edit_customer():
     view_customers()
-    customers = gp.get_customers()
+    customers = gp.get_entities()
     select = int(input("Enter Customer ID to edit: "))
 
     for cust in customers:
@@ -246,9 +257,15 @@ def create_invoice():
         choice = input("Create a new invoice? <Y/N>")
 
 def main():
-    gp.create_connection()
+    #gp.create_connection()
     #add_customer()
-    main_menu()
+    choice = 1
+    while True:
+        choice = int(input("continue?"))
+        if choice == 1:
+            break
+        else:
+            main_menu()
 
 
 if __name__ == '__main__':
