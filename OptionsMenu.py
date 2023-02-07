@@ -15,7 +15,7 @@ def changeFrameColor(aFrame):
 class GPF_OptionsMenu:
 
 
-    def __init__(self, theRoot, add_customer_frame=None, view_customer_frame=None, add_product_frame=None, view_product_frame=None, add_invoice_frame=None):
+    def __init__(self, theRoot, add_customer_frame=None, view_customer_frame=None, add_product_frame=None, view_product_frame=None, add_invoice_frame=None, view_invoice_frame=None):
         #No frames can be None, if so something has gone wrong. Make sure to add a check for all frames to be set.
 
         self.menubar = Menu(theRoot)
@@ -54,7 +54,7 @@ class GPF_OptionsMenu:
 
         self.invoicemenu = Menu(self.menubar, tearoff=0)
         self.invoicemenu.add_command(label="New Invoice", command=lambda: add_invoice_frame.build_frame())
-        self.invoicemenu.add_command(label="View Invoices", command=donothing)
+        self.invoicemenu.add_command(label="View Invoices", command=lambda: view_invoice_frame.build_frame())
         self.invoicemenu.add_command(label="Edit Invoices", command=donothing)
         #self.invoicemenu.add_separator()
         self.menubar.add_cascade(label="Invoices", menu=self.invoicemenu)

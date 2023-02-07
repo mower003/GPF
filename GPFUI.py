@@ -6,6 +6,7 @@ from ViewCustomerFrame import ViewCustomerFrame
 from AddProductFrame import AddProductFrame
 from ViewProductFrame import ViewProductFrame
 from AddInvoiceFrame import AddInvoiceFrame
+from ViewInvoiceFrame import ViewInvoiceFrame
 from tkinter import BOTH, LEFT, Menu
 
 root = tk.Tk()
@@ -65,6 +66,7 @@ view_customer_frame = ViewCustomerFrame(baseFrame)
 add_product_frame = AddProductFrame(baseFrame)
 view_product_frame = ViewProductFrame(baseFrame_2)
 add_invoice_frame = AddInvoiceFrame(baseFrame_2)
+view_invoice_frame = ViewInvoiceFrame(baseFrame_2)
 
 #baseCanvas = tk.Canvas(baseFrame, scrollregion=(0,0, 1500, 1500))
 #vbar = tk.Scrollbar(baseFrame, orient='vertical')
@@ -85,6 +87,7 @@ baseMenu = OptionsMenu.GPF_OptionsMenu(root,
                                         view_customer_frame, 
                                         add_product_frame, 
                                         view_product_frame,
-                                        add_invoice_frame)
+                                        add_invoice_frame,
+                                        view_invoice_frame)
 root.config(menu=baseMenu.getMenuBar())
 root.mainloop()
