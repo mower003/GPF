@@ -40,7 +40,7 @@ class InvoiceItemObj:
     def toList(self):
         list = [self.invoice_id, self.product_id, self.case_quantity, self.quantity, self.unit_price, self.tax_rate, self.tax_amount, self.line_note]
         return list
-
+    
     def asListForDBInsertion(self):
         list = [self.invoice_id, self.product_id, self.case_quantity, self.quantity, self.unit_price, self.line_note]
         return list
