@@ -4,7 +4,7 @@ class GPFDatabase:
 
     def __init__(self):
         self.conn = None
-        self.db_location = r"C:\Users\dunju\sqlite\db\sqlitetest.db"
+        self.db_location = r"database\sqlite\db\sqlitetest.db"
     def create_connection(self):
         try:
             self.conn = sqlite3.connect(self.db_location)
@@ -19,7 +19,7 @@ class GPFDatabase:
             print(e)
 
     def execute_table_create(self):
-        #db_location = r"C:\Users\dunju\sqlite\db\sqlitetest.db"
+        #db_location = r"database\sqlite\db\sqlitetest.db"
 
         db_create_customers_statement = """ CREATE TABLE IF NOT EXISTS customers (
                                                 customer_id INTEGER PRIMARY KEY,
