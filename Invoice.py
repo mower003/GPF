@@ -4,31 +4,34 @@ import locale
 class InvoiceObj:
     locale.setlocale(locale.LC_ALL, 'en_US')
 
-    def __init__(self, invoice_number=-37, creation_date=None, delivery_date=None, note='', issuer_id=37, buyer_id=-37, status=1, discount_rate=0, tax_amount=0, subtotal=0.00, total=0, credit_inv_num=0, lineItems=[]) -> None:
+    def __init__(self, invoice_number=-37, creation_date=None, delivery_date=None, note='', issuer_id=37, buyer_id=-37, status=0, discount_rate=0, tax_amount=0, subtotal=0.00, total=0, credit_inv_num=0, lineItems=[]) -> None:
         self.invoice_number = invoice_number
         self.creation_date = creation_date
         self.delivery_date = delivery_date
         self.note = note
         self.issuer_id = issuer_id
+        self.issuer_name = ''
         self.buyer_id = buyer_id
+        self.buyer_name = ''
         self.status = status
         self.discount_rate = discount_rate
         self.total = locale.currency(total, False, False, False)
         self.subtotal = locale.currency(subtotal, False, False, False)
         self.tax_amount = locale.currency(tax_amount, False, False, False)
         self.credit_inv_num = credit_inv_num
-        self.invItemsObjList = lineItems
+        self.invItemsObjList = []
 
         print("InvoiceObj __init__ called with params: %i, %s, %s, %s, %i, %i, %i, %d, %f, %f, %f, %i." % (self.invoice_number, self.creation_date, self.delivery_date, self.note, self.issuer_id, self.buyer_id, self.status, self.discount_rate, float(self.tax_amount), float(self.subtotal), float(self.total), self.credit_inv_num))
 
     def calculate_invoice_total(self):
         self.total = float(self.subtotal) * (1 - float(self.discount_rate)) + float(self.tax_amount)
+        self.total = round(self.total, 2)
         return float(self.total)
 
     def calculate_invoice_subtotal(self):
         for items in self.invItemsObjList:
-            print(items.getLineTotal())
-            self.subtotal = float(self.subtotal) + float(items.getLineTotal())
+            #print(items.calculateLineTotal())
+            self.subtotal = round(float(self.subtotal) + float(items.calculateLineTotal()),2)
         return float(self.subtotal)
 
     def toList(self):
@@ -38,13 +41,15 @@ class InvoiceObj:
         list.append(self.delivery_date)
         list.append(self.note)
         list.append(self.issuer_id)
+        list.append(self.issuer_name)
         list.append(self.buyer_id)
+        list.append(self.buyer_name)
         list.append(self.status)
         list.append(self.discount_rate)
         list.append(self.tax_amount)
         list.append(self.subtotal)
         list.append(self.total)
-        list.append(self.LineItemsObj)
+        list.append(self.invItemsObjList)
         return list
 
     def asListForDBInsertion(self):
@@ -61,7 +66,10 @@ class InvoiceObj:
         list.append(self.credit_inv_num)
         return list
 
-    def addInvoiceItem(self, invoice_id=-1, product_id=-1, case_quantity='', quantity=-1, unit_price=-1, line_note='', *, invItemAsList=None):
+    def getInvoiceItemList(self):
+        return self.invItemsObjList
+
+    def addInvoiceItem(self, line_id = -999, invoice_id=-1, product_id=-1, case_quantity='', quantity=-1, unit_price=-1, line_note='', *, invItemAsList=None):
 
         if invItemAsList is None:
             iio = invItemObj(invoice_id, product_id, case_quantity, quantity, unit_price, line_note)
@@ -71,10 +79,6 @@ class InvoiceObj:
             print("from addinvoiceitem",invItemAsList)
             iio.addInvoiceItemAsList(invItemAsList)
             self.invItemsObjList.append(iio)
-
-    def invoiceItemsAsList(self):
-        for iio in self.invItemsObjList:
-            print(iio.toString())
 
     #Setters/Getters below here 
     def set_inv_num(self, num):

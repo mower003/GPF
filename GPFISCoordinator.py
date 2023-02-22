@@ -22,10 +22,14 @@ from sqlite3 import Error
 #Connect to DB from command line use below from C:\Users\User\Desktop\GPF_Project\GPF\database\sqlite> directory
 #sqlite3 c:\Users\User\Desktop\GPF_Project\GPF\database\sqlite\db\gpfdb.db
 
+##C:\Users\dunju\Documents\GPF\database\sqlite
+#sqlite3 C:\Users\dunju\Documents\GPF\database\sqlite\db\gpfdb.db
+
 class GPFISCoordinator:
 
     def __init__(self):
         self.db_location = r"GPF\database\sqlite\db\gpfdb.db"
+        self.db_location = r"C:\Users\dunju\Documents\GPF\database\sqlite\db\gpfdb.db"
         print(self.db_location)
 
     def create_database_tables(self):
@@ -61,17 +65,44 @@ class GPFISCoordinator:
         #Pre: Parameters an object of the Invoice class.
         #This method will need to handle adding all data that comes from the Invoice UI and insert it into invoice table.
         #Validation that data meets required insertion specifications based on the table should be done here too.
+        try:
+            if isinstance(InvoiceObj, InvObj):
+                invoice_conn = db_conn_invoice(self.db_location)
+                #Calculate totals should always be called before this object is ever passed in here but below is to make sure it happens.
+                InvoiceObj.calculate_invoice_subtotal()
+                InvoiceObj.calculate_invoice_total()
+                invoice_conn.insert_invoice(InvoiceObj.asListForDBInsertion())
+                print("The following InvoiceObj from GPFISCoordinator -> add_invoice() inserted into DB: ", InvoiceObj.asListForDBInsertion())
 
-        if isinstance(InvoiceObj, InvObj):
-            invoice_conn = db_conn_invoice(self.db_location)
-            #Calculate totals should always be called before this object is ever passed in here but below is to make sure it happens.
-            InvoiceObj.calculate_invoice_subtotal()
-            InvoiceObj.calculate_invoice_total()
-            invoice_conn.insert_invoice(InvoiceObj.asListForDBInsertion())
-            print("The following InvoiceObj from GPFISCoordinator -> add_invoice() inserted into DB: ", InvoiceObj.asListForDBInsertion())
+            else:
+                print("InvoiceObj inside GPFISCoordinator.py -> add_invoice() is not an instance of InvObj!")
+        except Error as e:
+            print(e)
+        finally:
+            invoice_conn.close_connection()
 
-        else:
-            print("InvoiceObj inside GPFISCoordinator.py -> add_invoice() is not an instance of InvObj!")
+    def insert_invoice_items(self, *, InvoiceObj=None):
+        try:
+            if isinstance(InvoiceObj, InvObj):
+                invoice_item_conn = db_conn_invoiceItem(self.db_location)
+                inv_item_list = InvoiceObj.getInvoiceItemList()
+
+                for lines in inv_item_list:
+                    #print(lines.asListForDBInsertion())
+                    invoice_item_conn.insert_invoice_item(lines.asListForDBInsertion())
+                    print("The following InvoiceItemObj from GPFISCoordinator -> insert_invoice_items() inserted into DB: ", lines.asListForDBInsertion())
+            else:
+                print("InvoiceObj inside GPFISCoordinator.py -> insert_invoice_items() is not an instance of InvObj!")
+        except Error as e:
+            print(e)
+        finally:
+            invoice_item_conn.close_connection()
+
+    def get_next_invoice(self):
+        invoice_conn = db_conn_invoice(self.db_location)
+        next_inv_num = invoice_conn.next_invoice_number()
+
+        return next_inv_num[0]
 
     def view_invoice(self):
         print("todo")
@@ -124,26 +155,38 @@ class GPFISCoordinator:
 
         return productObjList
 
+    def get_entity_id_by_name(self,current_customer):
+        entity_conn = db_conn_entity(self.db_location)
+        entityObjList = []
+        entity = entity_conn.get_entity_by_name(current_customer)
+        print(entity)
+        return entity[0]
+
+    def get_entities_AI_CSW(self):
+        entity_conn = db_conn_entity(self.db_location)
+        entityObjList = []
+        entityList = entity_conn.get_all_entities_simple()
+        print(entityList)
 
 
 
 
-db1 = GPFISCoordinator()
+#db1 = GPFISCoordinator()
 
-t = datetime.now()
+#t = datetime.now()
 # dd/mm/YY H:M:S
-dt_string = t.strftime("%Y-%m-%d %H:%M:%S")
+#dt_string = t.strftime("%Y-%m-%d %H:%M:%S")
 #invObj = InvObj(creation_date= dt_string, delivery_date=dt_string, buyer_id=62, note='I am now created correctly')
 #invObj.addInvoiceItem(4, 12, 24, 2.56)
 #invObj.addInvoiceItem(4, 13, 25, 2.57)
 #invObj.addInvoiceItem(4, 14, 26, 2.58)
 
-prodObj = ProdObj(23, 'Tokyo Negi 23', '23 Jumbo Tokyo Negi, packed 24 to a box.', 2.50, '24 per case 23')
+#prodObj = ProdObj(23, 'Tokyo Negi 23', '23 Jumbo Tokyo Negi, packed 24 to a box.', 2.50, '24 per case 23')
 
-db1.insert_product(ProductObj=prodObj)
-prodsfromdb = db1.get_products()
-for prods in prodsfromdb:
-    print(prods.toString())
+#db1.insert_product(ProductObj=prodObj)
+#prodsfromdb = db1.get_products()
+#for prods in prodsfromdb:
+#    print(prods.toString())
 
 #db1.add_invoice()
 #db1.create_database_tables()

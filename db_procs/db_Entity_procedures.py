@@ -97,6 +97,7 @@ class db_Entity_procedures:
 
     def get_entity_names(self):
         try:
+            self.create_connection()
             sql_statement = """ SELECT name FROM entity """
             cur = self.conn.cursor()
             cur.row_factory = lambda cursor, row: row[0]
@@ -112,6 +113,7 @@ class db_Entity_procedures:
 
     def get_entity_by_id(self, id):
         try:
+            self.create_connection()
             sql_statement = """ SELECT * FROM entity where id = ? """
             cur = self.conn.cursor()
             cur.row_factory = lambda cursor, row: row[0]
@@ -127,6 +129,7 @@ class db_Entity_procedures:
 
     def get_entity_by_name(self, name):
         try:
+            self.create_connection()
             sql_statement = """ SELECT * FROM entity where name = ? """
             cur = self.conn.cursor()
             cur.row_factory = lambda cursor, row: row[0]
@@ -139,10 +142,26 @@ class db_Entity_procedures:
             print(e)
         finally:
             self.close_connection()
+
+    def get_all_entities_simple(self):
+        try:
+            self.create_connection()
+            sql_statement = """ SELECT id, name, street_name, street_number, city, state, zip, country FROM entity """
+            cur = self.conn.cursor()
+            cur.row_factory = lambda cursor, row: row[0]
+            cur.execute(sql_statement)
+            rows = cur.fetchall()
+            cur.row_factory = None
+
+            return rows
+        except Error as e:
+            print(e)
+        finally:
+            self.close_connection()
     
     def delete_entity(self, cust_id):
         try:
-
+            self.create_connection()
             sql_statement = """DELETE FROM entity WHERE id = ? """
             cur = self.conn.cursor()
             cur.execute(sql_statement, [cust_id])

@@ -121,7 +121,7 @@ class InvoiceLinesWidget():
 
     def get_all_line_items(self):
         line_items = []
-        print("wholelist ", self.line_item_list)
+        #print("wholelist ", self.line_item_list)
         for lines in self.line_item_list:
             line = lines.get_line_elements_as_list()
             if line[0] == '' or line[0] == ' ':

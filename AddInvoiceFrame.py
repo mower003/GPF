@@ -1,7 +1,13 @@
 import tkinter as tk
+from sqlite3 import Error
+
+
 from CustomerSearchWidget import CustomerSearchWidget
 from DateAndInvoiceNumberWidget import DateAndInvoiceNumberWidget
 from InvoiceLinesWidget import InvoiceLinesWidget
+from Invoice import InvoiceObj
+from GPFISCoordinator import GPFISCoordinator
+from ErrorPopUpWindow import ErrorPopUpWindow
 
 class AddInvoiceFrame():
 
@@ -23,6 +29,8 @@ class AddInvoiceFrame():
 
     def __init__(self, parent_frame):
         self.base_frame = parent_frame
+        self.coordinator = GPFISCoordinator()
+        self.errorPrompt = ErrorPopUpWindow(parent_frame)
 
     def setup_frame(self):
         self.invoice_header_frame = tk.Frame(self.base_frame, bg=self.invoice_bg_color, padx=5, pady=5)
@@ -56,6 +64,9 @@ class AddInvoiceFrame():
         #Build the invoice lines frame
         self.inv_lines_widget.build_frame()
 
+        #Get new Invoice Number
+        self.date_and_invoice_widg.set_invoice_number(self.coordinator.get_next_invoice())
+
         self.discount_lbl.grid(column=2, row=0, sticky='E')
         self.discount_display.grid(column=3, row=0, sticky='E')
 
@@ -73,13 +84,13 @@ class AddInvoiceFrame():
 
     def update_totals(self, e):
         try:
-
             typed = self.discount_display.get()
             print("from upd totals", typed)
             if typed == '':
                 data = "0.00"
             else:
                 subtotal = self.inv_lines_widget.get_all_line_totals()
+                print(subtotal)
                 total = float(subtotal) - float(typed)
 
                 #readonly entry boxes have to bet set to normal before you can update
@@ -88,29 +99,57 @@ class AddInvoiceFrame():
 
                 self.subtotal_display.delete(0, tk.END)
                 self.total_display.delete(0, tk.END)
-
-                self.subtotal_display.insert(0, str(round(subtotal),2))
-                self.total_display.insert(0, str(round(total),2))
+                subtotal = round(subtotal,2)
+                self.subtotal_display.insert(0, str(round(subtotal,2)))
+                self.total_display.insert(0, str(round(total,2)))
 
                 self.subtotal_display.configure(state='readonly')
                 self.total_display.configure(state='readonly')
-        except ValueError:
-            print("Incorrect value used inside discount box.")
-        except:
-            print("Something has gone wrong calculating totals.")
+        except ValueError as e:
+            print("Incorrect value used inside discount box.", e)
+            self.errorPrompt.create_error_window(e)
+        except Error as e:
+            print("Something has gone wrong calculating totals.", e)
+            self.errorPrompt.create_error_window(e)
 
     def save_invoice(self):
-        current_customer = self.cust_widg_frame.get_selected_customer()
-        date_list = self.date_and_invoice_widg.get_dates()
-        current_inv_num = self.date_and_invoice_widg.get_invoice_number()
-        line_items = self.inv_lines_widget.get_all_line_items()
+        try:
+            current_inv_num = self.date_and_invoice_widg.get_invoice_number()
+            current_customer = self.cust_widg_frame.get_selected_customer()
+            inv_date = self.date_and_invoice_widg.get_invoice_date()
+            del_date = self.date_and_invoice_widg.get_delivery_date()
+            #date_list = self.date_and_invoice_widg.get_dates()
+            inv_note = ''
+            issuer_id = int(37)
+            customer_id = self.coordinator.get_entity_id_by_name(current_customer)
+            inv_status = 0
+            inv_discount = round(float(self.discount_display.get()),2)
+            tax_amount = 0
+            subtotal = round(float(self.subtotal_display.get()),2)
+            total = round(float(self.total_display.get()),2)
+            credit_inv_num = 0
+            line_items = self.inv_lines_widget.get_all_line_items()
+            #line_items.insert(0, current_inv_num)
 
-        print("Invoice Number: ", current_inv_num)
-        print("Customer: " + current_customer)
-        print("Invoice Date: ", date_list[0])
-        print("Delivery Date: ", date_list[1])
-        print("Line Items: "+ "\n")
-        print(line_items)
+            the_invoice = InvoiceObj(int(current_inv_num), creation_date=inv_date, delivery_date=del_date, 
+            note=inv_note, issuer_id=issuer_id, buyer_id=customer_id, status=inv_status, discount_rate=inv_discount, 
+            tax_amount=tax_amount, subtotal=subtotal, total=total, credit_inv_num=credit_inv_num)
+
+            for lines in line_items:
+                lines.insert(0, current_inv_num)
+                print(lines)
+                the_invoice.addInvoiceItem(invItemAsList=lines)
+
+            #print("From AddInvoiceFrame:save_invoice() InvoiceObj",the_invoice.asListForDBInsertion())
+            #print("From AddInvoiceFrame:save_invoice() InvoiceItemObj", the_invoice.toList())
+
+            self.coordinator.add_invoice(InvoiceObj=the_invoice)
+            self.coordinator.insert_invoice_items(InvoiceObj=the_invoice)
+        except Error as e:
+            print("Error occurred during invoice insertion.", e)
+            self.errorPrompt.create_error_window(e)
+        finally:
+            self.clear_display_frame()
 
     def clear_display_frame(self):
         for children in self.base_frame.winfo_children():

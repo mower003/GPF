@@ -36,11 +36,11 @@ class db_InvoiceStatus_procedures:
 
     def create_status_entries(self):
         self.create_connection()
-        sql_statement = """ INSERT INTO invoice_status (id, description) VALUES (1, 'Issued')"""
+        sql_statement = """ INSERT INTO invoice_status (id, description) VALUES (0, 'Issued')"""
         cur = self.conn.cursor()
         cur.execute(sql_statement)
         self.conn.commit()
-        sql_statement = """ INSERT INTO invoice_status (id, description) VALUES (2, 'Paid')"""
+        sql_statement = """ INSERT INTO invoice_status (id, description) VALUES (1, 'Paid')"""
         cur = self.conn.cursor()
         cur.execute(sql_statement)
         self.conn.commit()

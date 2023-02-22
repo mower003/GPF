@@ -1,4 +1,5 @@
 import tkinter as tk
+from GPFISCoordinator import GPFISCoordinator
 
 class CustomerSearchWidget():
 
@@ -81,7 +82,8 @@ class CustomerSearchWidget():
         for key in data:
             self.customer_listbox.insert(tk.END, key)
 
-    def set_basic_customer_information(self):
+    def cache_basic_customer_information(self):
+        self.customer_info = GPFISCoordinator.get_entity_basic()
         self.customer_info = {"Times Distributing":"989 W Broadway, Los Angeles CA, 92001",
                               "Nagtoshi Distributing":"990 W Broadyway, Los Angeles CA, 92001"}
 

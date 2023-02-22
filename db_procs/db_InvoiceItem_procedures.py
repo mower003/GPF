@@ -18,6 +18,7 @@ class db_InvoiceItem_procedures:
                                                 case_quantity TEXT NOT NULL,
                                                 quantity REAL NOT NULL,
                                                 unit_price REAL NOT NULL,
+                                                line_note TEXT,
                                                 tax_rate REAL DEFAULT 0.0,
                                                 tax_amount REAL DEFAULT 0.0,
                                                 PRIMARY KEY (id, invoice_id),
@@ -44,15 +45,15 @@ class db_InvoiceItem_procedures:
         except Error as e:
             print(e)
 
-    def insert_invoice_item(self, id, invoice_id, product_id, case_quantity, quantity, unit_price, tax_rate, tax_amount):
-        try:
-            self.create_connection()
-            sql_statement = """ INSERT INTO invoice_item (id, invoice_id, product_id, case_quantity, quantity, unit_price, tax_rate, tax_amount) VALUES (?,?,?,?,?,?,?,?)"""
-            params = [id, invoice_id, product_id, case_quantity, quantity, unit_price, tax_rate, tax_amount]
-            cur = self.conn.cursor()
-            cur.execute(sql_statement, params)
-            self.conn.commit()
-        except Error as e:
-            print(e)
-        finally:
-            self.close_connection()
+    def insert_invoice_item(self, invoiceItemList=None):
+        if invoiceItemList is None:
+            print("Item list is NONE!")
+        else:
+            try:
+                self.create_connection()
+                sql_statement = """ INSERT INTO invoice_item (id, invoice_id, product_id, case_quantity, quantity, unit_price, line_note) VALUES (?,?,?,?,?,?,?)"""
+                cur = self.conn.cursor()
+                cur.execute(sql_statement, invoiceItemList)
+                self.conn.commit()
+            except Error as e:
+                print(e)

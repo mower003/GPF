@@ -1,4 +1,6 @@
 import tkinter as tk
+from sqlite3 import Error
+from ErrorPopUpWindow import ErrorPopUpWindow
 
 class InvoiceLineItemWidget():
 
@@ -7,7 +9,8 @@ class InvoiceLineItemWidget():
 
     def __init__(self, parent_frame):
         self.base_frame = parent_frame
-
+        self.errorPrompt = ErrorPopUpWindow(self.base_frame)
+        self.line_id = -999
         self.quantity_entry = tk.Entry(self.base_frame, width=7, background='#E5E4E2')
         self.cases_entry = tk.Entry(self.base_frame, width=10, background='#E5E4E2')
         self.item_no_entry = tk.Entry(self.base_frame, width=5, background='#E5E4E2')
@@ -17,12 +20,14 @@ class InvoiceLineItemWidget():
         self.line_total_entry = tk.Entry(self.base_frame, width=10, background='#E5E4E2')
 
         self.description_entry.config(state='disabled')
+        self.line_total_entry.config(state='disabled')
 
         self.price_entry.bind("<KeyRelease>", self.monitor_search_box)
         self.quantity_entry.bind("<KeyRelease>", self.monitor_search_box)
         self.item_no_entry.bind("<KeyRelease>", self.product_lookup)
 
     def place_line_item(self, theRow):
+        self.line_id = theRow
         self.quantity_entry.grid(row=theRow, column=0, sticky='N,E,W', pady=2, ipady=8)
         self.cases_entry.grid(row=theRow, column=1, sticky='N,E,W',pady=2, ipady=8)
         self.item_no_entry.grid(row=theRow, column=2, sticky='N,E,W', ipady=8, pady=2)
@@ -32,14 +37,28 @@ class InvoiceLineItemWidget():
         self.line_total_entry.grid(row=theRow, column=6, sticky='N,E,W', ipady=8, pady=2)
 
     def get_line_elements_as_list(self):
-        element_list = []
-        element_list.append(self.quantity_entry.get())
-        element_list.append(self.cases_entry.get())
-        element_list.append(self.item_no_entry.get())
-        element_list.append(self.description_entry.get('1.0', 'end-1c'))
-        element_list.append(self.note_entry.get('1.0', 'end-1c'))
-        element_list.append(self.price_entry.get())
-        element_list.append(self.line_total_entry.get())
+        try:
+            if self.quantity_entry.get() == '':
+                element_list = ['']
+            else:
+                element_list = []
+                element_list.append(int(self.line_id))
+                element_list.append(int(self.quantity_entry.get()))
+                element_list.append(str(self.cases_entry.get()))
+                element_list.append(int(self.item_no_entry.get()))
+                element_list.append(str(self.description_entry.get('1.0', 'end-1c')))
+                element_list.append(str(self.note_entry.get('1.0', 'end-1c')))
+                element_list.append(float(self.price_entry.get()))
+                element_list.append(float(self.line_total_entry.get()))
+        except ValueError as e:
+            print("ValueError: Error returning list: InvoiceLineItemWidget: get_line_elements_as_list", e)
+            self.errorPrompt.create_error_window(e)
+        except TypeError as e:
+            print("TypeError: Error returning list: InvoiceLineItemWidget: get_line_elements_as_list", e)
+            self.errorPrompt.create_error_window(e)
+        except Error as e:
+            print("Error returning list: InvoiceLineItemWidget: get_line_elements_as_list", e)
+            self.errorPrompt.create_error_window(e)
 
         return element_list
 
@@ -50,6 +69,9 @@ class InvoiceLineItemWidget():
         else:
             line_tot = round(float(line_tot), 2)
         return line_tot
+
+    def get_line_id(self):
+        return self.line_id
 
     def monitor_search_box(self, e):
         try:
@@ -62,12 +84,16 @@ class InvoiceLineItemWidget():
                 qty = float(self.quantity_entry.get())
                 price = float(self.price_entry.get())
                 data = round((qty * price),2)
+                self.line_total_entry.config(state='normal')
                 self.line_total_entry.delete(0, tk.END)
                 self.line_total_entry.insert(0, data)
+                self.line_total_entry.config(state='disabled')
         except ValueError:
             print("Incorrect Value inside qty or price.")
-        except:
+            self.errorPrompt.create_error_window(e)
+        except Error as e:
             print("Something went wrong")
+            self.errorPrompt.create_error_window(e)
 
     def product_lookup(self, e):
         try:
@@ -93,11 +119,26 @@ class InvoiceLineItemWidget():
                 #populate the price field
                 self.price_entry.delete(0, tk.END)
                 self.price_entry.insert(0, str(product_price))
-        except ValueError:
-            print("Incorrect value inside item number field.")
-        except KeyError:
-            print("Key does not exist in product dict.")
-        except:
-            print("Something went wrong with item number/description fields.", e)
+
+                #calculate total
+                total = round(float(product_price) * float(self.quantity_entry.get()),2)
+                self.line_total_entry.config(state = 'normal')
+                self.line_total_entry.delete(0, tk.END)
+                self.line_total_entry.insert(0, str(total))
+                self.line_total_entry.config(state = 'disabled')
+
+
+        except ValueError as e:
+            print("ValueError: Incorrect value inside item number field.", e)
+            self.errorPrompt.create_error_window(e)
+        except TypeError as e:
+            print("TypeError: Incorrect value inside item number field.", e)
+            self.errorPrompt.create_error_window(e)
+        except KeyError as e:
+            print("KeyError: Key does not exist in product dict.", e)
+            self.errorPrompt.create_error_window(e)
+        except Error as e:
+            print("Uncaught Exception: Something went wrong with item number/description fields.", e)
+            self.errorPrompt.create_error_window(e)
 
 

@@ -61,9 +61,9 @@ baseCanvas.itemconfig("baseFrame_2", height=screen_height, width=screen_width)
 
 #Instantiate class objects for each menu option
 #Each object builds and controls UI widgets
-add_customer_frame = AddCustomerFrame(baseFrame)
-view_customer_frame = ViewCustomerFrame(baseFrame)
-add_product_frame = AddProductFrame(baseFrame)
+add_customer_frame = AddCustomerFrame(baseFrame_2)
+view_customer_frame = ViewCustomerFrame(baseFrame_2)
+add_product_frame = AddProductFrame(baseFrame_2)
 view_product_frame = ViewProductFrame(baseFrame_2)
 add_invoice_frame = AddInvoiceFrame(baseFrame_2)
 view_invoice_frame = ViewInvoiceFrame(baseFrame_2)

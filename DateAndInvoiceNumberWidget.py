@@ -55,6 +55,12 @@ class DateAndInvoiceNumberWidget():
         print(date_list)
         return date_list
 
+    def get_invoice_date(self):
+        return str(self.invoice_date_selection.get_date())
+
+    def get_delivery_date(self):
+        return str(self.delivery_date_selection.get_date())
+
     def get_invoice_number(self):
         return self.invoice_num_label.cget("text")
 

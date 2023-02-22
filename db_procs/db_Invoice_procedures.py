@@ -61,8 +61,18 @@ class db_Invoice_procedures:
                 self.conn.commit()
             except Error as e:
                 print(e)
-            finally:
-                self.close_connection()
+
+    def next_invoice_number(self):
+        try:
+            self.create_connection()
+            sql_statement = """ SELECT MAX(id) FROM invoice """
+            cur = self.conn.cursor()
+            cur.execute(sql_statement)
+            row = cur.fetchone()
+
+            return row
+        except Error as e:
+            print(e)
 
     def get_invoice_by_invoice_id(self, invoice_id=None):
         if invoice_id is None:
@@ -79,5 +89,19 @@ class db_Invoice_procedures:
                 return row
             except Error as e:
                 print(e)
-            finally:
-                self.close_connection()
+
+    def get_invoice_by_customer_id(self, customer_id):
+        if customer_id is None:
+            print("Error, no customer name supplied")
+        else:
+            try:
+                self.create_connection()
+                customer_id_as_list = [customer_id]
+                sql_statement = """ SELECT * FROM invoice where id = ?"""
+                cur = self.conn.cursor()
+                cur.execute(sql_statement, customer_id_as_list)
+                row = cur.fetchall()
+
+                return row
+            except Error as e:
+                print(e)
