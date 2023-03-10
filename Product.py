@@ -7,19 +7,30 @@ class ProductObjEnum(Enum):
     PRODUCT_NAME = 1
     DESCRIPTION = 2
     UNIT_PRICE = 3
-    CASE_STYLE = 4
+    NOTE = 4
+    CASE_STYLE = 5
+
 
 class ProductObj:
     locale.setlocale(locale.LC_ALL, 'en_US')
 
-    def __init__(self, id=-1, name='', description='', unit_price=0.00, case_style='') -> None:
-        self.id = id
-        self.name = name
-        self.description = description
-        self.unit_price = float(locale.currency(unit_price, False, False, False))
-        self.case_style = case_style
+    def __init__(self, id=-1, name='', description='', unit_price=0.00, note='', case_style='', *, productList = None):
+        if productList is None:
+            self.id = int(id)
+            self.name = name
+            self.description = description
+            self.unit_price = locale.currency(unit_price, False, False, False)
+            self.case_style = case_style
+            self.note = note
+        else:
+            self.id = int(productList[ProductObjEnum.PRODUCT_ID.value])
+            self.name = productList[ProductObjEnum.PRODUCT_NAME.value]
+            self.description = productList[ProductObjEnum.DESCRIPTION.value]
+            self.unit_price = locale.currency((float(productList[ProductObjEnum.UNIT_PRICE.value])), False, False, False)
+            self.case_style = productList[ProductObjEnum.CASE_STYLE.value]
+            self.note = productList[ProductObjEnum.NOTE.value]
 
-        print("ProductObj __init__ called with params: %i, %s, %s, %f, %s." % (self.id, self.name, self.description, self.unit_price, self.case_style))
+        print("ProductObj __init__ called with params: %i, %s, %s, %f, %s, %s." % (self.id, self.name, self.description, float(self.unit_price),  self.note, self.case_style))
 
     def asList(self):
         list = []
@@ -27,6 +38,7 @@ class ProductObj:
         list.append(self.name)
         list.append(self.description)
         list.append(self.unit_price)
+        list.append(self.note)
         list.append(self.case_style)
         return list
 
@@ -36,7 +48,18 @@ class ProductObj:
         list.append(self.name)
         list.append(self.description)
         list.append(self.unit_price)
+        list.append(self.note)
         list.append(self.case_style)
+        return list
+
+    def asListForDBUpdate(self):
+        list = []
+        list.append(self.name)
+        list.append(self.description)
+        list.append(self.unit_price)
+        list.append(self.note)
+        list.append(self.case_style)
+        list.append(self.id)
         return list
 
     def addProductAsList(self, productList=None):
@@ -44,14 +67,15 @@ class ProductObj:
             print("From Product.py -> addProductAsList() param productList is None")
         else:
             print("From Product.py addProductAsList() : productList param = ", productList)
-            self.id = productList[ProductObjEnum.PRODUCT_ID.value]
+            self.id = int(productList[ProductObjEnum.PRODUCT_ID.value])
             self.name = productList[ProductObjEnum.PRODUCT_NAME.value]
             self.description = productList[ProductObjEnum.DESCRIPTION.value]
-            self.unit_price = productList[ProductObjEnum.UNIT_PRICE.value]
+            self.unit_price = locale.currency((float(productList[ProductObjEnum.UNIT_PRICE.value])), False, False, False)
+            self.note = productList[ProductObjEnum.NOTE.value]
             self.case_style = productList[ProductObjEnum.CASE_STYLE.value]
 
     def toString(self):
-        the_str = str(self.id) + " " + str(self.name) + " " + str(self.description) + " " + str(self.unit_price) + " " + str(self.case_style)
+        the_str = str(self.id) + " " + str(self.name) + " " + str(self.description) + " " + str(self.unit_price) + " " + str(self.case_style) + " " + str(self.note)
         return the_str
 
     def setID(self, id):
@@ -69,6 +93,9 @@ class ProductObj:
     def setCaseStyle(self, cs):
         self.case_style = cs
 
+    def setNote(self, note):
+        self.note = note
+
     def getID(self):
         return self.id
 
@@ -83,3 +110,6 @@ class ProductObj:
 
     def getCaseStyle(self):
         return self.case_style
+
+    def getNote(self):
+        return self.note

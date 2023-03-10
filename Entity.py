@@ -4,13 +4,13 @@ from enum import Enum
 class EntityObjEnum(Enum):
     ENTITY_ID = 0
     ENTITY_NAME = 1
-    IS_ACTIVE = 2
+    STREET_NAME = 2
     STREET_NUMBER = 3
-    STREET_NAME = 4
-    CITY = 5
-    STATE = 6
-    ZIP = 7
-    COUNTRY = 8
+    CITY = 4
+    STATE = 5
+    ZIP = 6
+    COUNTRY = 7
+    IS_ACTIVE = 8
 
 class EntityObj:
     locale.setlocale(locale.LC_ALL, 'en_US')
@@ -59,10 +59,18 @@ class EntityObj:
         return_str = str(self.id) + " " + self.name + " " + self.street_number + " " + self.street_name + " " + self.city + " " + self.state + " " + self.zip + " " + self.country
         return return_str
 
+    def getName(self):
+        return str(self.name)
+
     def getAsAddressString(self):
-        return_str = self.street_number + " " + self.street_name + " " + self.city + " " + self.state + " " + self.zip + " " + self.country
+        #print(str(self.street_number) + " " + str(self.street_name) + " " + str(self.city) + " " + str(self.state) + " " + str(self.zip) + " " + str(self.country))
+        return_str = str(self.street_number) + " " + self.street_name + " " + self.city + " " + self.state + " " + str(self.zip) + " " + self.country
         return return_str
 
+    def getAsCustomerWidgetDisplay(self):
+        return_str = self.name + "\n" + str(self.street_number) + " " + self.street_name + " " + self.city + " " + self.state + " " + str(self.zip) + " " + self.country
+        return return_str
+        
     def addEntityAsTuple(self, EntityTuple=None):
         if EntityTuple is None:
             print("Entity tuple is None")

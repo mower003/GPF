@@ -6,7 +6,7 @@ class db_Product_procedures:
     def __init__(self, db_location):
         self.db_location = db_location
         self.conn = None
-        print(self.db_location)
+        #print(self.db_location)
 
     def create_base_table(self):
         self.create_connection()
@@ -15,7 +15,8 @@ class db_Product_procedures:
                                                 name TEXT NOT NULL,
                                                 description TEXT,
                                                 unit_price REAL,
-                                                case_style TEXT
+                                                case_style TEXT,
+                                                note TEXT
                                                 ); """
         cur = self.conn.cursor()
         cur.execute(sql_statement)
@@ -41,7 +42,7 @@ class db_Product_procedures:
         else:
             try:
                 self.create_connection()
-                sql_statement = """ INSERT INTO product (id, name, description, unit_price, case_style) VALUES (?,?,?,?,?) """
+                sql_statement = """ INSERT INTO product (id, name, description, unit_price, note, case_style) VALUES (?,?,?,?,?,?) """
                 cur = self.conn.cursor()
                 cur.execute(sql_statement, productParamList)
                 self.conn.commit()
@@ -67,7 +68,7 @@ class db_Product_procedures:
     def get_product_by_id(self, prod_id):
         try:
             self.create_connection()
-            sql_statement = """ SELECT * FROM products WHERE product_id = ? """
+            sql_statement = """ SELECT * FROM product WHERE id = ? """
             cur = self.conn.cursor()
             cur.execute(sql_statement, [prod_id])
             rows = cur.fetchall()
@@ -75,52 +76,27 @@ class db_Product_procedures:
             return rows
         except Error as e:
             print(e)
-        finally:
-            self.close_connection()
 
-    def edit_product(self, product_id):
+    def update_product(self, productObjAsList):
         try:
             self.create_connection()
-            sql_statement = """ UPDATE product SET  FROM products WHERE product_id = ? """
+            sql_statement = """ UPDATE product SET 
+                name = ?, 
+                description = ?,
+                unit_price = ?,
+                note = ?,
+                case_style = ?
+            WHERE id = ? """
             cur = self.conn.cursor()
-            cur.execute(sql_statement, [product_id])
-            rows = cur.fetchall()
-            
-            return rows
+            cur.execute(sql_statement, productObjAsList)
+            self.conn.commit()
+    
         except Error as e:
             print(e)
-        finally:
-            self.close_connection()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    def edit_product(self, prod):
-        sql_statement = """ UPDATE products SET 
-        name = ?, 
-        description = ?,
-        unit_price = ?,
-        case_style
-        WHERE product_id = ? """
-
-        cur = self.conn.cursor()
-        cur.execute(sql_statement, prod)
-        self.conn.commit()
 
 
     def delete_product(self, prod_id):
-        sql_statement = """DELETE FROM products WHERE product_id = ?"""
+        sql_statement = """DELETE FROM products WHERE id = ?"""
         cur = self.conn.cursor()
         cur.execute(sql_statement, prod_id)
         self.conn.commit()

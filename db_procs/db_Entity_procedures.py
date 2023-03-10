@@ -146,12 +146,10 @@ class db_Entity_procedures:
     def get_all_entities_simple(self):
         try:
             self.create_connection()
-            sql_statement = """ SELECT id, name, street_name, street_number, city, state, zip, country FROM entity """
+            sql_statement = """ SELECT id, name, street_name, street_number, city, state, zip, country, is_active FROM entity WHERE is_active = 1 """
             cur = self.conn.cursor()
-            cur.row_factory = lambda cursor, row: row[0]
             cur.execute(sql_statement)
             rows = cur.fetchall()
-            cur.row_factory = None
 
             return rows
         except Error as e:

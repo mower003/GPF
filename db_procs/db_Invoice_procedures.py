@@ -19,10 +19,10 @@ class db_Invoice_procedures:
                                                 note TEXT,
                                                 issuer_id INTEGER DEFAULT 37,
                                                 buyer_id INTEGER NOT NULL,
-                                                status INTEGER DEFAULT 1,
-                                                discount_rate DEFAULT 0,
-                                                subtotal REAL DEFAULT 0.00,
-                                                tax_total REAL DEFAULT 0.00,
+                                                status INTEGER NOT NULL,
+                                                discount_amount NOT NULL,
+                                                subtotal REAL NOT NULL,
+                                                tax_total REAL,
                                                 credit_invoice_num INTEGER,
                                                 FOREIGN KEY (issuer_id) REFERENCES entity (id)
                                                 FOREIGN KEY (buyer_id) REFERENCES entity (id)

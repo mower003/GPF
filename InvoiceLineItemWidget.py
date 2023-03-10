@@ -1,6 +1,7 @@
 import tkinter as tk
 from sqlite3 import Error
 from ErrorPopUpWindow import ErrorPopUpWindow
+from GPFISCoordinator import GPFISCoordinator
 
 class InvoiceLineItemWidget():
 
@@ -9,6 +10,7 @@ class InvoiceLineItemWidget():
 
     def __init__(self, parent_frame):
         self.base_frame = parent_frame
+        self.productObjList = []
         self.errorPrompt = ErrorPopUpWindow(self.base_frame)
         self.line_id = -999
         self.quantity_entry = tk.Entry(self.base_frame, width=7, background='#E5E4E2')
@@ -25,6 +27,8 @@ class InvoiceLineItemWidget():
         self.price_entry.bind("<KeyRelease>", self.monitor_search_box)
         self.quantity_entry.bind("<KeyRelease>", self.monitor_search_box)
         self.item_no_entry.bind("<KeyRelease>", self.product_lookup)
+
+        self.cache_product_data()
 
     def place_line_item(self, theRow):
         self.line_id = theRow
@@ -73,6 +77,16 @@ class InvoiceLineItemWidget():
     def get_line_id(self):
         return self.line_id
 
+    def calculate_line_total(self):
+        #calculate total
+        qty = float(self.quantity_entry.get())
+        price = float(self.price_entry.get())
+        total = round((qty * price),2)
+        self.line_total_entry.config(state='normal')
+        self.line_total_entry.delete(0, tk.END)
+        self.line_total_entry.insert(0, total)
+        self.line_total_entry.config(state='disabled')
+
     def monitor_search_box(self, e):
         try:
             typed = self.price_entry.get()
@@ -81,13 +95,7 @@ class InvoiceLineItemWidget():
                 data = '0.00'
             else:
                 data = 0
-                qty = float(self.quantity_entry.get())
-                price = float(self.price_entry.get())
-                data = round((qty * price),2)
-                self.line_total_entry.config(state='normal')
-                self.line_total_entry.delete(0, tk.END)
-                self.line_total_entry.insert(0, data)
-                self.line_total_entry.config(state='disabled')
+                self.calculate_line_total()
         except ValueError:
             print("Incorrect Value inside qty or price.")
             self.errorPrompt.create_error_window(e)
@@ -103,7 +111,15 @@ class InvoiceLineItemWidget():
                 data = ''
                 product_price = '0.00'
             else:
-                data = self.product_dict.get(typed)
+                description = ''
+                product_price = 0.00
+                for products in self.productObjList:
+                    #print("INSIDELOOP:" + " " + str(products.getID()) + " " + products.getDescription())
+                    if typed == str(products.getID()):
+                        description = products.getDescription()
+                        product_price = products.getUnitPrice()
+                        #print("INSIDEIF", description, product_price)
+                #data = self.product_dict.get(typed)
                 #NOTE: Possible that maybe a lookup into the database is better for this rather than
                 #populating a dictionary. Prices will also have to be populated in this call and that would
                 #require two dictionaries or two db calls.
@@ -112,22 +128,16 @@ class InvoiceLineItemWidget():
                 #populate description field
                 self.description_entry.config(state='normal')
                 self.description_entry.delete("1.0", tk.END)
-                self.description_entry.insert("1.0", str(data))
+                self.description_entry.insert("1.0", str(description))
                 self.description_entry.config(state='disabled')
 
-                product_price = self.price_dict.get(typed)
+                #product_price = self.price_dict.get(typed)
                 #populate the price field
                 self.price_entry.delete(0, tk.END)
                 self.price_entry.insert(0, str(product_price))
 
                 #calculate total
-                total = round(float(product_price) * float(self.quantity_entry.get()),2)
-                self.line_total_entry.config(state = 'normal')
-                self.line_total_entry.delete(0, tk.END)
-                self.line_total_entry.insert(0, str(total))
-                self.line_total_entry.config(state = 'disabled')
-
-
+                self.calculate_line_total()
         except ValueError as e:
             print("ValueError: Incorrect value inside item number field.", e)
             self.errorPrompt.create_error_window(e)
@@ -140,5 +150,12 @@ class InvoiceLineItemWidget():
         except Error as e:
             print("Uncaught Exception: Something went wrong with item number/description fields.", e)
             self.errorPrompt.create_error_window(e)
+
+    def cache_product_data(self):
+        self.coordinator = GPFISCoordinator()
+        self.productObjList = self.coordinator.get_products()
+
+        for obs in self.productObjList:
+            print(obs.asList())
 
 

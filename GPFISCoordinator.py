@@ -30,7 +30,7 @@ class GPFISCoordinator:
     def __init__(self):
         self.db_location = r"GPF\database\sqlite\db\gpfdb.db"
         self.db_location = r"C:\Users\dunju\Documents\GPF\database\sqlite\db\gpfdb.db"
-        print(self.db_location)
+        #print(self.db_location)
 
     def create_database_tables(self):
         #a = db_conn_address(self.db_location)
@@ -69,8 +69,9 @@ class GPFISCoordinator:
             if isinstance(InvoiceObj, InvObj):
                 invoice_conn = db_conn_invoice(self.db_location)
                 #Calculate totals should always be called before this object is ever passed in here but below is to make sure it happens.
-                InvoiceObj.calculate_invoice_subtotal()
-                InvoiceObj.calculate_invoice_total()
+                #InvoiceObj.calculate_invoice_subtotal()
+                #InvoiceObj.calculate_invoice_total()
+
                 invoice_conn.insert_invoice(InvoiceObj.asListForDBInsertion())
                 print("The following InvoiceObj from GPFISCoordinator -> add_invoice() inserted into DB: ", InvoiceObj.asListForDBInsertion())
 
@@ -101,8 +102,8 @@ class GPFISCoordinator:
     def get_next_invoice(self):
         invoice_conn = db_conn_invoice(self.db_location)
         next_inv_num = invoice_conn.next_invoice_number()
-
-        return next_inv_num[0]
+        next_inv_num = int(next_inv_num[0]) + 1
+        return next_inv_num
 
     def view_invoice(self):
         print("todo")
@@ -139,21 +140,50 @@ class GPFISCoordinator:
         print("From inside insert_product ",ProductObj.asListForDBInsertion())
         if isinstance(ProductObj, ProdObj):
             product_conn.insert_product(ProductObj.asListForDBInsertion())
+            print("The following ProductObj from GPFISCoordinator -> insert_product() inserted into DB: ", ProductObj.asListForDBInsertion())
         else:
             err_msg = "ProductObj inside GPFISCoordinator.py -> insert_product() is not an instance of ProdObj!"
             print(err_msg)
+
+    def update_product(self, *, ProductObj=None):
+        try:
+
+            product_conn = db_conn_product(self.db_location)
+            print("From inside update_product ",ProductObj.asListForDBUpdate())      
+            if isinstance(ProductObj, ProdObj):
+                product_conn.update_product(ProductObj.asListForDBUpdate())
+                print("The following ProductObj from GPFISCoordinator -> update_product() updated in DB: ", ProductObj.asListForDBUpdate())
+            else:
+                err_msg = "ProductObj inside GPFISCoordinator.py -> update_product() is not an instance of ProdObj!"
+                print(err_msg)
+        except Error as e:
+            print(e)
+        finally:
+            product_conn.close_connection()
 
     def get_products(self):
         product_conn = db_conn_product(self.db_location)
         productObjList = []
         productList = product_conn.get_products()
-        print(productList)
+        #print(productList)
         for product in productList:
-            po = ProdObj()
-            po.addProductAsList(productList=product)
+            po = ProdObj(productList=product)
+            #po.addProductAsList(productList=product)
             productObjList.append(po)
 
         return productObjList
+
+    def get_product_by_id(self, product_id):
+        try:
+            product_conn = db_conn_product(self.db_location)
+            product = product_conn.get_product_by_id(product_id)
+            oProduct = ProdObj(productList= product)
+            #print(product)
+            return oProduct
+        except Error as e:
+            print(e)
+        finally:
+            product_conn.close_connection()
 
     def get_entity_id_by_name(self,current_customer):
         entity_conn = db_conn_entity(self.db_location)
@@ -162,11 +192,24 @@ class GPFISCoordinator:
         print(entity)
         return entity[0]
 
-    def get_entities_AI_CSW(self):
+    def get_entities_simple(self):
         entity_conn = db_conn_entity(self.db_location)
         entityObjList = []
         entityList = entity_conn.get_all_entities_simple()
-        print(entityList)
+        print("FROM GPFISCoordinator:get_entities_simple()",entityList)
+
+        for entities in entityList:
+            entityObj = EntObj()
+            entityObj.addEntityAsTuple(entities)
+            entityObjList.append(entityObj)
+
+        print(entityObjList)
+        return entityObjList
+            #entity_id = entities[0]
+            #entity_name = entities[1]
+            #entity_address = entities[2] + " " + entities[3] + " " + entities[4] + " " + entities[5] + " " + entities[6] + " " + entities[7]
+
+
 
 
 

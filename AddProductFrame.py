@@ -1,5 +1,7 @@
 import tkinter as tk
-import random as rd
+
+from GPFISCoordinator import GPFISCoordinator
+from Product import ProductObj
 
 class AddProductFrame():
 
@@ -21,6 +23,7 @@ class AddProductFrame():
 
     def __init__(self, parent_frame):
         self.base_frame = parent_frame
+        self.coordinator = GPFISCoordinator()
         self.lbl_list = []
         self.entry_list = []
         #self.my_frame = tk.Frame(parent_frame, bd=2, bg='green')
@@ -34,7 +37,9 @@ class AddProductFrame():
         self.btn.configure(command=self.save_product_info_to_db)
 
     def save_product_info_to_db(self):
-        self.get_entry_elements_as_tuple()
+        oProduct = ProductObj(productList = self.get_entry_elements_as_list())
+
+        self.coordinator.insert_product(ProductObj = oProduct)
 
     def add_title_label(self):
         self.title = tk.Label(self.my_frame, text=self.frame_title, bg=self.product_label_color)
@@ -51,7 +56,16 @@ class AddProductFrame():
         if entry_elements[0].isnumeric():
             entry_elements[0] = int(entry_elements[0]) 
         entry_elements = tuple(entry_elements)
-        print(entry_elements)
+        #print(entry_elements)
+        return entry_elements
+
+    def get_entry_elements_as_list(self):
+        entry_elements = []
+        for element in self.entry_list:
+            entry_elements.append(element.get())
+        if entry_elements[0].isnumeric():
+            entry_elements[0] = int(entry_elements[0]) 
+        #print(entry_elements)
         return entry_elements
 
     def create_add_form(self):
