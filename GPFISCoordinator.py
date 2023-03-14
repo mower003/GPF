@@ -135,12 +135,16 @@ class GPFISCoordinator:
             err_msg = "EntityObj inside GPFISCoordinator.py -> insert_entity() is not an instance of EntObj!"
             print(err_msg)
 
+#*************************************************************
+############################## Product #######################
+#*************************************************************
+
     def insert_product(self, * ,ProductObj=None):
         product_conn = db_conn_product(self.db_location)
         print("From inside insert_product ",ProductObj.asListForDBInsertion())
         if isinstance(ProductObj, ProdObj):
             product_conn.insert_product(ProductObj.asListForDBInsertion())
-            print("The following ProductObj from GPFISCoordinator -> insert_product() inserted into DB: ", ProductObj.asListForDBInsertion())
+            print("The following ProductObj from GPFISCoordinator -> insert_product() inserted into DB: ", repr(ProductObj))
         else:
             err_msg = "ProductObj inside GPFISCoordinator.py -> insert_product() is not an instance of ProdObj!"
             print(err_msg)
@@ -152,7 +156,7 @@ class GPFISCoordinator:
             print("From inside update_product ",ProductObj.asListForDBUpdate())      
             if isinstance(ProductObj, ProdObj):
                 product_conn.update_product(ProductObj.asListForDBUpdate())
-                print("The following ProductObj from GPFISCoordinator -> update_product() updated in DB: ", ProductObj.asListForDBUpdate())
+                print("The following ProductObj from GPFISCoordinator -> update_product() updated in DB: ", repr(ProductObj))
             else:
                 err_msg = "ProductObj inside GPFISCoordinator.py -> update_product() is not an instance of ProdObj!"
                 print(err_msg)

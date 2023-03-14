@@ -60,7 +60,7 @@ class db_Entity_procedures:
     def insert_entity_full(self, entityParamList=None):
         try:
             self.create_connection()
-            sql_statement = """ INSERT INTO entity (id, name, is_active, street_name, street_number, city, state, zip, country) VALUES (?,?,?,?,?,?,?,?,?) """
+            sql_statement = """ INSERT INTO entity (id, name, street_number, street_name, city, state, zip, country, is_active) VALUES (?,?,?,?,?,?,?,?,?) """
             cur = self.conn.cursor()
             cur.execute(sql_statement, entityParamList)
             self.conn.commit()

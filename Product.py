@@ -7,8 +7,8 @@ class ProductObjEnum(Enum):
     PRODUCT_NAME = 1
     DESCRIPTION = 2
     UNIT_PRICE = 3
-    NOTE = 4
-    CASE_STYLE = 5
+    CASE_STYLE = 4
+    NOTE = 5
 
 
 class ProductObj:
@@ -30,36 +30,47 @@ class ProductObj:
             self.case_style = productList[ProductObjEnum.CASE_STYLE.value]
             self.note = productList[ProductObjEnum.NOTE.value]
 
-        print("ProductObj __init__ called with params: %i, %s, %s, %f, %s, %s." % (self.id, self.name, self.description, float(self.unit_price),  self.note, self.case_style))
+        product_representation = "######################Product Object created######################"+'\n'+"Product ID: " + str(self.id) + '\n' + "Name: " + str(self.name) + '\n' + "Description: " + str(self.description) + '\n' + "Unit Price: " + str(self.unit_price) + '\n' + "Note: " + str(self.note) + '\n' + "Case Style: " + str(self.case_style)
+        print("######################Product Object created######################"+'\n'+self.__repr__())
+        #print("ProductObj __init__ called with params: %i, %s, %s, %f, %s, %s." % (self.id, self.name, self.description, float(self.unit_price),  self.note, self.case_style))
+
+
+    def __repr__(self) -> str:
+        product_representation = '\n'+"Product ID: " + str(self.id) + '\n' + "Name: " + str(self.name) + '\n' + "Description: " + str(self.description) + '\n' + "Unit Price: " + str(self.unit_price) + '\n' + "Note: " + str(self.note) + '\n' + "Case Style: " + str(self.case_style)
+
+        return product_representation
 
     def asList(self):
         list = []
-        list.append(self.id)
-        list.append(self.name)
-        list.append(self.description)
-        list.append(self.unit_price)
-        list.append(self.note)
-        list.append(self.case_style)
+        list.insert(ProductObjEnum.PRODUCT_ID.value, self.id)
+        list.insert(ProductObjEnum.PRODUCT_NAME.value, self.name)
+        list.insert(ProductObjEnum.DESCRIPTION.value, self.description)
+        list.insert(ProductObjEnum.UNIT_PRICE.value, self.unit_price)
+        list.insert(ProductObjEnum.CASE_STYLE.value, self.case_style)
+        list.insert(ProductObjEnum.NOTE.value, self.note)
+
         return list
 
     def asListForDBInsertion(self):
         list = []
-        list.append(self.id)
-        list.append(self.name)
-        list.append(self.description)
-        list.append(self.unit_price)
-        list.append(self.note)
-        list.append(self.case_style)
+        list.insert(ProductObjEnum.PRODUCT_ID.value, self.id)
+        list.insert(ProductObjEnum.PRODUCT_NAME.value, self.name)
+        list.insert(ProductObjEnum.DESCRIPTION.value, self.description)
+        list.insert(ProductObjEnum.UNIT_PRICE.value, self.unit_price)
+        list.insert(ProductObjEnum.CASE_STYLE.value, self.case_style)
+        list.insert(ProductObjEnum.NOTE.value, self.note)
         return list
 
+    #Special case where list has to be static since list order matters for db update function
     def asListForDBUpdate(self):
         list = []
         list.append(self.name)
         list.append(self.description)
         list.append(self.unit_price)
-        list.append(self.note)
         list.append(self.case_style)
+        list.append(self.note)
         list.append(self.id)
+
         return list
 
     def addProductAsList(self, productList=None):

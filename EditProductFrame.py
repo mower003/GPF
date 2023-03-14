@@ -2,7 +2,7 @@ import tkinter as tk
 
 from GPFISCoordinator import GPFISCoordinator
 from Product import ProductObj
-
+from Product import ProductObjEnum
 class EditProductFrame():
 
     #Static Settings
@@ -50,38 +50,40 @@ class EditProductFrame():
     def create_product_frame(self):
         self.product_id_lbl = tk.Label(self.edit_product_frame, text = "Product ID:", font=(self.data_font, 12, 'bold'), bg=self.bg_color)
         self.product_id_entry = tk.Entry(self.edit_product_frame, width=40, font=(self.data_font, 12))
-        self.product_id_entry.insert(0, self.product_list[0])
+        self.product_id_entry.insert(0, self.product_list[ProductObjEnum.PRODUCT_ID.value])
         self.product_id_entry.config(state='disabled')
         self.product_id_lbl.grid(row = 1, column = 0, sticky='W')
         self.product_id_entry.grid(row = 1, column= 1, sticky='E,W')
 
         self.product_name_lbl = tk.Label(self.edit_product_frame, text = "Product Name:", font=(self.data_font, 12, 'bold'), bg=self.bg_color)
         self.product_name_entry = tk.Entry(self.edit_product_frame, width=40, font=(self.data_font, 12))
-        self.product_name_entry.insert(0, self.product_list[1])
+        self.product_name_entry.insert(0, self.product_list[ProductObjEnum.PRODUCT_NAME.value])
+        self.product_name_entry.config(state='disabled')
         self.product_name_lbl.grid(row = 2, column = 0, sticky='W')
         self.product_name_entry.grid(row = 2, column= 1, sticky='E,W')
 
         self.product_description_lbl = tk.Label(self.edit_product_frame, text = "Product Description:", font=(self.data_font, 12, 'bold'), bg=self.bg_color)
         self.product_description_entry = tk.Entry(self.edit_product_frame, width=40, font=(self.data_font, 12))
-        self.product_description_entry.insert(0, self.product_list[2])
+        self.product_description_entry.insert(0, self.product_list[ProductObjEnum.DESCRIPTION.value])
+        self.product_description_entry.config(state='disabled')
         self.product_description_lbl.grid(row = 3, column = 0, sticky='W')
         self.product_description_entry.grid(row = 3, column= 1, sticky='E,W')
 
         self.product_price_lbl = tk.Label(self.edit_product_frame, text = "Unit Price:", font=(self.data_font, 12, 'bold'), bg=self.bg_color)
         self.product_price_entry = tk.Entry(self.edit_product_frame, width=40, font=(self.data_font, 12))
-        self.product_price_entry.insert(0, self.product_list[3])
+        self.product_price_entry.insert(0, self.product_list[ProductObjEnum.UNIT_PRICE.value])
         self.product_price_lbl.grid(row = 4, column = 0, sticky='W')
         self.product_price_entry.grid(row = 4, column= 1, sticky='E,W')
 
         self.product_note_lbl = tk.Label(self.edit_product_frame, text = "Note:", font=(self.data_font, 12, 'bold'), bg=self.bg_color)
         self.product_note_entry = tk.Entry(self.edit_product_frame, width=40, font=(self.data_font, 12))
-        self.product_note_entry.insert(0, self.product_list[4])
+        self.product_note_entry.insert(0, self.product_list[ProductObjEnum.NOTE.value])
         self.product_note_lbl.grid(row = 5, column = 0, sticky='W')
         self.product_note_entry.grid(row = 5, column= 1, sticky='E,W')
 
         self.product_case_style_lbl = tk.Label(self.edit_product_frame, text = "Case Style:", font=(self.data_font, 12, 'bold'), bg=self.bg_color)
         self.product_case_style_entry = tk.Entry(self.edit_product_frame, width=40, font=(self.data_font, 12))
-        self.product_case_style_entry.insert(0, self.product_list[5])
+        self.product_case_style_entry.insert(0, self.product_list[ProductObjEnum.CASE_STYLE.value])
         self.product_case_style_lbl.grid(row = 6, column = 0, sticky='W')
         self.product_case_style_entry.grid(row = 6, column= 1, sticky='E,W')
 
@@ -104,7 +106,7 @@ class EditProductFrame():
         prod_list.append(self.product_name_entry.get().strip())
         prod_list.append(self.product_description_entry.get().strip())
         prod_list.append(self.product_price_entry.get().strip())
-        prod_list.append(self.product_note_entry.get().strip())
         prod_list.append(self.product_case_style_entry.get().strip())
+        prod_list.append(self.product_note_entry.get().strip())
 
         return prod_list

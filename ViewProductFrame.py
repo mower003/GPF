@@ -41,6 +41,7 @@ class ViewProductFrame():
     def create_product_lines(self):
         row = 1
         for products in self.product_list:
+            print(products.asList())
             po = ProductLineItemWidget(self.product_lines_frame, productObj = products)
             po.place_product_line(row)
             self.product_lines_list.append(po)
@@ -57,12 +58,13 @@ class ViewProductFrame():
             col += 1
         self.create_product_lines()
         
+        self.title_frame.pack(side='top', fill='x')
         self.product_lines_frame.pack(side='top', fill='both', expand=True)
 
     def add_title_label(self):
         self.title = tk.Label(self.title_frame, text=self.frame_title)
         self.title.config(font=(self.title_font,38),bg=self.bg_color)
-        self.title.pack(side='top', fill='x', expand=True)
+        self.title.pack(side='top', fill='x')
 
     def build_frame(self):
         self.clear_display_frame()
