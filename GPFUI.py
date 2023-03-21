@@ -82,12 +82,6 @@ view_invoice_frame = ViewInvoiceFrame(baseFrame_2)
 #WILL NOT handle any of that themselves, beyond making a call asks for or sends data. Data that is sent or comes in should be in list or tuple form. 
 # (possible that it may be lists or tuples of appropriate objects e.g. Product, Customer classes)
 
-baseMenu = OptionsMenu.GPF_OptionsMenu(root, 
-                                        add_customer_frame, 
-                                        view_customer_frame, 
-                                        add_product_frame, 
-                                        view_product_frame,
-                                        add_invoice_frame,
-                                        view_invoice_frame)
+baseMenu = OptionsMenu.GPF_OptionsMenu(root, add_customer_frame = add_customer_frame, view_customer_frame= view_customer_frame, add_product_frame= add_product_frame, view_product_frame= view_product_frame, add_invoice_frame= add_invoice_frame, view_invoice_frame= view_invoice_frame)
 root.config(menu=baseMenu.getMenuBar())
 root.mainloop()

@@ -493,4 +493,4 @@ invoiceForwardSelectButton.grid(column = 2, row = 0)
 rightFrameTitle = tk.Label(rightFrame, width = 10, height= 5, text= "Invoices")
 rightFrameTitle.grid(column=0, row = 0, ipadx = 5, ipady = 5)
 """
-root.mainloop()
+#root.mainloop()

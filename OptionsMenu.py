@@ -9,7 +9,7 @@ def donothing():
 
 class GPF_OptionsMenu:
 
-    def __init__(self, theRoot, add_customer_frame=None, view_customer_frame=None, add_product_frame=None, view_product_frame=None, add_invoice_frame=None, view_invoice_frame=None):
+    def __init__(self, theRoot, *, add_customer_frame=None, view_customer_frame=None, add_product_frame=None, view_product_frame=None, add_invoice_frame=None, view_invoice_frame=None ):
         #No frames can be None, if so something has gone wrong. Make sure to add a check for all frames to be set.
 
         self.menubar = Menu(theRoot)
