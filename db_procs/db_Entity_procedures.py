@@ -57,7 +57,7 @@ class db_Entity_procedures:
         finally:
             self.close_connection()
 
-    def insert_entity_full(self, entityParamList=None):
+    def insert_entity(self, entityParamList=None):
         try:
             self.create_connection()
             sql_statement = """ INSERT INTO entity (id, name, street_number, street_name, city, state, zip, country, is_active) VALUES (?,?,?,?,?,?,?,?,?) """
@@ -88,7 +88,8 @@ class db_Entity_procedures:
             cur = self.conn.cursor()
             cur.execute(sql_statement)
             rows = cur.fetchall()
-
+            print("INSIDE ENTITY DB FUNCTIONS")
+            print(rows)
             return rows
         except Error as e:
             print(e)

@@ -114,40 +114,88 @@ class GPFISCoordinator:
     def search_invoice_by_number(self):
         print("todo")
 
-    def get_entities(self):
-        entity_conn = db_conn_entity(self.db_location)
-        entityObjList = []
-        entityList = entity_conn.get_entities()
-        print(entityList)
-        for entity in entityList:
-            eo = EntObj()
-            eo.addEntityAsTuple(entity)
-            entityObjList.append(eo)
+#*************************************************************
+############################## Entity #######################
+#*************************************************************
 
-        return entityObjList
+    def get_entities(self):
+        try:
+
+            entity_conn = db_conn_entity(self.db_location)
+            entityObjList = []
+            entityList = entity_conn.get_entities()
+            print(entityList)
+            for entity in entityList:
+                eo = EntObj()
+                eo.addEntityAsTuple(entity)
+                entityObjList.append(eo)
+
+            return entityObjList
+        except Error as e:
+            msg = e
+            print(msg)
+        finally:
+            entity_conn.close_connection()
 
     def insert_entity(self, * ,EntityObj=None):
+        try:
+
+            entity_conn = db_conn_entity(self.db_location)
+            print("From inside insert entity ",EntityObj.asListForDBInsertion())
+            if isinstance(EntityObj, EntObj):
+                entity_conn.insert_entity(EntityObj.asListForDBInsertion())
+                msg = "EntityObj inside GPFISCoordinator.py -> insert_entity() inserted into DB" + repr(EntityObj)
+                print(msg)
+            else:
+                err_msg = "EntityObj inside GPFISCoordinator.py -> insert_entity() is not an instance of EntObj!"
+                print(err_msg)
+        except Error as e:
+            msg = e
+            print(msg)
+        finally:
+            entity_conn.close_connection()
+
+    def get_entity_id_by_name(self,current_customer):
         entity_conn = db_conn_entity(self.db_location)
-        print("From inside insert entity ",EntityObj.asListForDBInsertion())
-        if isinstance(EntityObj, EntObj):
-            entity_conn.insert_entity_full(EntityObj.asListForDBInsertion())
-        else:
-            err_msg = "EntityObj inside GPFISCoordinator.py -> insert_entity() is not an instance of EntObj!"
-            print(err_msg)
+        entityObjList = []
+        entity = entity_conn.get_entity_by_name(current_customer)
+        print(entity)
+        return entity[0]
+
+    def get_entities_simple(self):
+        entity_conn = db_conn_entity(self.db_location)
+        entityObjList = []
+        entityList = entity_conn.get_all_entities_simple()
+        print("FROM GPFISCoordinator:get_entities_simple()",entityList)
+
+        for entities in entityList:
+            entityObj = EntObj()
+            entityObj.addEntityAsTuple(entities)
+            entityObjList.append(entityObj)
+
+        print(entityObjList)
+        return entityObjList
+
 
 #*************************************************************
 ############################## Product #######################
 #*************************************************************
 
     def insert_product(self, * ,ProductObj=None):
-        product_conn = db_conn_product(self.db_location)
-        print("From inside insert_product ",ProductObj.asListForDBInsertion())
-        if isinstance(ProductObj, ProdObj):
-            product_conn.insert_product(ProductObj.asListForDBInsertion())
-            print("The following ProductObj from GPFISCoordinator -> insert_product() inserted into DB: ", repr(ProductObj))
-        else:
-            err_msg = "ProductObj inside GPFISCoordinator.py -> insert_product() is not an instance of ProdObj!"
-            print(err_msg)
+        try: 
+            product_conn = db_conn_product(self.db_location)
+            print("From inside insert_product ",ProductObj.asListForDBInsertion())
+            if isinstance(ProductObj, ProdObj):
+                product_conn.insert_product(ProductObj.asListForDBInsertion())
+                print("The following ProductObj from GPFISCoordinator -> insert_product() inserted into DB: ", repr(ProductObj))
+            else:
+                err_msg = "ProductObj inside GPFISCoordinator.py -> insert_product() is not an instance of ProdObj!"
+                print(err_msg)
+        except Error as e:
+            msg = e
+            print(msg)
+        finally:
+            product_conn.close_connection()
 
     def update_product(self, *, ProductObj=None):
         try:
@@ -188,32 +236,6 @@ class GPFISCoordinator:
             print(e)
         finally:
             product_conn.close_connection()
-
-    def get_entity_id_by_name(self,current_customer):
-        entity_conn = db_conn_entity(self.db_location)
-        entityObjList = []
-        entity = entity_conn.get_entity_by_name(current_customer)
-        print(entity)
-        return entity[0]
-
-    def get_entities_simple(self):
-        entity_conn = db_conn_entity(self.db_location)
-        entityObjList = []
-        entityList = entity_conn.get_all_entities_simple()
-        print("FROM GPFISCoordinator:get_entities_simple()",entityList)
-
-        for entities in entityList:
-            entityObj = EntObj()
-            entityObj.addEntityAsTuple(entities)
-            entityObjList.append(entityObj)
-
-        print(entityObjList)
-        return entityObjList
-            #entity_id = entities[0]
-            #entity_name = entities[1]
-            #entity_address = entities[2] + " " + entities[3] + " " + entities[4] + " " + entities[5] + " " + entities[6] + " " + entities[7]
-
-
 
 
 

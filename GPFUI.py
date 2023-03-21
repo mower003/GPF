@@ -57,11 +57,11 @@ baseFrame_2 = tk.Frame(baseCanvas, bg="#FFFFFF")
 baseCanvas.create_window((0,0), window=baseFrame_2, anchor='nw', tags="baseFrame_2")
 baseCanvas.itemconfig("baseFrame_2", height=screen_height, width=screen_width)
 
-
-
 #Instantiate class objects for each menu option
 #Each object builds and controls UI widgets
+print("RIGHT BEFORE ACF INSTANTIATION")
 add_customer_frame = AddCustomerFrame(baseFrame_2)
+print("RIGHT BEFORE VCF INSTANTIATION")
 view_customer_frame = ViewCustomerFrame(baseFrame_2)
 add_product_frame = AddProductFrame(baseFrame_2)
 view_product_frame = ViewProductFrame(baseFrame_2)

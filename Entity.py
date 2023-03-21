@@ -41,47 +41,39 @@ class EntityObj:
         #print("EntityObj __init__ called with params: %i, %s, %s, %s, %s, %s, %s, %s, %i." % (self.id, self.name, self.street_number, self.street_name, self.city, self.state, self.zip, self.country, self.is_active))
 
     def __repr__(self) -> str:
-        entity_representation = '\n' + "Entity ID: " + str(self.id) + '\n' + "Name: " + str(self.name) 
-        + '\n' + "Street Number: " + str(self.street_number) + '\n' + "Street Name: " + str(self.street_name) 
-        + '\n' + "City: " + str(self.city) + '\n' + "State: " + str(self.state) + '\n' + "Zip Code: " + str(self.zip) 
-        + '\n' + "Country: " + str(self.country) + '\n' + "Is Active: " + str(self.is_active)
+        entity_representation = '\n' + "Entity ID: " + str(self.id) + '\n' + "Name: " + str(self.name) + '\n' + "Street Number: " + str(self.street_number) + '\n' + "Street Name: " + str(self.street_name) + '\n' + "City: " + str(self.city) + '\n' + "State: " + str(self.state) + '\n' + "Zip Code: " + str(self.zip) + '\n' + "Country: " + str(self.country) + '\n' + "Is Active: " + str(self.is_active)
     
         return entity_representation
 
-    def toList(self):
+    def asList(self):
         list = []
         list.insert(EntityObjEnum.ENTITY_ID.value, self.id)
-        list.insert(EntityObjEnum.ENTITY_NAME.value, self.id)
-        list.insert(EntityObjEnum.STREET_NUMBER.value, self.id)
-        list.insert(EntityObjEnum.STREET_NAME.value, self.id)
-        list.insert(EntityObjEnum.CITY.value, self.id)
-        list.insert(EntityObjEnum.STATE.value, self.id)
-        list.insert(EntityObjEnum.ZIP.value, self.id)
-        list.insert(EntityObjEnum.COUNTRY.value, self.id)
-        list.insert(EntityObjEnum.IS_ACTIVE.value, self.id)
-
+        list.insert(EntityObjEnum.ENTITY_NAME.value, self.name)
+        list.insert(EntityObjEnum.STREET_NUMBER.value, self.street_number)
+        list.insert(EntityObjEnum.STREET_NAME.value, self.street_name)
+        list.insert(EntityObjEnum.CITY.value, self.city)
+        list.insert(EntityObjEnum.STATE.value, self.state)
+        list.insert(EntityObjEnum.ZIP.value, self.zip)
+        list.insert(EntityObjEnum.COUNTRY.value, self.country)
+        list.insert(EntityObjEnum.IS_ACTIVE.value, self.is_active)
         return list
 
     def asListForDBInsertion(self):
         list = []
         list.insert(EntityObjEnum.ENTITY_ID.value, self.id)
-        list.insert(EntityObjEnum.ENTITY_NAME.value, self.id)
-        list.insert(EntityObjEnum.STREET_NUMBER.value, self.id)
-        list.insert(EntityObjEnum.STREET_NAME.value, self.id)
-        list.insert(EntityObjEnum.CITY.value, self.id)
-        list.insert(EntityObjEnum.STATE.value, self.id)
-        list.insert(EntityObjEnum.ZIP.value, self.id)
-        list.insert(EntityObjEnum.COUNTRY.value, self.id)
-        list.insert(EntityObjEnum.IS_ACTIVE.value, self.id)
-
+        list.insert(EntityObjEnum.ENTITY_NAME.value, self.name)
+        list.insert(EntityObjEnum.STREET_NUMBER.value, self.street_number)
+        list.insert(EntityObjEnum.STREET_NAME.value, self.street_name)
+        list.insert(EntityObjEnum.CITY.value, self.city)
+        list.insert(EntityObjEnum.STATE.value, self.state)
+        list.insert(EntityObjEnum.ZIP.value, self.zip)
+        list.insert(EntityObjEnum.COUNTRY.value, self.country)
+        list.insert(EntityObjEnum.IS_ACTIVE.value, self.is_active)
         return list
 
     def toString(self):
         return_str = str(self.id) + " " + self.name + " " + self.street_number + " " + self.street_name + " " + self.city + " " + self.state + " " + self.zip + " " + self.country
         return return_str
-
-    def getName(self):
-        return str(self.name)
 
     def getAsAddressString(self):
         #print(str(self.street_number) + " " + str(self.street_name) + " " + str(self.city) + " " + str(self.state) + " " + str(self.zip) + " " + str(self.country))
@@ -106,3 +98,29 @@ class EntityObj:
             self.country = EntityTuple[EntityObjEnum.COUNTRY.value]
             self.is_active = EntityTuple[EntityObjEnum.IS_ACTIVE.value]
 
+    def getName(self):
+        return str(self.name)
+
+    def getID(self):
+        return self.id
+
+    def getStreetName(self):
+        return self.street_name
+
+    def getStreetNumber(self):
+        return self.street_number
+
+    def getCity(self):
+        return self.city
+
+    def getState(self):
+        return self.state
+
+    def getIsActive(self):
+        return self.is_active
+
+    def getCountry(self):
+        return self.country
+
+    def getZip(self):
+        return self.zip
