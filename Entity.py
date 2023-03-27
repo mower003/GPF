@@ -4,8 +4,8 @@ from enum import Enum
 class EntityObjEnum(Enum):
     ENTITY_ID = 0
     ENTITY_NAME = 1
-    STREET_NAME = 2
-    STREET_NUMBER = 3
+    STREET_NUMBER = 2
+    STREET_NAME = 3
     CITY = 4
     STATE = 5
     ZIP = 6
@@ -29,8 +29,8 @@ class EntityObj:
         else:
             self.id = entityList[EntityObjEnum.ENTITY_ID.value]
             self.name = entityList[EntityObjEnum.ENTITY_NAME.value]
-            self.street_name = entityList[EntityObjEnum.STREET_NAME.value]
             self.street_number = entityList[EntityObjEnum.STREET_NUMBER.value]
+            self.street_name = entityList[EntityObjEnum.STREET_NAME.value]
             self.city = entityList[EntityObjEnum.CITY.value]
             self.state = entityList[EntityObjEnum.STATE.value]
             self.zip = entityList[EntityObjEnum.ZIP.value]
@@ -70,6 +70,19 @@ class EntityObj:
         list.insert(EntityObjEnum.COUNTRY.value, self.country)
         list.insert(EntityObjEnum.IS_ACTIVE.value, self.is_active)
         return list
+    
+    def asListForDBUpdate(self):
+        list = []
+        list.append(self.name)
+        list.append(self.street_number)
+        list.append(self.street_name)
+        list.append(self.city)
+        list.append(self.state)
+        list.append(self.zip)
+        list.append(self.country)
+        list.append(self.is_active)
+        list.append(self.id)
+        return list
 
     def toString(self):
         return_str = str(self.id) + " " + self.name + " " + self.street_number + " " + self.street_name + " " + self.city + " " + self.state + " " + self.zip + " " + self.country
@@ -90,8 +103,8 @@ class EntityObj:
         else:
             self.id = EntityTuple[EntityObjEnum.ENTITY_ID.value]
             self.name = EntityTuple[EntityObjEnum.ENTITY_NAME.value]
-            self.street_name = EntityTuple[EntityObjEnum.STREET_NAME.value]
             self.street_number = EntityTuple[EntityObjEnum.STREET_NUMBER.value]
+            self.street_name = EntityTuple[EntityObjEnum.STREET_NAME.value]
             self.city = EntityTuple[EntityObjEnum.CITY.value]
             self.state = EntityTuple[EntityObjEnum.STATE.value]
             self.zip = EntityTuple[EntityObjEnum.ZIP.value]

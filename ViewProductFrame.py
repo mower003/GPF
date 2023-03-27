@@ -5,7 +5,6 @@ from GPFISCoordinator import GPFISCoordinator
 from ProductLineItemWidget import ProductLineItemWidget
 
 class ViewProductFrame():
-    print("A PRODUCT FRAME WAS CREATED")
     #Static Settings
     #Controls the number and name of form elements
     product_compositional_elements = ['Product ID ', 'Name ', 'Description ', 'Price ', 'Case Style ', 'Note ', '']
@@ -25,7 +24,6 @@ class ViewProductFrame():
     frame_title = "Product List"
 
     def __init__(self, parent_frame):
-        print("INIT HAS BEEN CALLED FROM VIEW PRODUCT")
         self.base_frame = parent_frame
         self.coordinator = GPFISCoordinator()
         self.product_list = []
@@ -67,7 +65,6 @@ class ViewProductFrame():
         self.title.pack(side='top', fill='x')
 
     def build_frame(self):
-        print("BUILD FRAME CALLED ACF")
         self.clear_display_frame()
         self.cache_product_data()
         self.set_up_frame()

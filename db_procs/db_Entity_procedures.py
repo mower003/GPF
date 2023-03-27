@@ -1,6 +1,7 @@
 import sqlite3
 from contextlib import closing
 from sqlite3 import Error
+from ErrorPopUpWindow import ErrorPopUpWindow
 
 class db_Entity_procedures:
     
@@ -43,33 +44,23 @@ class db_Entity_procedures:
             print(e)
 
     def insert_entity_simple(self, id, name, is_active=1):
-        try:
-            self.create_connection()
-            sql_statement = """ INSERT INTO entity (id, name, is_active) VALUES (?,?,?) """
-            params = [id, name, is_active]
-            cur = self.conn.cursor()
-            cur.execute(sql_statement, params)
-            self.conn.commit()
+        self.create_connection()
+        sql_statement = """ INSERT INTO entity (id, name, is_active) VALUES (?,?,?) """
+        params = [id, name, is_active]
+        cur = self.conn.cursor()
+        cur.execute(sql_statement, params)
+        self.conn.commit()
 
-            return cur.lastrowid
-        except Error as e:
-            print(e)
-        finally:
-            self.close_connection()
+        return cur.lastrowid
 
     def insert_entity(self, entityParamList=None):
-        try:
-            self.create_connection()
-            sql_statement = """ INSERT INTO entity (id, name, street_number, street_name, city, state, zip, country, is_active) VALUES (?,?,?,?,?,?,?,?,?) """
-            cur = self.conn.cursor()
-            cur.execute(sql_statement, entityParamList)
-            self.conn.commit()
+        self.create_connection()
+        sql_statement = """ INSERT INTO entity (id, name, street_number, street_name, city, state, zip, country, is_active) VALUES (?,?,?,?,?,?,?,?,?) """
+        cur = self.conn.cursor()
+        cur.execute(sql_statement, entityParamList)
+        self.conn.commit()
 
-            return cur.lastrowid
-        except Error as e:
-            print(e)
-        finally:
-            self.close_connection()
+        return cur.lastrowid
     
     def edit_customer(self, customer):
         sql_statement = """ UPDATE entity SET 
@@ -80,15 +71,31 @@ class db_Entity_procedures:
         cur = self.conn.cursor()
         cur.execute(sql_statement, customer)
         self.conn.commit()
+
+    def update_entity(self, entityObjAsList=None):
+        self.create_connection()
+        sql_statement = """ UPDATE entity SET
+        name = ?,
+        street_number = ?,
+        street_name = ?,
+        city = ?,
+        state = ?,
+        zip = ?,
+        country = ?,
+        is_active = ?
+        WHERE id = ?
+        """
+        cur = self.conn.cursor()
+        cur.execute(sql_statement, entityObjAsList)
+        self.conn.commit()
     
     def get_entities(self):
         try:
             self.create_connection()
-            sql_statement = """ SELECT * FROM entity """
+            sql_statement = """ SELECT id, name, street_number, street_name, city, state, zip, country, is_active FROM entity """
             cur = self.conn.cursor()
             cur.execute(sql_statement)
             rows = cur.fetchall()
-            print("INSIDE ENTITY DB FUNCTIONS")
             print(rows)
             return rows
         except Error as e:

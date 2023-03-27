@@ -10,8 +10,8 @@ class AddProductFrame():
     #Controls the number and name of form elements
     product_compositional_elements = ['Product Number: ', 'Name: ', 'Description: ', 'Price: ', 'Note: ', 'Case Style: ']
     #Color theme
-    bg_color = '#395144'
-    label_color = '#4E6C50'
+    bg_color = '#FFFFFF'
+    label_color = '#FFFFFF'
     data_color = '#AA8B56'
     header_color = '#F0EBCE'
     #Fonts
@@ -46,9 +46,9 @@ class AddProductFrame():
         self.title = tk.Label(self.my_frame, text=self.frame_title, bg=self.label_color)
         self.title.config(font=(self.title_font,25))
         self.title.grid(row=0, column = 0, columnspan=3, ipady=5, pady=5, sticky="N,S,E,W")
-        self.my_frame.grid_columnconfigure(0, weight=1)
-        self.my_frame.grid_columnconfigure(1, weight=1)
-        self.my_frame.grid_columnconfigure(2, weight=1)
+        #self.my_frame.grid_columnconfigure(0, weight=1)
+        #self.my_frame.grid_columnconfigure(1, weight=1)
+        #self.my_frame.grid_columnconfigure(2, weight=1)
 
     def create_product_frame(self):
         self.product_id_lbl = tk.Label(self.my_frame, text = "Product ID:", font=(self.data_font, 12, 'bold'), bg=self.bg_color)
@@ -83,7 +83,7 @@ class AddProductFrame():
 
         self.btn.grid(row = 7, column = 0, columnspan=3, ipadx=10, padx=5, pady=40)
 
-        self.my_frame.pack(side='top', fill='both', expand='true')
+        self.my_frame.pack(side='top', anchor='center')
 
     def build_frame(self):
         self.clear_display_frame()

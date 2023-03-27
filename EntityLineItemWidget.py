@@ -1,5 +1,6 @@
 import tkinter as tk
 from GPFISCoordinator import GPFISCoordinator
+from EditCustomerFrame import EditCustomerFrame
 from Entity import EntityObj
 from Entity import EntityObjEnum
 
@@ -21,12 +22,13 @@ class EntityLineItemWidget():
     #Controls the title of the frame.
     frame_title = "Entity Line Item Widget"
 
-    def __init__(self, parent_frame, entity_id = -999, entity_name = None, st_name = None, st_number = None, city = None, state = None, zip = None, country = 'USA', is_active = None, * , EntityObj = None):
+    def __init__(self, parent_frame, entity_id = -999, entity_name = None, st_name = None, st_number = None, city = None, state = None, zip = None, country = 'USA', is_active = None, * , entityObj = None):
         self.base_frame = parent_frame
+        self.oEntity = entityObj
         self.coordinator = GPFISCoordinator()
         self.create_ui_elements()
 
-        if EntityObj is None:
+        if entityObj is None:
             self.entity_id.insert("1.0", entity_id)
             self.entity_name.insert("1.0", entity_name)
             self.st_name.insert("1.0", st_name)
@@ -37,16 +39,15 @@ class EntityLineItemWidget():
             self.country.insert("1.0", country)
             self.is_active.insert("1.0", is_active)
         else:
-            self.populate_ui_elements_from_object(entityObj=EntityObj)
+            self.populate_ui_elements_from_object(entityObj=entityObj)
 
         self.disable_text_boxes()
 
     def spawn_edit_window(self, entityObj=None):
         if entityObj is None:
-            #self.ep = EditEntityFrame(self.base_frame, self.get_entity_as_list())
-            print("spawn")
+            self.ec = EditCustomerFrame(self.base_frame, self.get_entity_as_list())
         else:
-            #self.ep = EditEntityFrame(self.base_frame, entityObj.asList())
+            self.ec = EditCustomerFrame(self.base_frame, entityObj.asList())
             self.clear_display_frame()
 
     def place_entity_lines(self, row_number):
@@ -58,7 +59,8 @@ class EntityLineItemWidget():
         self.state.grid(row=row_number, column=EntityObjEnum.STATE.value, sticky='N,E,W', pady=2)
         self.zip.grid(row=row_number, column=EntityObjEnum.ZIP.value, sticky='N,E,W', pady=2)
         self.country.grid(row=row_number, column=EntityObjEnum.COUNTRY.value, sticky='N,E,W', pady=2)
-        self.edit_button.grid(row=row_number, column=8, sticky='N,E,W')
+        self.is_active.grid(row=row_number, column=EntityObjEnum.IS_ACTIVE.value, sticky='N,E,W', pady=2)
+        self.edit_button.grid(row=row_number, column=9, sticky='N,E,W')
 
 
     def disable_text_boxes(self):
@@ -70,6 +72,7 @@ class EntityLineItemWidget():
         self.state.config(state='disabled')
         self.zip.config(state='disabled')
         self.country.config(state='disabled')
+        self.is_active.config(state='disabled')
 
     def enable_text_boxes(self):
         self.entity_id.config(state='active')
@@ -80,6 +83,7 @@ class EntityLineItemWidget():
         self.state.config(state='active')
         self.zip.config(state='active')
         self.country.config(state='active')
+        self.is_active.config(state='active')
 
     def create_ui_elements(self):
         self.entity_id = tk.Text(self.base_frame, bg=self.bg_color, font=(self.label_font, 12), width=20, height=2, wrap=tk.WORD)
@@ -90,27 +94,19 @@ class EntityLineItemWidget():
         self.state = tk.Text(self.base_frame, bg=self.bg_color, font=(self.label_font, 12), width=20, height=2, wrap=tk.WORD)
         self.zip = tk.Text(self.base_frame, bg=self.bg_color, font=(self.label_font, 12), width=20, height=2, wrap=tk.WORD)
         self.country = tk.Text(self.base_frame, bg=self.bg_color, font=(self.label_font, 12), width=20, height=2, wrap=tk.WORD)
-        self.edit_button = tk.Button(self.base_frame, text="Edit", command=lambda: self.spawn_edit_window())
+        self.is_active = tk.Text(self.base_frame, bg=self.bg_color, font=(self.label_font, 12), width=20, height=2, wrap=tk.WORD)
+        self.edit_button = tk.Button(self.base_frame, text="Edit", command=lambda: self.spawn_edit_window(self.oEntity))
 
     def populate_ui_elements_from_object(self, entityObj):
         self.entity_id.insert("1.0", entityObj.getID())
         self.entity_name.insert("1.0", entityObj.getName())
         self.st_name.insert("1.0", entityObj.getStreetName())
-        self.st_number.insert("1.0", entityObj.getSteetNumber())
+        self.st_number.insert("1.0", entityObj.getStreetNumber())
         self.city.insert("1.0", entityObj.getCity())
         self.state.insert("1.0", entityObj.getState())
         self.zip.insert("1.0", entityObj.getZip())
         self.country.insert("1.0", entityObj.getCountry())
-
-    def populate_ui_elements_from_params(self, entityObj):
-        self.entity_id.insert("1.0", entityObj.getID())
-        self.entity_name.insert("1.0", entityObj.getName())
-        self.st_name.insert("1.0", entityObj.getStreetName())
-        self.st_number.insert("1.0", entityObj.getSteetNumber())
-        self.city.insert("1.0", entityObj.getCity())
-        self.state.insert("1.0", entityObj.getState())
-        self.zip.insert("1.0", entityObj.getZip())
-        self.country.insert("1.0", entityObj.getCountry())
+        self.is_active.insert("1.0", entityObj.getIsActive())
 
     def get_entity_as_list(self):
         list = []
@@ -122,6 +118,7 @@ class EntityLineItemWidget():
         list.append(str(self.state.get("1.0", tk.END)))
         list.append(str(self.zip.get("1.0", tk.END)))
         list.append(str(self.country.get("1.0", tk.END)))
+        list.append(str(self.is_active.get("1.0", tk.END)))
         return list
 
     def clear_display_frame(self):

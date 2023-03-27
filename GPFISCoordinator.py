@@ -4,6 +4,7 @@ from datetime import datetime
 from Invoice import InvoiceObj as InvObj
 from Entity import EntityObj as EntObj
 from Product import ProductObj as ProdObj
+from ErrorPopUpWindow import ErrorPopUpWindow
 
 
 from db_procs.db_Address_procedures import db_Address_procedures as db_conn_address
@@ -60,6 +61,12 @@ class GPFISCoordinator:
     def insert_country(self, country_code, country_name):
         c = db_conn_country(self.db_location)
         c.insert_country(country_code, country_name)
+
+
+
+#######ALL OF THESE METHODS NEEDS TO BE REFACTORED TO BE LIKE UPDATE_ENTITY.
+
+
 
     def add_invoice(self, *, InvoiceObj=None):
         #Pre: Parameters an object of the Invoice class.
@@ -124,10 +131,10 @@ class GPFISCoordinator:
             entity_conn = db_conn_entity(self.db_location)
             entityObjList = []
             entityList = entity_conn.get_entities()
-            print(entityList)
+            #print(entityList)
             for entity in entityList:
-                eo = EntObj()
-                eo.addEntityAsTuple(entity)
+                eo = EntObj(entityList=entity)
+                #eo.addEntityAsTuple(entity)
                 entityObjList.append(eo)
 
             return entityObjList
@@ -138,22 +145,49 @@ class GPFISCoordinator:
             entity_conn.close_connection()
 
     def insert_entity(self, * ,EntityObj=None):
-        try:
-
-            entity_conn = db_conn_entity(self.db_location)
-            print("From inside insert entity ",EntityObj.asListForDBInsertion())
-            if isinstance(EntityObj, EntObj):
-                entity_conn.insert_entity(EntityObj.asListForDBInsertion())
+        print("From inside insert entity ",EntityObj.asListForDBInsertion())
+        if isinstance(EntityObj, EntObj):
+            try:
+                entity_conn = db_conn_entity(self.db_location)
+                ret = entity_conn.insert_entity(EntityObj.asListForDBInsertion())
                 msg = "EntityObj inside GPFISCoordinator.py -> insert_entity() inserted into DB" + repr(EntityObj)
                 print(msg)
-            else:
-                err_msg = "EntityObj inside GPFISCoordinator.py -> insert_entity() is not an instance of EntObj!"
-                print(err_msg)
-        except Error as e:
-            msg = e
-            print(msg)
-        finally:
-            entity_conn.close_connection()
+                print("RETURNED", ret)
+            except sqlite3.IntegrityError as e:
+                print("Error: ", e)
+                ErrorPopUpWindow().create_error_window(e)
+            except Error as e:
+                msg = e
+                #ErrorPopUpWindow.create_error_window(e)
+                print(msg)
+            finally:
+                entity_conn.close_connection()
+        else:
+            err_msg = "EntityObj inside GPFISCoordinator.py -> insert_entity() is not an instance of EntObj!"
+            print(err_msg)
+
+    def update_entity(self, * ,EntityObj=None):
+        print("From inside update entity ",EntityObj.asListForDBUpdate())
+        if isinstance(EntityObj, EntObj):
+            try: 
+                entity_conn = db_conn_entity(self.db_location)
+                ret = entity_conn.update_entity(EntityObj.asListForDBUpdate())
+                msg = "EntityObj inside GPFISCoordinator.py -> update_entity() update in DB" + repr(EntityObj)
+                print(msg)
+                print("RETURNED", ret)
+            except sqlite3.IntegrityError as e:
+                print("Error: ", e)
+                ErrorPopUpWindow().create_error_window(e)
+            except Error as e:
+                msg = e
+                ErrorPopUpWindow().create_error_window(e)
+                print(msg)
+            finally:
+                entity_conn.close_connection()               
+        else:
+            err_msg = "EntityObj inside GPFISCoordinator.py -> update_entity() is not an instance of EntObj!"
+            print(err_msg)
+
 
     def get_entity_id_by_name(self,current_customer):
         entity_conn = db_conn_entity(self.db_location)

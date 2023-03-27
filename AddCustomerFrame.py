@@ -8,7 +8,7 @@ class AddCustomerFrame():
 
     #Static Settings
     #Controls the number and name of form elements
-    customer_compositional_elements = ['Customer Number: ', 'Name: ', 'Address: ', 'City: ', 'State: ', 'Zip: ']
+    customer_compositional_elements = ['Customer ID:', 'Name', 'Address Number', 'Street Name',  'City', 'State', 'Zip', 'Country', 'Active']
     #Color theme
     bg_color = '#FFFFFF'
     label_color = '#FFFFFF'
@@ -43,9 +43,9 @@ class AddCustomerFrame():
         self.title = tk.Label(self.entity_frame, text=self.frame_title, bg=self.label_color)
         self.title.config(font=(self.title_font,25))
         self.title.grid(row=0, column = 0, columnspan=3, ipady=5, pady=5, sticky="N,S,E,W")
-        self.entity_frame.grid_columnconfigure(0, weight=1)
-        self.entity_frame.grid_columnconfigure(1, weight=1)
-        self.entity_frame.grid_columnconfigure(2, weight=1)
+        #self.entity_frame.grid_columnconfigure(0, weight=1)
+        #self.entity_frame.grid_columnconfigure(1, weight=2)
+        #self.entity_frame.grid_columnconfigure(2, weight=1)
 
     def create_entity_frame(self):
         self.entity_id_lbl = tk.Label(self.entity_frame, text = "Customer ID:", font=(self.data_font, 12, 'bold'), bg=self.bg_color)
@@ -58,7 +58,7 @@ class AddCustomerFrame():
         self.entity_name_lbl.grid(row = 2, column = 0, sticky='W')
         self.entity_name_entry.grid(row = 2, column= 1, sticky='E,W')
 
-        self.street_number_lbl = tk.Label(self.entity_frame, text = "Street Number:", font=(self.data_font, 12, 'bold'), bg=self.bg_color)
+        self.street_number_lbl = tk.Label(self.entity_frame, text = "Address Number:", font=(self.data_font, 12, 'bold'), bg=self.bg_color)
         self.street_number_entry = tk.Entry(self.entity_frame, width=40, font=(self.data_font, 12))
         self.street_number_lbl.grid(row = 3, column = 0, sticky='W')
         self.street_number_entry.grid(row = 3, column= 1, sticky='E,W')
@@ -90,7 +90,7 @@ class AddCustomerFrame():
 
         self.btn.grid(row = 9, column = 0, columnspan=3, ipadx=10, padx=5, pady=40)
 
-        self.entity_frame.pack(side='top', fill='both', expand='true')
+        self.entity_frame.pack(side='top', anchor='center')
 
     def build_frame(self):
         self.clear_display_frame()
