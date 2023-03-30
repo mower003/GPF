@@ -40,7 +40,7 @@ class ViewProductFrame():
         row = 1
         for products in self.product_list:
             print(products.asList())
-            po = ProductLineItemWidget(self.product_lines_frame, productObj = products)
+            po = ProductLineItemWidget(self.product_lines_frame, self, productObj = products)
             po.place_product_line(row)
             self.product_lines_list.append(po)
             #self.product_lines_frame.grid_rowconfigure((row), weight=1)

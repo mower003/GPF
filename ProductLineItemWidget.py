@@ -23,9 +23,10 @@ class ProductLineItemWidget():
     #Controls the title of the frame.
     frame_title = "Product Line Item Widget"
 
-    def __init__(self, parent_frame, product_id = -999, name = '', description = '', price = 0.00, case_style = '', note = '', *, productObj=None):
+    def __init__(self, parent_frame, vpf, product_id = -999, name = '', description = '', price = 0.00, case_style = '', note = '', *, productObj=None):
         self.base_frame = parent_frame
         self.coordinator = GPFISCoordinator()
+        self.viewproductclass = vpf
         if productObj is None:
             self.product_id = tk.Text(self.base_frame, bg=self.bg_color, font=(self.label_font, 12), width=20, height=2, wrap=tk.WORD)
             self.product_id.insert("1.0", product_id)
@@ -94,8 +95,8 @@ class ProductLineItemWidget():
         if productObj is None:
             self.ep = EditProductFrame(self.base_frame, self.get_product_as_list())
         else:
-            self.ep = EditProductFrame(self.base_frame, productObj.asList())
-            self.clear_display_frame()
+            self.ep = EditProductFrame(self.base_frame, productObj.asList(), self.viewproductclass)
+            #self.clear_display_frame()
 
     def get_product_line_info(self):
         the_str = str(self.product_id.get("1.0", tk.END)) + " " + str(self.name.get("1.0", tk.END)) + " " + str(self.description.get("1.0", tk.END)) + " " + str(self.price.get("1.0", tk.END)) + " " + str(self.case_style.get("1.0", tk.END)) + " " + str(self.note.get("1.0", tk.END))
@@ -129,6 +130,36 @@ class ProductLineItemWidget():
 
         self.case_style = tk.Text(self.base_frame, bg=self.bg_color, font=(self.label_font, 12), width=20, height=2, wrap=tk.WORD)
         self.case_style.insert("1.0", productObj.getCaseStyle())
+
+    def update_product_info(self, productObj):
+        print("update product info called")
+        self.enable_product_boxes()
+
+        self.price.delete("1.0", tk.END)
+        self.note.delete("1.0", tk.END)
+        self.case_style.delete("1.0", tk.END)
+
+        self.price.insert("1.0", productObj.getUnitPrice())
+        self.note.insert("1.0", productObj.getNote())
+        self.case_style.insert("1.0", productObj.getCaseStyle())
+
+        self.disable_product_boxes()
+
+    def enable_product_boxes(self):
+        self.product_id.config(state='normal')
+        self.name.config(state='normal')
+        self.description.config(state='normal')
+        self.price.config(state='normal')
+        self.case_style.config(state='normal')
+        self.note.config(state='normal')
+
+    def disable_product_boxes(self):
+        self.product_id.config(state='disabled')
+        self.name.config(state='disabled')
+        self.description.config(state='disabled')
+        self.price.config(state='disabled')
+        self.case_style.config(state='disabled')
+        self.note.config(state='disabled')
 
     def clear_display_frame(self):
         for children in self.base_frame.winfo_children():

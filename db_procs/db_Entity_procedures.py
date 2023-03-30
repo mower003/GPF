@@ -135,6 +135,33 @@ class db_Entity_procedures:
         finally:
             self.close_connection()
 
+    def get_entity_name_by_id(self, id):
+        try:
+            self.create_connection()
+            sql_statement = """ SELECT name FROM entity where id = ? """
+            cur = self.conn.cursor()
+            cur.row_factory = lambda cursor, row: row[0]
+            cur.execute(sql_statement, [id])
+            row = cur.fetchone()
+            cur.row_factory = None
+
+            return row
+        except Error as e:
+            print(e)
+        finally:
+            self.close_connection()
+
+    def get_entity_by_name_approx(self, name):
+        self.create_connection()
+        sql_statement = """ SELECT * FROM entity WHERE name LIKE ?"""
+        cur = self.conn.cursor()
+        cur.row_factory = lambda cursor, row: row[0]
+        cur.execute(sql_statement, [name+'%'])
+        rows = cur.fetchall()
+        cur.row_factory = None
+        return rows
+    
+
     def get_entity_by_name(self, name):
         try:
             self.create_connection()

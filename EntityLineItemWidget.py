@@ -22,10 +22,11 @@ class EntityLineItemWidget():
     #Controls the title of the frame.
     frame_title = "Entity Line Item Widget"
 
-    def __init__(self, parent_frame, entity_id = -999, entity_name = None, st_name = None, st_number = None, city = None, state = None, zip = None, country = 'USA', is_active = None, * , entityObj = None):
+    def __init__(self, parent_frame, viewcustomerframeclass, entity_id = -999, entity_name = None, st_name = None, st_number = None, city = None, state = None, zip = None, country = 'USA', is_active = None, * , entityObj = None):
         self.base_frame = parent_frame
         self.oEntity = entityObj
         self.coordinator = GPFISCoordinator()
+        self.vcf = viewcustomerframeclass
         self.create_ui_elements()
 
         if entityObj is None:
@@ -47,8 +48,8 @@ class EntityLineItemWidget():
         if entityObj is None:
             self.ec = EditCustomerFrame(self.base_frame, self.get_entity_as_list())
         else:
-            self.ec = EditCustomerFrame(self.base_frame, entityObj.asList())
-            self.clear_display_frame()
+            self.ec = EditCustomerFrame(self.base_frame, self.vcf, entityObj.asList())
+            #self.clear_display_frame()
 
     def place_entity_lines(self, row_number):
         self.entity_id.grid(row=row_number, column=EntityObjEnum.ENTITY_ID.value, sticky='N,E,W', pady=2)

@@ -48,7 +48,7 @@ class ViewCustomerFrame():
         row = 1
         for entities in self.entity_list:
             print(entities.asList())
-            eo = EntityLineItemWidget(self.entity_lines_frame, entityObj = entities)
+            eo = EntityLineItemWidget(self.entity_lines_frame, self, entityObj = entities)
             eo.place_entity_lines(row)
             self.entity_lines_list.append(eo)
             #self.entity_lines_frame.grid_rowconfigure((row), weight=1)

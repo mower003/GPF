@@ -1,30 +1,71 @@
 from InvoiceItem import InvoiceItemObj as invItemObj
 import locale
+from enum import Enum
+
+class InvoiceObjEnum(Enum):
+    INVOICE_NUMBER = 0
+    CREATION_DATE = 1
+    DELIVERY_DATE = 2
+    NOTE = 3
+    ISSUER_ID = 4
+    BUYER_ID = 5
+    STATUS = 6
+    DISCOUNT_AMOUNT = 7
+    SUBTOTAL = 8
+    TAX = 9
+    #TOTAL = 10 
+    CREDIT_INVOICE_NUMBER = 10
 
 class InvoiceObj:
     locale.setlocale(locale.LC_ALL, 'en_US')
 
-    def __init__(self, invoice_number=-37, creation_date=None, delivery_date=None, note='', issuer_id=37, buyer_id=-37, status=0, discount_rate=0, tax_amount=0, subtotal=0.00, total=0, credit_inv_num=0, lineItems=[]) -> None:
-        self.invoice_number = invoice_number
-        self.creation_date = creation_date
-        self.delivery_date = delivery_date
-        self.note = note
-        self.issuer_id = issuer_id
-        self.issuer_name = ''
-        self.buyer_id = buyer_id
-        self.buyer_name = ''
-        self.status = status
-        self.discount_rate = discount_rate
-        self.total = locale.currency(total, False, False, False)
-        self.subtotal = locale.currency(subtotal, False, False, False)
-        self.tax_amount = locale.currency(tax_amount, False, False, False)
-        self.credit_inv_num = credit_inv_num
-        self.invItemsObjList = []
+    def __init__(self, invoice_number=-37, creation_date=None, delivery_date=None, note='', issuer_id=37, buyer_id=-37, status=0, discount_rate=0, tax_amount=0, subtotal=0.00, total=0, credit_inv_num=0, *, invList=None):
+        if invList is None:
+            self.invoice_number = invoice_number
+            self.creation_date = creation_date
+            self.delivery_date = delivery_date
+            self.note = note
+            self.issuer_id = issuer_id
+            self.issuer_name = ''
+            self.buyer_id = buyer_id
+            self.buyer_name = ''
+            self.status = status
+            self.discount_rate = discount_rate
+            self.total = locale.currency(total, False, False, False)
+            self.subtotal = locale.currency(subtotal, False, False, False)
+            self.tax_amount = locale.currency(tax_amount, False, False, False)
+            self.credit_inv_num = credit_inv_num
+            self.invItemsObjList = []
+        else:
+            self.invoice_number = invList[InvoiceObjEnum.INVOICE_NUMBER.value]
+            self.creation_date = invList[InvoiceObjEnum.CREATION_DATE.value]
+            self.delivery_date = invList[InvoiceObjEnum.DELIVERY_DATE.value]
+            self.note = invList[InvoiceObjEnum.NOTE.value]
+            self.issuer_id = invList[InvoiceObjEnum.ISSUER_ID.value]
+            self.issuer_name = ''
+            self.buyer_id = invList[InvoiceObjEnum.BUYER_ID.value]
+            self.buyer_name = ''
+            self.status = invList[InvoiceObjEnum.STATUS.value]
+            self.discount_rate = invList[InvoiceObjEnum.DISCOUNT_AMOUNT.value]
+            self.subtotal = locale.currency(float(invList[InvoiceObjEnum.SUBTOTAL.value]), False, False, False)
+            self.tax_amount = locale.currency(invList[InvoiceObjEnum.TAX.value], False, False, False)
+            self.total = locale.currency(total, False, False, False)
+            #self.total = locale.currency(invList[InvoiceObjEnum.TOTAL.value], False, False, False)
+            self.credit_inv_num = invList[InvoiceObjEnum.CREDIT_INVOICE_NUMBER.value]
+            self.invItemsObjList = []
+            self.calculate_invoice_total()
 
-        print("InvoiceObj __init__ called with params: %i, %s, %s, %s, %i, %i, %i, %d, %f, %f, %f, %i." % (self.invoice_number, self.creation_date, self.delivery_date, self.note, self.issuer_id, self.buyer_id, self.status, self.discount_rate, float(self.tax_amount), float(self.subtotal), float(self.total), self.credit_inv_num))
 
+        print("######################Invoice Object created######################"+'\n'+self.__repr__())
+        #print("InvoiceObj __init__ called with params: %i, %s, %s, %s, %i, %i, %i, %d, %f, %f, %f, %i." % (self.invoice_number, self.creation_date, self.delivery_date, self.note, self.issuer_id, self.buyer_id, self.status, self.discount_rate, float(self.tax_amount), float(self.subtotal), float(self.total), self.credit_inv_num))
+
+    def __repr__(self) -> str:
+        invoice_representation = '\n' + "Invoice Number: " + str(self.invoice_number) + '\n' + "Creation Date: " + str(self.creation_date) + '\n' + "Delivery Date: " + str(self.delivery_date) + '\n' + "Note: " + self.note  + '\n' + "Issuer ID: " + str(self.issuer_id) + '\n' + "Issuer Name: " + str(self.issuer_name) + '\n' + "Buyer ID: " + str(self.buyer_id) + '\n' + "Buyer Name: " + str(self.buyer_name) + '\n' + "Status: " + str(self.status) + '\n' + "Discount Amount: " + str(self.discount_rate) + '\n' + "Tax Amount: " + str(self.tax_amount) + '\n' + "Subtotal: " + self.subtotal + '\n' + "Total: " + str(self.total) + '\n' + "Credit Invoice Number: " + str(self.credit_inv_num)
+
+        return invoice_representation
+    
     def calculate_invoice_total(self):
-        self.total = float(self.subtotal) * (1 - float(self.discount_rate)) + float(self.tax_amount)
+        self.total = float(self.subtotal) - self.discount_rate + float(self.tax_amount)
         self.total = round(self.total, 2)
         return float(self.total)
 
@@ -105,6 +146,10 @@ class InvoiceObj:
         self.buyer_id = buyer_id
         print(self.buyer_id)
 
+    def set_buyer_name(self, buyer_name):
+        self.buyer_name = buyer_name
+        print(buyer_name)
+
     def set_status(self, status):
         self.status = status
         print(self.status)
@@ -146,6 +191,9 @@ class InvoiceObj:
 
     def get_buyer_id(self):
         return self.buyer_id
+    
+    def get_buyer_name(self):
+        return self.buyer_name
 
     def get_status(self):
         return self.status

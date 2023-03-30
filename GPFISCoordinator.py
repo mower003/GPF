@@ -111,6 +111,64 @@ class GPFISCoordinator:
         next_inv_num = invoice_conn.next_invoice_number()
         next_inv_num = int(next_inv_num[0]) + 1
         return next_inv_num
+    
+    def get_invoices_using_search_params(self, selected_cust, date_range, paid_status ):
+        customer_id = self.get_entity_id_by_name(selected_cust, exactMatch=False)
+
+        try:
+            invoice_conn = db_conn_invoice(self.db_location)
+            start_date = date_range[0]
+            end_date = date_range[1]
+            invoice_status = self.determine_invoice_status(paid_status)
+
+            invObjList = []
+            invoiceList = invoice_conn.get_invoices_by_search_params(customer_id, start_date, end_date, invoice_status)
+
+            for invoice in invoiceList:
+                #print(invoice)
+                io = InvObj(invList=invoice)
+                buyer_name = self.get_entity_name_by_id(io.get_buyer_id())
+                io.set_buyer_name(buyer_name)
+                #io.calculate_invoice_total()
+                invObjList.append(io)
+
+            return invObjList
+
+        except Error as e:
+            err_msg = e
+            print(err_msg)
+        finally:
+            invoice_conn.close_connection()
+
+    def get_recent_invoices(self, todaysDate):
+        try:
+            invoice_conn = db_conn_invoice(self.db_location)
+            rawInvList = invoice_conn.get_recent_invoices(todaysDate)
+            invObjList = []
+            for invoice in rawInvList:
+                io = InvObj(invList = invoice)
+                buyer_name = self.get_entity_name_by_id(io.get_buyer_id())
+                io.set_buyer_name(buyer_name)
+                invObjList.append(io)
+            return invObjList
+        except Error as e:
+            err_msg = e
+            print(err_msg)
+        finally:
+            invoice_conn.close_connection()
+
+
+    def update_paid_status(self, invoice_number, paid_status):
+        try:
+            inv_conn = db_conn_invoice(self.db_location)
+            #print("paid status called with: " + str(invoice_number) + str(int(paid_status)))
+            inv_conn.update_paid_status(invoice_number, int(paid_status))
+        except Error as e:
+            err_msg = e
+            print(err_msg)
+        finally:
+            inv_conn.close_connection()
+
 
     def view_invoice(self):
         print("todo")
@@ -174,7 +232,6 @@ class GPFISCoordinator:
                 ret = entity_conn.update_entity(EntityObj.asListForDBUpdate())
                 msg = "EntityObj inside GPFISCoordinator.py -> update_entity() update in DB" + repr(EntityObj)
                 print(msg)
-                print("RETURNED", ret)
             except sqlite3.IntegrityError as e:
                 print("Error: ", e)
                 ErrorPopUpWindow().create_error_window(e)
@@ -189,12 +246,22 @@ class GPFISCoordinator:
             print(err_msg)
 
 
-    def get_entity_id_by_name(self,current_customer):
-        entity_conn = db_conn_entity(self.db_location)
-        entityObjList = []
-        entity = entity_conn.get_entity_by_name(current_customer)
-        print(entity)
-        return entity[0]
+    def get_entity_id_by_name(self,current_customer, exactMatch=True):
+        try:
+            entity_conn = db_conn_entity(self.db_location)
+            entityObjList = []
+            if exactMatch is True:
+                entity = entity_conn.get_entity_by_name(current_customer)
+                print(entity)
+                return entity[0]
+            else:
+                entity = entity_conn.get_entity_by_name_approx(current_customer)
+                print(entity)
+                return entity[0]
+        except Error as e:
+            print(e)
+        finally:
+            entity_conn.close_connection()
 
     def get_entities_simple(self):
         entity_conn = db_conn_entity(self.db_location)
@@ -209,6 +276,20 @@ class GPFISCoordinator:
 
         print(entityObjList)
         return entityObjList
+    
+    def get_entity_name_by_id(self, id):
+        try:
+
+            entity_conn = db_conn_entity(self.db_location)
+
+            entity_name = entity_conn.get_entity_name_by_id(id)
+            print("FROM ENTITYNAMEID: ",entity_name)
+            return entity_name
+        except Error as e:
+            msg = e
+            print(msg)
+        finally:
+            entity_conn.close_connection()
 
 
 #*************************************************************
@@ -270,6 +351,26 @@ class GPFISCoordinator:
             print(e)
         finally:
             product_conn.close_connection()
+
+#**********************************************************************************
+################################# HELPER METHODS ##################################
+#**********************************************************************************
+    def determine_invoice_status(self, status):
+        paid = status[0]
+        unpaid = status[1]
+        inv_status = None
+        #neither paid or unpaid has been selected
+        if (paid == 0 and unpaid == 0):
+            print("This should not happen, defaulting to unpaid or throw error")
+        elif (paid == 1 and unpaid == 0):
+            inv_status = 1
+        elif (paid == 0 and unpaid == 1):
+            inv_status = 0
+        elif (paid == 1 and unpaid == 1):
+            print("This should not happen, default to unpaid or throw error")
+        else:
+            print("Something has gone horribly wrong")
+        return inv_status
 
 
 

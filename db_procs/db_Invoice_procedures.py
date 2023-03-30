@@ -12,6 +12,7 @@ class db_Invoice_procedures:
 
     def create_base_table(self):
         self.create_connection()
+        #Status should be 0 for unpaid, 1 for paid
         sql_statement = """ CREATE TABLE IF NOT EXISTS invoice (
                                                 id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                                                 creation_date TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%S','now', 'localtime')) NOT NULL,
@@ -105,3 +106,29 @@ class db_Invoice_procedures:
                 return row
             except Error as e:
                 print(e)
+
+    def get_invoices_by_search_params(self, selected_cust, start_date, end_date, invoice_status):
+        self.create_connection()
+        sql_statement = """ SELECT * FROM invoice WHERE buyer_id = ? AND (creation_date BETWEEN ? AND ?) AND status = ?"""
+        cur = self.conn.cursor()
+        cur.execute(sql_statement, [selected_cust, start_date, end_date, invoice_status])
+        rows = cur.fetchall()
+
+        return rows
+    
+    def get_recent_invoices(self, todaysDate):
+        self.create_connection()
+        sql_statement = """ SELECT * FROM invoice WHERE creation_date <= ? LIMIT 50 """
+        cur = self.conn.cursor()
+        cur.execute(sql_statement, [todaysDate])
+        rows = cur.fetchall()
+
+        return rows
+    
+    def update_paid_status(self, invoice_number, paid_status):
+        self.create_connection()
+        sql_statement = """ UPDATE invoice SET status = ? WHERE id = ? """
+        #print("updating" + str(invoice_number) + str(paid_status))
+        cur = self.conn.cursor()
+        cur.execute(sql_statement, [paid_status, invoice_number])
+        self.conn.commit()

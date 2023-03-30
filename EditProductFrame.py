@@ -20,10 +20,11 @@ class EditProductFrame():
     #Controls the title of the frame.
     frame_title = "Edit Product Frame"
 
-    def __init__(self, parent_frame, product_list):
+    def __init__(self, parent_frame, product_list, viewproductframeclass):
         self.base_frame = parent_frame
         self.coordinator = GPFISCoordinator()
         self.product_list = product_list
+        self.vpf = viewproductframeclass
         self.build_frame()
 
     def set_up_frame(self):
@@ -34,7 +35,7 @@ class EditProductFrame():
         oProduct = ProductObj(productList = self.getEntryElements())
         #print(oProduct.asListForDBUpdate())
         self.coordinator.update_product(ProductObj = oProduct)
-
+        self.vpf.build_frame()
         
         self.edit_product_frame.update()
         self.edit_product_frame.destroy()

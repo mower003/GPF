@@ -5,9 +5,6 @@ from GPFISCoordinator import GPFISCoordinator
 
 class InvoiceLineItemWidget():
 
-    product_dict = {"77":"Tokyo Negi", "78": "Kabu (Packed in bags)", "1": "Cucumber (Kyuuri)(Loose 50 lb box)"}
-    price_dict = {"77":2.53, "78": 2.03, "1": 1.85}
-
     def __init__(self, parent_frame):
         self.base_frame = parent_frame
         self.productObjList = []

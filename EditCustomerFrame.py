@@ -22,8 +22,9 @@ class EditCustomerFrame():
     #Controls the title of the frame.
     frame_title = "Edit Entity Frame"
 
-    def __init__(self, parent_frame, entity_list):
+    def __init__(self, parent_frame, viewcustomerframeclass, entity_list):
         self.base_frame = parent_frame
+        self.vcf = viewcustomerframeclass
         self.coordinator = GPFISCoordinator()
         self.entity_list = entity_list
         self.build_frame()
@@ -36,7 +37,7 @@ class EditCustomerFrame():
         oEntity = EntityObj(entityList = self.getEntryElements())
         #print(oProduct.asListForDBUpdate())
         self.coordinator.update_entity(EntityObj = oEntity)
-
+        self.vcf.build_frame()
         
         self.edit_entity_frame.update()
         self.edit_entity_frame.destroy()

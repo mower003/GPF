@@ -121,7 +121,7 @@ class AddInvoiceFrame():
             #date_list = self.date_and_invoice_widg.get_dates()
             inv_note = ''
             issuer_id = int(37)
-            customer_id = self.coordinator.get_entity_id_by_name(current_customer)
+            customer_id = self.coordinator.get_entity_id_by_name(current_customer, exactMatch=True)
             inv_status = 0
             inv_discount = round(float(self.discount_display.get()),2)
             tax_amount = 0

@@ -1,4 +1,5 @@
 import tkinter as tk
+from GPFISCoordinator import GPFISCoordinator
 
 class ViewInvoiceSummaryWidget():
     #Static Settings
@@ -17,15 +18,17 @@ class ViewInvoiceSummaryWidget():
 
     def __init__(self, parent_frame):
         self.base_frame = parent_frame
+        self.coordinator = GPFISCoordinator()
         self.invoice_summary_frame = tk.Frame(self.base_frame, bg=self.bg_color)
         self.invoice_summary_frame.pack(side='top', fill='x', expand=1)
 
-        self.invoice_summary_frame.grid_columnconfigure((0,1,2,3,4), weight=1, uniform='column')
+        self.invoice_summary_frame.grid_columnconfigure((1,2), weight=2, uniform='column')
+        self.invoice_summary_frame.grid_columnconfigure((0,3,4), weight=1, uniform='column')
         self.paid_status_var = tk.BooleanVar()
 
-        self.inv_num_lbl = tk.Label(self.invoice_summary_frame, text="Null", bg=self.data_color, font=(self.data_font, 12), borderwidth=1, relief='solid')
-        self.customer_name_lbl = tk.Label(self.invoice_summary_frame, text="Null", bg=self.data_color, font=(self.data_font, 12), borderwidth=1, relief='solid')
-        self.invoice_total = tk.Label(self.invoice_summary_frame, text="Null", bg=self.data_color, font=(self.data_font, 12), borderwidth=1, relief='solid')
+        self.inv_num_lbl = tk.Label(self.invoice_summary_frame, text="Null", bg=self.data_color, font=(self.data_font, 12), borderwidth=1, relief='solid', anchor='w')
+        self.customer_name_lbl = tk.Label(self.invoice_summary_frame, text="Null", bg=self.data_color, font=(self.data_font, 12), borderwidth=1, relief='solid', anchor='w')
+        self.invoice_total = tk.Label(self.invoice_summary_frame, text="Null", bg=self.data_color, font=(self.data_font, 12), borderwidth=1, relief='solid', anchor='w')
         self.paid_checkbox = tk.Checkbutton(self.invoice_summary_frame, text="Paid", variable=self.paid_status_var, command=lambda: self.update_paid_status(), borderwidth=1, relief='solid')
         self.edit_invoice_btn = tk.Button(self.invoice_summary_frame, text="Edit", bg=self.data_color, command=lambda: self.edit_invoice_window(), borderwidth=1, relief='solid')
 
@@ -37,13 +40,14 @@ class ViewInvoiceSummaryWidget():
         self.edit_invoice_btn.grid(column=4, row=0, sticky='E,W')
 
     def set_widget_values(self, inv_num, customer_name, invoice_total, paid_status=0):
-        self.inv_num_lbl.config(text=inv_num)
-        self.customer_name_lbl.config(text=customer_name)
-        self.invoice_total.config(text=invoice_total)
+        self.inv_num_lbl.config(text="Invoice #: " + str(inv_num))
+        self.customer_name_lbl.config(text= "Customer: " + str(customer_name))
+        self.invoice_total.config(text="Inv Total: " + str(invoice_total))
         self.paid_status_var.set(paid_status)
         
     def update_paid_status(self):
-        print("Paid status changed to: ", self.paid_status_var.get())
+        self.coordinator.update_paid_status(self.get_invoice_number(), self.get_paid_status())
+        #print("Paid status changed to: ", self.paid_status_var.get())
 
     def edit_invoice_window(self):
         top = tk.Toplevel(self.base_frame)
@@ -52,7 +56,8 @@ class ViewInvoiceSummaryWidget():
         top.mainloop()
 
     def get_invoice_number(self):
-        return self.inv_num_lbl.cget("text")
+        inv_num = str(self.inv_num_lbl.cget("text"))
+        return inv_num.replace('Invoice #: ', '')
 
     def get_customer_name(self):
         return self.customer_name_lbl.cget("text")
