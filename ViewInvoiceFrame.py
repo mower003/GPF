@@ -32,10 +32,9 @@ class ViewInvoiceFrame():
 
     def setup_frame(self):
         self.invoice_view_frame = tk.Frame(self.base_frame, bg = self.bg_color, pady=20)
-        self.search_frame = tk.Frame(self.base_frame, bg = self.bg_color, pady=20)
-        self.invoice_view_frame.pack(side='right', expand=1, fill='x', anchor='n')
-        self.unpaid_var = tk.BooleanVar()
-        self.paid_var = tk.BooleanVar()
+        self.search_frame = tk.Frame(self.base_frame, bg = self.bg_color, pady=5)
+        #self.invoice_view_frame.pack(side='right', expand=1, anchor='n')
+        self.invoice_view_frame.grid(row = 0, column=1)
 
     def create_search_widget(self):
         self.isw = InvoiceSearchWidget(self.search_frame)
@@ -43,17 +42,24 @@ class ViewInvoiceFrame():
 
         self.search_btn = tk.Button(self.search_frame, text="Search...", width = 20, command=lambda: self.search_and_filter_by_customer())
         self.search_btn.pack(side='top')
-        self.search_frame.pack(side='top')
+        #self.search_frame.pack(side='top', anchor='nw')
+        self.search_frame.grid(row=0, column=0)
 
     def create_invoice_view(self, customer_name=None):
         tdy = date.today()
 
-        self.fetch_recent_invoice_data(tdy)
+        if customer_name is None:
+            self.fetch_recent_invoice_data(tdy)
 
-        for invObj in self.invoice_object_list:
-            visw = ViewInvoiceSummaryWidget(self.invoice_view_frame)
-            visw.set_widget_values(invObj.get_inv_num(), invObj.get_buyer_name(), invObj.get_total(), invObj.get_status())
-            visw.setup_frame()
+            for invObj in self.invoice_object_list:
+                visw = ViewInvoiceSummaryWidget(self.invoice_view_frame)
+                visw.set_widget_values(invObj.get_inv_num(), invObj.get_buyer_name(), invObj.get_total(), invObj.get_status())
+                visw.setup_frame()
+        else:
+            for invObj in self.invoice_object_list:
+                visw = ViewInvoiceSummaryWidget(self.invoice_view_frame)
+                visw.set_widget_values(invObj.get_inv_num(), invObj.get_buyer_name(), invObj.get_total(), invObj.get_status())
+                visw.setup_frame()
         #View will automatically get the most recent 50 invoices. (maybe?)
         #If invoices beyond that are required user will have to use the search function
         #Search can only be done by date or customer and combo of paid/unpaid.

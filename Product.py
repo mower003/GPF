@@ -1,6 +1,5 @@
 import locale
 from enum import Enum
-from unicodedata import name
 
 class ProductObjEnum(Enum):
     PRODUCT_ID = 0
@@ -23,7 +22,7 @@ class ProductObj:
             self.case_style = case_style
             self.note = note
         else:
-            self.id = int(productList[ProductObjEnum.PRODUCT_ID.value])
+            self.id = productList[ProductObjEnum.PRODUCT_ID.value]
             self.name = productList[ProductObjEnum.PRODUCT_NAME.value]
             self.description = productList[ProductObjEnum.DESCRIPTION.value]
             self.unit_price = locale.currency((float(productList[ProductObjEnum.UNIT_PRICE.value])), False, False, False)

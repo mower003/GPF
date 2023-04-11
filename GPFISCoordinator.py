@@ -25,6 +25,8 @@ from sqlite3 import Error
 
 ##C:\Users\dunju\Documents\GPF\database\sqlite
 #sqlite3 C:\Users\dunju\Documents\GPF\database\sqlite\db\gpfdb.db
+#.headers on
+#.mode columns
 
 class GPFISCoordinator:
 
@@ -106,6 +108,28 @@ class GPFISCoordinator:
         finally:
             invoice_item_conn.close_connection()
 
+    def update_invoice(self, InvoiceObj=None):
+        try:
+            if isinstance(InvoiceObj, InvObj):
+                invoice_conn = db_conn_invoice(self.db_location)
+                invoice_item_conn = db_conn_invoiceItem(self.db_location)
+
+                invoice_conn.update_invoice(InvoiceObj.asListForDBUpdate())
+                
+                inv_item_list = InvoiceObj.getInvoiceItemList()
+
+                invoice_item_conn.delete_lines_by_invoice_id(InvoiceObj.get_inv_num())
+                
+                for lines in inv_item_list:
+                    invoice_item_conn.insert_invoice_item(lines.asListForDBInsertion())
+                    print("The following InvoiceItemObj from GPFISCoordinator -> insert_invoice_items() inserted into DB: ", lines.asListForDBInsertion())
+        except Error as e:
+            err_msg = e
+            print(err_msg)
+        finally:
+            invoice_conn.close_connection()
+            invoice_item_conn.close_connection()
+
     def get_next_invoice(self):
         invoice_conn = db_conn_invoice(self.db_location)
         next_inv_num = invoice_conn.next_invoice_number()
@@ -170,8 +194,45 @@ class GPFISCoordinator:
             inv_conn.close_connection()
 
 
-    def view_invoice(self):
-        print("todo")
+    def fetch_invoice_for_edit(self, inv_num):
+        try:
+            inv_conn = db_conn_invoice(self.db_location)
+            inv_item_conn = db_conn_invoiceItem(self.db_location)
+
+            inv_data = inv_conn.get_invoice_by_invoice_id(inv_num)
+            inv_line_item_data = inv_item_conn.get_invoice_items_by_invoice_id(inv_num)
+
+            print(inv_data)
+            print(inv_line_item_data)
+
+            oInvoice = InvObj(invList=inv_data)
+            buyer_name = self.get_entity_name_by_id(oInvoice.get_buyer_id())
+            oInvoice.set_buyer_name(buyer_name)
+
+            for lines in inv_line_item_data:
+                print(lines)
+                oInvoice.addInvoiceItem(invItemAsList=lines)
+
+            for items in oInvoice.invItemsObjList:
+                print(items)
+                print("ITEMS ID: ", items.getProductID())
+                product = self.get_product_by_id(items.getProductID())
+                print("after fetch ", product)
+                items.setDescription(product.getDescription())
+                items.calculateLineTotal()
+
+            return oInvoice
+
+        except Error as e:
+            err_msg = e
+            print(err_msg)
+            ErrorPopUpWindow().create_error_window(err_msg)
+        except IndexError as err_msg:
+            print(err_msg)
+            ErrorPopUpWindow().create_error_window(err_msg)
+        finally:
+            inv_conn.close_connection()
+            inv_item_conn.close_connection()
 
     def modify_invoice(self):
         print("todo")
@@ -291,6 +352,19 @@ class GPFISCoordinator:
         finally:
             entity_conn.close_connection()
 
+    def get_entity_by_id(self, id):
+        try:
+            entity_conn = db_conn_entity(self.db_location)
+            entity = entity_conn.get_entity_by_id(id)
+            entityObj = EntObj(entityList=entity)
+            return entityObj
+        except Error as e:
+            print(e)
+        finally:
+            entity_conn.close_connection()
+
+
+
 
 #*************************************************************
 ############################## Product #######################
@@ -344,8 +418,9 @@ class GPFISCoordinator:
         try:
             product_conn = db_conn_product(self.db_location)
             product = product_conn.get_product_by_id(product_id)
+            print(product)
             oProduct = ProdObj(productList= product)
-            #print(product)
+            
             return oProduct
         except Error as e:
             print(e)

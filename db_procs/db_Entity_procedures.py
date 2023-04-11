@@ -120,20 +120,13 @@ class db_Entity_procedures:
             self.close_connection()
 
     def get_entity_by_id(self, id):
-        try:
-            self.create_connection()
-            sql_statement = """ SELECT * FROM entity where id = ? """
-            cur = self.conn.cursor()
-            cur.row_factory = lambda cursor, row: row[0]
-            cur.execute(sql_statement, [id])
-            rows = cur.fetchall()
-            cur.row_factory = None
+        self.create_connection()
+        sql_statement = """ SELECT id, name, street_number, street_name, city, state, zip, country, is_active FROM entity where id = ? """
+        cur = self.conn.cursor()
+        cur.execute(sql_statement, [id])
+        row = cur.fetchone()
 
-            return rows
-        except Error as e:
-            print(e)
-        finally:
-            self.close_connection()
+        return row
 
     def get_entity_name_by_id(self, id):
         try:

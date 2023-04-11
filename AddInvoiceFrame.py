@@ -136,7 +136,7 @@ class AddInvoiceFrame():
             tax_amount=tax_amount, subtotal=subtotal, total=total, credit_inv_num=credit_inv_num)
 
             for lines in line_items:
-                lines.insert(0, current_inv_num)
+                lines.insert(1, current_inv_num)
                 print(lines)
                 the_invoice.addInvoiceItem(invItemAsList=lines)
 

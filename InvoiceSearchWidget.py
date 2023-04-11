@@ -26,14 +26,14 @@ class InvoiceSearchWidget():
         self.invoice_date_frame = tk.Frame(self.base_frame, bg=self.bg_color, padx=5, pady=5)
         self.paid_status_frame = tk.Frame(self.base_frame, bg=self.bg_color, padx=5, pady=5)
 
-        self.customer_search_box = tk.Entry(self.customer_search_frame, foreground='grey', width=55)
+        self.customer_search_box = tk.Entry(self.customer_search_frame, foreground='grey', width=30)
         self.customer_search_box.bind("<Button-1>", self.clear_customer_search_default)
         self.customer_search_box.insert(tk.END, "Search by Customer Name...")
 
         self.date_selection_start_lbl = tk.Label(self.invoice_date_frame, text="Date Begin: ")
         self.date_selection_end_lbl = tk.Label(self.invoice_date_frame, text="Date End: ")
-        self.date_selection_start = DateEntry(self.invoice_date_frame, width=50, background='darkblue', foreground='white', borderwidth=2)
-        self.date_selection_end = DateEntry(self.invoice_date_frame, width=12, background='darkblue', foreground='white', borderwidth=2)
+        self.date_selection_start = DateEntry(self.invoice_date_frame, width=30, background='darkblue', foreground='white', borderwidth=2)
+        self.date_selection_end = DateEntry(self.invoice_date_frame, width=30, background='darkblue', foreground='white', borderwidth=2)
 
         self.unpaid_lbl = tk.Label(self.paid_status_frame, text="Check to filter by unpaid: ")
         self.unpaid_checkbox = tk.Checkbutton(self.paid_status_frame,text="Unpaid", variable=self.unpaid_var)
@@ -52,7 +52,7 @@ class InvoiceSearchWidget():
         self.unpaid_checkbox.grid(row = 1, column = 1, sticky='e,w')
 
         self.customer_search_frame.pack(side='top')
-        self.invoice_date_frame.pack(side='top')
+        self.invoice_date_frame.pack(side='top', expand=1)
         self.paid_status_frame.pack(side='top')
 
     def clear_customer_search_default(self, e):

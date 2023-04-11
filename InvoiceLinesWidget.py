@@ -1,5 +1,6 @@
 import tkinter as tk
 from InvoiceLineItemWidget import InvoiceLineItemWidget
+from GPFISCoordinator import GPFISCoordinator
 
 class InvoiceLinesWidget():
     #Static Settings
@@ -21,8 +22,12 @@ class InvoiceLinesWidget():
 
     def __init__(self, parent_frame):
         self.base_frame = parent_frame
+        self.productObjList = []
         self.lbl_list = []
         self.line_item_list = []
+        self.coordinator = GPFISCoordinator()
+        self.cache_product_data()
+
 
     def setup_frame(self):
         self.lines_frame = tk.Frame(self.base_frame, bg=self.bg_color, padx=45)
@@ -41,6 +46,13 @@ class InvoiceLinesWidget():
             #self.entry_list.append(entry)
             col += 1
         self.lines_frame.pack(side="top", fill="both", expand=True)
+
+    def cache_product_data(self):
+        self.productObjList = self.coordinator.get_products()
+
+        print("#####Caching Product Data#####")
+        for obs in self.productObjList:
+            print(obs.asList())
 
     def create_lines(self, max_lines=20):
 
@@ -104,6 +116,9 @@ class InvoiceLinesWidget():
         line15.place_line_item(15)
         self.line_item_list.append(line15)
 
+        for lines in self.line_item_list:
+            lines.setProductData(self.productObjList)
+
         #line16 = InvoiceLineItemWidget(self.lines_frame)
         #line16.place_line_item(16)
 
@@ -119,11 +134,20 @@ class InvoiceLinesWidget():
         #line20 = InvoiceLineItemWidget(self.lines_frame)
         #line20.place_line_item(20)
 
+    def populate_lines(self, invObj):
+        invoice_item_list = invObj.getInvoiceItemList()
+        index = 0
+        for lines in invoice_item_list:
+            self.line_item_list[index].set_line_item_attributes(lines.asUpdateList())
+            index += 1
+
+
     def get_all_line_items(self):
         line_items = []
         #print("wholelist ", self.line_item_list)
         for lines in self.line_item_list:
             line = lines.get_line_elements_as_list()
+            #Check for lines that have not had data added to them.
             if line[0] == '' or line[0] == ' ':
                 continue
             else:

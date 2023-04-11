@@ -1,5 +1,6 @@
 import tkinter as tk
 from sqlite3 import Error
+import locale
 from ErrorPopUpWindow import ErrorPopUpWindow
 from GPFISCoordinator import GPFISCoordinator
 
@@ -25,8 +26,6 @@ class InvoiceLineItemWidget():
         self.quantity_entry.bind("<KeyRelease>", self.monitor_search_box)
         self.item_no_entry.bind("<KeyRelease>", self.product_lookup)
 
-        self.cache_product_data()
-
     def place_line_item(self, theRow):
         self.line_id = theRow
         self.quantity_entry.grid(row=theRow, column=0, sticky='N,E,W', pady=2, ipady=8)
@@ -44,12 +43,12 @@ class InvoiceLineItemWidget():
             else:
                 element_list = []
                 element_list.append(int(self.line_id))
-                element_list.append(int(self.quantity_entry.get()))
-                element_list.append(str(self.cases_entry.get()))
                 element_list.append(int(self.item_no_entry.get()))
-                element_list.append(str(self.description_entry.get('1.0', 'end-1c')))
-                element_list.append(str(self.note_entry.get('1.0', 'end-1c')))
+                element_list.append(str(self.cases_entry.get()))
+                element_list.append(int(self.quantity_entry.get()))
                 element_list.append(float(self.price_entry.get()))
+                element_list.append(str(self.note_entry.get('1.0', 'end-1c')))
+                element_list.append(str(self.description_entry.get('1.0', 'end-1c')))
                 element_list.append(float(self.line_total_entry.get()))
         except ValueError as e:
             print("ValueError: Error returning list: InvoiceLineItemWidget: get_line_elements_as_list", e)
@@ -68,17 +67,44 @@ class InvoiceLineItemWidget():
         if line_tot == '':
             line_tot = 0
         else:
-            line_tot = round(float(line_tot), 2)
+            line_tot = locale.currency(float(line_tot), False, False, False)
         return line_tot
+    
+    def set_line_item_attributes(self, lineItem):
+        print("from inside setlineitemattr: ", lineItem)
+        self.enable_line_item_attributes()
+        self.line_id = lineItem[0]
+        self.quantity_entry.insert(0, int(lineItem[1]))
+        self.cases_entry.insert(0, str(lineItem[2]))
+        self.item_no_entry.insert(0, int(lineItem[3]))
+        self.description_entry.insert("1.0", str(lineItem[4]))
+        self.note_entry.insert("1.0", str(lineItem[5]))
+        self.price_entry.insert(0, locale.currency(float(lineItem[6]), False, False, False))
+        self.line_total_entry.insert(0, locale.currency(float(lineItem[7]), False, False, False))
+        self.disable_standard_item_attributes()
+
+    def enable_line_item_attributes(self):
+        self.description_entry.config(state='normal')
+        self.quantity_entry.config(state='normal')
+        self.cases_entry.config(state='normal')
+        self.item_no_entry.config(state='normal')
+        self.description_entry.config(state='normal')
+        self.note_entry.config(state='normal')
+        self.price_entry.config(state='normal')
+        self.line_total_entry.config(state='normal')
+
+    def disable_standard_item_attributes(self):
+        self.description_entry.config(state='disabled')
+        self.line_total_entry.config(state='disabled')
 
     def get_line_id(self):
         return self.line_id
 
     def calculate_line_total(self):
         #calculate total
-        qty = float(self.quantity_entry.get())
-        price = float(self.price_entry.get())
-        total = round((qty * price),2)
+        total = int(self.quantity_entry.get()) * float(self.price_entry.get())
+        total = locale.currency(float(total), False, False, False)
+        print("(Invoice Line Item Widget) Line Total Calculation -> ", total)
         self.line_total_entry.config(state='normal')
         self.line_total_entry.delete(0, tk.END)
         self.line_total_entry.insert(0, total)
@@ -148,11 +174,7 @@ class InvoiceLineItemWidget():
             print("Uncaught Exception: Something went wrong with item number/description fields.", e)
             self.errorPrompt.create_error_window(e)
 
-    def cache_product_data(self):
-        self.coordinator = GPFISCoordinator()
-        self.productObjList = self.coordinator.get_products()
-
-        for obs in self.productObjList:
-            print(obs.asList())
+    def setProductData(self, productList):
+        self.productObjList = productList
 
 

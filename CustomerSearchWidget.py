@@ -102,6 +102,11 @@ class CustomerSearchWidget():
 
     def get_selected_customer(self):
         return self.current_customer
+    
+    def set_customer(self, customerName):
+        self.customer_listbox.delete(0, tk.END)
+        self.customer_listbox.insert(tk.END, customerName)
+        self.populate_customer_label(e=None)
 
     def clear_display_frame(self):
         for children in self.base_frame.winfo_children():

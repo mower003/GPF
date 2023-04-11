@@ -63,6 +63,16 @@ class db_Invoice_procedures:
             except Error as e:
                 print(e)
 
+                
+    def update_invoice(self, invoiceList=None):
+        self.create_connection()
+        sql_statement = """ UPDATE invoice SET creation_date = ?, delivery_date = ?, note = ?, issuer_id = ?, buyer_id = ?, status = ?, discount_rate = ?, subtotal = ?, tax_total = ?, credit_invoice_num = ?
+                                WHERE id = ? """
+        cur = self.conn.cursor()
+        cur.execute(sql_statement, invoiceList)
+        self.conn.commit()
+        
+
     def next_invoice_number(self):
         try:
             self.create_connection()
@@ -76,20 +86,13 @@ class db_Invoice_procedures:
             print(e)
 
     def get_invoice_by_invoice_id(self, invoice_id=None):
-        if invoice_id is None:
-            print("Error, no invoice id supplied")
-        else:
-            try:
-                self.create_connection()
-                invoice_id_as_list = [invoice_id]
-                sql_statement = """ SELECT * FROM invoice where id = ?"""
-                cur = self.conn.cursor()
-                cur.execute(sql_statement, invoice_id_as_list)
-                row = cur.fetchone()
+        self.create_connection()
+        sql_statement = """ SELECT * FROM invoice where id = ?"""
+        cur = self.conn.cursor()
+        cur.execute(sql_statement, [invoice_id])
+        row = cur.fetchone()
 
-                return row
-            except Error as e:
-                print(e)
+        return row
 
     def get_invoice_by_customer_id(self, customer_id):
         if customer_id is None:

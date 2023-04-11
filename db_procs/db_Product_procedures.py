@@ -67,34 +67,27 @@ class db_Product_procedures:
             self.close_connection()
 
     def get_product_by_id(self, prod_id):
-        try:
-            self.create_connection()
-            sql_statement = """ SELECT * FROM product WHERE id = ? """
-            cur = self.conn.cursor()
-            cur.execute(sql_statement, [prod_id])
-            rows = cur.fetchall()
-            
-            return rows
-        except Error as e:
-            print(e)
+        self.create_connection()
+        sql_statement = """ SELECT * FROM product WHERE id = ? """
+        cur = self.conn.cursor()
+        cur.execute(sql_statement, [prod_id])
+        rows = cur.fetchall()
+        
+        return rows[0]
 
     def update_product(self, productObjAsList):
-        try:
-            self.create_connection()
-            print("INSIDE DB CONN UPDATE", productObjAsList)
-            sql_statement = """ UPDATE product SET 
-                name = ?, 
-                description = ?,
-                unit_price = ?,
-                case_style = ?,
-                note = ?
-            WHERE id = ? """
-            cur = self.conn.cursor()
-            cur.execute(sql_statement, productObjAsList)
-            self.conn.commit()
-    
-        except Error as e:
-            print(e)
+        self.create_connection()
+        print("INSIDE DB CONN UPDATE", productObjAsList)
+        sql_statement = """ UPDATE product SET 
+            name = ?, 
+            description = ?,
+            unit_price = ?,
+            case_style = ?,
+            note = ?
+        WHERE id = ? """
+        cur = self.conn.cursor()
+        cur.execute(sql_statement, productObjAsList)
+        self.conn.commit()
 
 
     def delete_product(self, prod_id):
