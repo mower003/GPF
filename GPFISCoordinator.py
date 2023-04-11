@@ -331,8 +331,8 @@ class GPFISCoordinator:
         print("FROM GPFISCoordinator:get_entities_simple()",entityList)
 
         for entities in entityList:
-            entityObj = EntObj()
-            entityObj.addEntityAsTuple(entities)
+            entityObj = EntObj(entityList=entities)
+            #entityObj.addEntityAsTuple(entities)
             entityObjList.append(entityObj)
 
         print(entityObjList)

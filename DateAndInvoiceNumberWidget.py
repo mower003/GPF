@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkcalendar import Calendar, DateEntry
+from datetime import datetime
 
 class DateAndInvoiceNumberWidget():
 
@@ -66,6 +67,12 @@ class DateAndInvoiceNumberWidget():
 
     def set_invoice_number(self, inv_num):
         self.invoice_num_label.config(text=str(inv_num))
+
+    def set_creation_date(self, date):
+        self.invoice_date_selection.set_date(datetime.strptime(date, "%Y-%m-%d"))
+
+    def set_delivery_date(self, date):
+        self.delivery_date_selection.set_date(datetime.strptime(date, "%Y-%m-%d"))
 
     def build_frame(self):
         self.setup_frame()

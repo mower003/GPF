@@ -70,6 +70,8 @@ class EditInvoiceFrame():
         #Build the invoice number and date functionality
         self.date_and_invoice_widg.build_frame()
         self.date_and_invoice_widg.set_invoice_number(self.oInvoice.get_inv_num())
+        self.date_and_invoice_widg.set_delivery_date(self.oInvoice.get_delivery_date())
+        self.date_and_invoice_widg.set_creation_date(self.oInvoice.get_creation_date())
 
         #Build the invoice lines frame
         self.inv_lines_widget.build_frame()
