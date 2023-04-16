@@ -31,9 +31,9 @@ class ViewInvoiceSummaryWidget():
         self.inv_num_lbl = tk.Label(self.invoice_summary_frame, text="Null", bg=self.data_color, font=(self.data_font, 12), borderwidth=1, relief='solid', anchor='w')
         self.customer_name_lbl = tk.Label(self.invoice_summary_frame, text="Null", bg=self.data_color, font=(self.data_font, 12), borderwidth=1, relief='solid', anchor='w')
         self.invoice_total = tk.Label(self.invoice_summary_frame, text="Null", bg=self.data_color, font=(self.data_font, 12), borderwidth=1, relief='solid', anchor='w')
-        self.paid_checkbox = tk.Checkbutton(self.invoice_summary_frame, text="Paid", variable=self.paid_status_var, command=lambda: self.update_paid_status(), borderwidth=1, relief='solid')
-        self.edit_invoice_btn = tk.Button(self.invoice_summary_frame, text="Edit", bg=self.data_color, command=lambda: self.edit_invoice_window(), borderwidth=1, relief='solid')
-        self.preview_invoice_btn = tk.Button(self.invoice_summary_frame, text="Print Preview", bg=self.data_color, command=lambda: self.print_preview(), borderwidth=1, relief='solid')
+        self.paid_checkbox = tk.Checkbutton(self.invoice_summary_frame, text="Paid", variable=self.paid_status_var, command=lambda: self.update_paid_status(), borderwidth=1, relief='solid', activebackground='#D3D3D3')
+        self.edit_invoice_btn = tk.Button(self.invoice_summary_frame, text="Edit", bg=self.data_color, command=lambda: self.edit_invoice_window(), borderwidth=1, relief='solid', activebackground='#D3D3D3')
+        self.preview_invoice_btn = tk.Button(self.invoice_summary_frame, text="Print Preview", bg=self.data_color, command=lambda: self.print_preview(), borderwidth=1, relief='solid', activebackground='#D3D3D3')
 
     def setup_frame(self):
         self.inv_num_lbl.grid(column=0, row=0, sticky='E,W')

@@ -101,7 +101,7 @@ class EditInvoiceFrame():
                 print(subtotal)
                 total = float(subtotal) - float(typed)
 
-                #readonly entry boxes have to bet set to normal before you can update
+                #readonly entry boxes have to be set to normal before you can update
                 self.subtotal_display.configure(state='normal')
                 self.total_display.configure(state='normal')
 
@@ -122,6 +122,7 @@ class EditInvoiceFrame():
 
     def save_invoice(self):
         try:
+            self.update_totals("fake e")
             current_inv_num = self.date_and_invoice_widg.get_invoice_number()
             current_customer = self.cust_widg_frame.get_selected_customer()
             inv_date = self.date_and_invoice_widg.get_invoice_date()

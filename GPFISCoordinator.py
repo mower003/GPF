@@ -1,5 +1,6 @@
 from asyncio.windows_events import NULL
 import sqlite3
+import os
 from datetime import datetime
 from Invoice import InvoiceObj as InvObj
 from Entity import EntityObj as EntObj
@@ -16,8 +17,6 @@ from db_procs.db_InvoiceItem_procedures import db_InvoiceItem_procedures as db_c
 from db_procs.db_Invoice_procedures import db_Invoice_procedures as db_conn_invoice
 from db_procs.db_Product_procedures import db_Product_procedures as db_conn_product
 
-
-from contextlib import closing
 from sqlite3 import Error
 
 #Connect to DB from command line use below from C:\Users\User\Desktop\GPF_Project\GPF\database\sqlite> directory
@@ -29,10 +28,13 @@ from sqlite3 import Error
 #.mode columns
 
 class GPFISCoordinator:
+    absolute_path = os.path.dirname(__file__)
+    relative_path = "database\sqlite\db\gpfdb.db"
+    full_path = os.path.join(absolute_path, relative_path)
 
     def __init__(self):
-        self.db_location = r"GPF\database\sqlite\db\gpfdb.db"
-        self.db_location = r"C:\Users\dunju\Documents\GPF\database\sqlite\db\gpfdb.db"
+        self.db_location = self.full_path
+        #self.db_location = r"C:\Users\dunju\Documents\GPF\database\sqlite\db\gpfdb.db"
         #print(self.db_location)
 
     def create_database_tables(self):

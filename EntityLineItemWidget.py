@@ -9,7 +9,7 @@ class EntityLineItemWidget():
     #Static Settings
     #Color theme
     #bg_color = '#395144'
-    bg_color = '#FFFFFF'
+    bg_color = '#D3D3D3'
     #bg_color = '#E5E4E2'
     label_color = '#4E6C50'
     data_color = '#AA8B56'

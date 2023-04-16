@@ -51,7 +51,7 @@ class ViewProductFrame():
         row = 0
         col = 0
         for headers in self.product_compositional_elements:
-            lbl = tk.Label(self.product_lines_frame, text = headers, font=(self.header_font,20), bg=self.header_color)
+            lbl = tk.Label(self.product_lines_frame, text = headers, font=(self.header_font,20), bg=self.bg_color)
             lbl.grid(row = row, column = col, sticky = "W,E")
             col += 1
         self.create_product_lines()

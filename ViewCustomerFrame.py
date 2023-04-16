@@ -19,7 +19,7 @@ class ViewCustomerFrame():
     label_font = 'MS Sans Serif'
     data_font = 'MS Sans Serif'
     #Controls the title of the frame.
-    frame_title = "Entity List"
+    frame_title = "Customer List"
 
     def __init__(self, parent_frame):
         self.base_frame = parent_frame
@@ -60,7 +60,7 @@ class ViewCustomerFrame():
         col = 0
         for headers in self.customer_compositional_elements:
             print(headers)
-            lbl = tk.Label(self.entity_lines_frame, text = headers, font=(self.header_font,20), bg=self.header_color)
+            lbl = tk.Label(self.entity_lines_frame, text = headers, font=(self.header_font,20), bg=self.bg_color)
             lbl.grid(row = row, column = col, sticky = "W,E")
             col += 1
         self.create_entity_lines()

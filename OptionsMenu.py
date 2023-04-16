@@ -16,8 +16,6 @@ class GPF_OptionsMenu:
 
         self.filemenu = Menu(self.menubar, tearoff=0)
         self.filemenu.add_command(label="Order Board", command= lambda: order_board_frame.build_frame())
-        self.filemenu.add_command(label="Open", command=donothing)
-        self.filemenu.add_command(label="Close", command=donothing)
 
         self.filemenu.add_separator()
 
