@@ -16,7 +16,7 @@ class GPFUI():
         root = tk.Tk()
 
         root.title('Green Paradise Farms')
-        root.iconbitmap('GPFISHTMLObjects\Invoices\imgs\green-leaf-logo-vector.ico')
+        root.iconbitmap('GPFISHTMLObjects\Invoices\imgs\gpf_logo.ico')
 
         window_width = 700
         window_height = 500

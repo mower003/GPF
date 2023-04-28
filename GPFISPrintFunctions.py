@@ -9,7 +9,7 @@ class GPFIS2HTML():
     document_location = r"C:\Users\dunju\Documents\GPF\GPFISHTMLObjects\Invoices"
     #css_path = 'GPFISHTMLObjects\css\gpf.css'
     css_path = "./css/gpf.css"
-    logo_path = "./imgs/green-leaf-logo-vector.jpg"
+    logo_path = "./imgs/gpf_logo.png"
 
     def __init__(self, inv_num):
         self.entityObj = None

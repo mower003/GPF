@@ -1,11 +1,12 @@
 import tkinter as tk
 from sqlite3 import Error
 
-
 from CustomerSearchWidget import CustomerSearchWidget
 from DateAndInvoiceNumberWidget import DateAndInvoiceNumberWidget
 from InvoiceLinesWidget import InvoiceLinesWidget
+from InvoiceInfoWidget import InvoiceInfoWidget
 from Invoice import InvoiceObj
+from Entity import EntityObj
 from GPFISCoordinator import GPFISCoordinator
 from ErrorPopUpWindow import ErrorPopUpWindow
 
@@ -31,16 +32,40 @@ class AddInvoiceFrame():
         self.base_frame = parent_frame
         self.coordinator = GPFISCoordinator()
         self.errorPrompt = ErrorPopUpWindow(parent_frame)
+        self.entityList = self.cache_entity_data()
+        self.oInvoice = InvoiceObj()
 
     def setup_frame(self):
+        subtotvar = tk.DoubleVar(0.00)
+        totvar = tk.DoubleVar(0.00)
+        discvar = tk.DoubleVar(0.00)
+
         self.invoice_header_frame = tk.Frame(self.base_frame, bg=self.invoice_bg_color, padx=5, pady=5)
-        self.cust_widg_frame = CustomerSearchWidget(self.invoice_header_frame)
+
+        self.billto_frame = CustomerSearchWidget(self.invoice_header_frame)
+        self.billto_frame.set_top_label("Bill To:")
+        self.billto_frame.set_entity_list(self.entityList)
+        self.billto_frame.set_invoice_object(self.oInvoice)
+
+        self.shipto_frame = CustomerSearchWidget(self.invoice_header_frame)
+        self.shipto_frame.set_top_label("Ship To:")
+        self.shipto_frame.set_entity_list(self.entityList)
+        self.shipto_frame.set_invoice_object(self.oInvoice)
+    
         self.date_and_invoice_widg = DateAndInvoiceNumberWidget(self.invoice_header_frame)
+        self.date_and_invoice_widg.set_invoice_object(self.oInvoice)
+
         self.invoice_header_frame.pack(side='top', fill='both')
+
+        self.invoice_info_frame = InvoiceInfoWidget(self.base_frame)
+        self.invoice_info_frame.build_frame()
+        self.invoice_info_frame.info_frame.pack(side='top', fill='both')
 
         self.invoice_lines_frame = tk.Frame(self.base_frame, bg=self.invoice_bg_color, padx=5, pady=5)
 
         self.inv_lines_widget = InvoiceLinesWidget(self.invoice_lines_frame)
+        self.inv_lines_widget.set_invoice_object(self.oInvoice)
+        self.inv_lines_widget.set_footer_vars(subtotvar, totvar, discvar)
 
         self.footer_frame = tk.Frame(self.invoice_lines_frame, bg=self.invoice_bg_color, padx=5, pady=5)
         self.subtotal_lbl = tk.Label(self.footer_frame, text="Subtotal: ")
@@ -48,24 +73,27 @@ class AddInvoiceFrame():
         self.discount_lbl = tk.Label(self.footer_frame, text="Discount: ")
         self.save_btn = tk.Button(self.footer_frame, text="Save", padx=5, width=15, command=lambda: self.save_invoice())
 
-        self.subtotal_display = tk.Entry(self.footer_frame, state='readonly')
-        self.total_display = tk.Entry(self.footer_frame, state='readonly')
-        self.discount_display = tk.Entry(self.footer_frame)
+
+        self.subtotal_display = tk.Entry(self.footer_frame, state='readonly', textvariable=subtotvar)
+        self.total_display = tk.Entry(self.footer_frame, state='readonly', textvariable=totvar)
+        self.discount_display = tk.Entry(self.footer_frame, textvariable=discvar)
         self.discount_display.bind("<KeyRelease>", self.update_totals)
 
         self.invoice_lines_frame.pack(side='top', fill='both')
 
-        #Build the customer search and populate functionality
-        self.cust_widg_frame.build_frame()
+        self.billto_frame.build_frame()
+        self.shipto_frame.build_frame()
+
+        self.billto_frame.set_grid_position(row=0, col=0)
+        self.shipto_frame.set_grid_position(row=0, col=1)
 
         #Build the invoice number and date functionality
         self.date_and_invoice_widg.build_frame()
+        #Get new Invoice Number
+        self.date_and_invoice_widg.set_invoice_number(self.coordinator.get_next_invoice())
 
         #Build the invoice lines frame
         self.inv_lines_widget.build_frame()
-
-        #Get new Invoice Number
-        self.date_and_invoice_widg.set_invoice_number(self.coordinator.get_next_invoice())
 
         self.discount_lbl.grid(column=2, row=0, sticky='E')
         self.discount_display.grid(column=3, row=0, sticky='E')
@@ -93,6 +121,9 @@ class AddInvoiceFrame():
                 print(subtotal)
                 total = float(subtotal) - float(typed)
 
+                print("TESTING IF OBJECT WORKS: ",self.oInvoice.get_buyer_name())
+                print("TESTING AGAIN", self.oInvoice.get_ship_to_name())
+
                 #readonly entry boxes have to bet set to normal before you can update
                 self.subtotal_display.configure(state='normal')
                 self.total_display.configure(state='normal')
@@ -114,37 +145,47 @@ class AddInvoiceFrame():
 
     def save_invoice(self):
         try:
-            current_inv_num = self.date_and_invoice_widg.get_invoice_number()
-            current_customer = self.cust_widg_frame.get_selected_customer()
-            inv_date = self.date_and_invoice_widg.get_invoice_date()
-            del_date = self.date_and_invoice_widg.get_delivery_date()
-            #date_list = self.date_and_invoice_widg.get_dates()
-            inv_note = ''
-            issuer_id = int(37)
-            customer_id = self.coordinator.get_entity_id_by_name(current_customer, exactMatch=True)
-            inv_status = 0
-            inv_discount = round(float(self.discount_display.get()),2)
-            tax_amount = 0
-            subtotal = round(float(self.subtotal_display.get()),2)
-            total = round(float(self.total_display.get()),2)
-            credit_inv_num = 0
+            oInvoice = InvoiceObj()
+            oInvoice.set_inv_num(self.date_and_invoice_widg.get_invoice_number())
+            #Set billto details
+            oInvoice.set_buyer(self.billto_frame.get_selected_entity_obj())
+
+            #Set shipto details
+            oInvoice.set_shipto(self.shipto_frame.get_selected_entity_obj())
+
+            oInvoice.set_invoice_date(self.date_and_invoice_widg.get_invoice_date())
+            oInvoice.set_ship_date(self.date_and_invoice_widg.get_delivery_date())
+            oInvoice.set_due_date(self.date_and_invoice_widg.get_due_date())
+
+            oInvoice.set_note('')
+
+            oIssuer = EntityObj(37, 'Green Paradise Farms', '2555', 'Guajome Lake Road', 'Vista', 'CA', '92084', 'USA', 1)
+            oInvoice.set_issuer(oIssuer)
+
+            oInvoice.set_status(1)
+
+            oInvoice.set_discount_amount(self.discount_display.get())
+            oInvoice.set_subtotal(self.subtotal_display.get())
+            oInvoice.set_total(self.total_display.get())
+
+            oInvoice.set_sales_tax(0)
+            oInvoice.set_applied_credit_amount()
+
+            oInvoice.set_credit_invoice_number(0)
+
             line_items = self.inv_lines_widget.get_all_line_items()
             #line_items.insert(0, current_inv_num)
 
-            the_invoice = InvoiceObj(int(current_inv_num), creation_date=inv_date, delivery_date=del_date, 
-            note=inv_note, issuer_id=issuer_id, buyer_id=customer_id, status=inv_status, discount_rate=inv_discount, 
-            tax_amount=tax_amount, subtotal=subtotal, total=total, credit_inv_num=credit_inv_num)
-
             for lines in line_items:
-                lines.insert(1, current_inv_num)
+                #lines.insert(1, oInvoice.get_inv_num())
                 print(lines)
-                the_invoice.addInvoiceItem(invItemAsList=lines)
+                oInvoice.addInvoiceItem(invItemAsList=lines)
 
             #print("From AddInvoiceFrame:save_invoice() InvoiceObj",the_invoice.asListForDBInsertion())
             #print("From AddInvoiceFrame:save_invoice() InvoiceItemObj", the_invoice.toList())
 
-            self.coordinator.add_invoice(InvoiceObj=the_invoice)
-            self.coordinator.insert_invoice_items(InvoiceObj=the_invoice)
+            self.coordinator.add_invoice(InvoiceObj=oInvoice)
+            self.coordinator.insert_invoice_items(InvoiceObj=oInvoice)
         except Error as e:
             print("Error occurred during invoice insertion.", e)
             self.errorPrompt.create_error_window(e)
@@ -154,6 +195,10 @@ class AddInvoiceFrame():
     def clear_display_frame(self):
         for children in self.base_frame.winfo_children():
             children.destroy()
+
+    def cache_entity_data(self):
+        data = self.coordinator.get_entities_simple()
+        return data
 
     def build_frame(self):
         self.clear_display_frame()

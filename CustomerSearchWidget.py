@@ -1,7 +1,7 @@
 import tkinter as tk
 from GPFISCoordinator import GPFISCoordinator
 
-class CustomerSearchWidget():
+class CustomerSearchWidget(tk.Frame):
 
     #Static Settings
 
@@ -21,17 +21,19 @@ class CustomerSearchWidget():
     def __init__(self, parent_frame):
         self.base_frame = parent_frame
         self.entityList = []
+        self.entityNameList = []
+        self.customer_search_lbl_var = tk.StringVar(master = self.base_frame, value="Customer Search...")
         self.current_customer = ""
         self.customer_info = ""
-        self.cache_basic_customer_information()
+        self.selected_entity_obj = None
 
     def setup_frame(self):
-        self.customer_frame = tk.Frame(self.base_frame, bg=self.bg_color, padx=20, pady=20)
+        self.customer_frame = tk.Frame(self.base_frame, bg=self.bg_color, padx=20, pady=20, highlightbackground='black', highlightthickness=2)
         self.customer_listbox = tk.Listbox(self.customer_frame, height=3, width=40, font=(self.data_font, 13))
         self.customer_display_label = tk.Label(self.customer_frame, text="", width=40, font=(self.data_font, 15))
 
     def create_customer_widget(self):
-        self.customer_search_lbl = tk.Label(self.customer_frame, text="Customer Search...", font=(self.data_font, 12, 'bold'), bg=self.bg_color)
+        self.customer_search_lbl = tk.Label(self.customer_frame, text=self.customer_search_lbl_var.get(), font=(self.data_font, 12, 'bold'), bg=self.bg_color)
         self.customer_search_lbl.pack(side="top", anchor='nw')
 
         self.customer_search_entrybox = tk.Entry(self.customer_frame, width=40)
@@ -45,9 +47,15 @@ class CustomerSearchWidget():
         #self.customer_display_label = tk.Label(self.customer_frame, text="")
         self.customer_display_label.pack(side="top", anchor='nw', expand=True)
 
-        self.customer_frame.pack(side='left', anchor='nw')
+        self.customer_frame.grid()
 
         self.update_customer_listbox()
+
+    def set_grid_position(self, row, col):
+        self.customer_frame.grid(row=row, column=col)
+
+    def set_invoice_object(self, InvObj):
+        self.oInvoice = InvObj
 
     def monitor_search_box(self, e):
         typed = self.customer_search_entrybox.get()
@@ -73,6 +81,11 @@ class CustomerSearchWidget():
             #print(entities)
             if self.current_customer == entities.getName():
                 full_customer_info = entities.getAsCustomerWidgetDisplay()
+                self.selected_entity_obj = entities
+                if self.customer_search_lbl_var.get() == 'Bill To:':
+                    self.oInvoice.set_buyer(entities)
+                if self.customer_search_lbl_var.get() == 'Ship To:':
+                    self.oInvoice.set_shipto(entities)
                 #print(full_customer_info)
         #full_customer_info = selected_listbox_customer + "\n" + self.customer_dict.get(selected_listbox_customer)
         
@@ -98,10 +111,20 @@ class CustomerSearchWidget():
         for entities in self.entityList:
             #print(entities.toList())
             self.entityNameList.append(entities.getName())
+
+    def set_entity_list(self, entityList):
+        self.entityList = entityList
+        self.populate_entity_name_list()
             
+    def populate_entity_name_list(self):
+        for entities in self.entityList:
+            self.entityNameList.append(entities.getName())
 
     def get_selected_customer(self):
         return self.current_customer
+    
+    def get_selected_entity_obj(self):
+        return self.selected_entity_obj
     
     def set_customer(self, customerName):
         self.customer_listbox.delete(0, tk.END)
@@ -111,6 +134,9 @@ class CustomerSearchWidget():
     def clear_display_frame(self):
         for children in self.base_frame.winfo_children():
             children.destroy()
+
+    def set_top_label(self, label_description):
+        self.customer_search_lbl_var.set(label_description)
 
     def build_frame(self):
         self.setup_frame()

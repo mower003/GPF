@@ -342,9 +342,7 @@ class GPFISCoordinator:
     
     def get_entity_name_by_id(self, id):
         try:
-
             entity_conn = db_conn_entity(self.db_location)
-
             entity_name = entity_conn.get_entity_name_by_id(id)
             print("FROM ENTITYNAMEID: ",entity_name)
             return entity_name
@@ -360,6 +358,16 @@ class GPFISCoordinator:
             entity = entity_conn.get_entity_by_id(id)
             entityObj = EntObj(entityList=entity)
             return entityObj
+        except Error as e:
+            print(e)
+        finally:
+            entity_conn.close_connection()
+
+    def get_entity_address(self, entity_id):
+        try:
+            entity_conn = db_conn_entity(self.db_location)
+            entity = entity_conn.get_entity_by_id(entity_id)
+            oEntity = EntObj(entityList=entity)
         except Error as e:
             print(e)
         finally:

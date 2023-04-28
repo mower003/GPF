@@ -38,7 +38,6 @@ class EntityObj:
             self.is_active = entityList[EntityObjEnum.IS_ACTIVE.value]
 
         print("######################Entity Object created######################"+'\n'+self.__repr__())
-        #print("EntityObj __init__ called with params: %i, %s, %s, %s, %s, %s, %s, %s, %i." % (self.id, self.name, self.street_number, self.street_name, self.city, self.state, self.zip, self.country, self.is_active))
 
     def __repr__(self) -> str:
         entity_representation = '\n' + "Entity ID: " + str(self.id) + '\n' + "Name: " + str(self.name) + '\n' + "Street Number: " + str(self.street_number) + '\n' + "Street Name: " + str(self.street_name) + '\n' + "City: " + str(self.city) + '\n' + "State: " + str(self.state) + '\n' + "Zip Code: " + str(self.zip) + '\n' + "Country: " + str(self.country) + '\n' + "Is Active: " + str(self.is_active)
@@ -90,7 +89,7 @@ class EntityObj:
 
     def getAsAddressString(self):
         #print(str(self.street_number) + " " + str(self.street_name) + " " + str(self.city) + " " + str(self.state) + " " + str(self.zip) + " " + str(self.country))
-        return_str = str(self.street_number) + " " + self.street_name + " " + self.city + " " + self.state + " " + str(self.zip) + " " + self.country
+        return_str = str(self.street_number) + " " + self.street_name + " " + self.city + ", " + self.state + " " + str(self.zip) + " " + self.country
         return return_str
 
     def getAsCustomerWidgetDisplay(self):
