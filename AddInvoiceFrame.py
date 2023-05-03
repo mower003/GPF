@@ -28,8 +28,9 @@ class AddInvoiceFrame():
     #Controls the title of the frame.
     frame_title = "Add invoice"
 
-    def __init__(self, parent_frame):
+    def __init__(self, parent_frame, canvas):
         self.base_frame = parent_frame
+        self.canvas = canvas
         self.coordinator = GPFISCoordinator()
         self.errorPrompt = ErrorPopUpWindow(parent_frame)
         self.entityList = self.cache_entity_data()
@@ -60,12 +61,15 @@ class AddInvoiceFrame():
         self.invoice_info_frame = InvoiceInfoWidget(self.base_frame)
         self.invoice_info_frame.build_frame()
         self.invoice_info_frame.info_frame.pack(side='top', fill='both')
+        self.invoice_info_frame.payment_terms.bind("<<ComboboxSelected>>", self.payment_terms_event)
+        applied_credit = self.invoice_info_frame.get_applied_credit_var()
 
         self.invoice_lines_frame = tk.Frame(self.base_frame, bg=self.invoice_bg_color, padx=5, pady=5)
 
         self.inv_lines_widget = InvoiceLinesWidget(self.invoice_lines_frame)
         self.inv_lines_widget.set_invoice_object(self.oInvoice)
         self.inv_lines_widget.set_footer_vars(subtotvar, totvar, discvar)
+        self.inv_lines_widget.set_applied_credit_var(applied_credit)
 
         self.footer_frame = tk.Frame(self.invoice_lines_frame, bg=self.invoice_bg_color, padx=5, pady=5)
         self.subtotal_lbl = tk.Label(self.footer_frame, text="Subtotal: ")
@@ -92,6 +96,8 @@ class AddInvoiceFrame():
         #Get new Invoice Number
         self.date_and_invoice_widg.set_invoice_number(self.coordinator.get_next_invoice())
 
+        self.invoice_info_frame.set_due_date(self.date_and_invoice_widg.get_due_date())
+
         #Build the invoice lines frame
         self.inv_lines_widget.build_frame()
 
@@ -107,6 +113,27 @@ class AddInvoiceFrame():
         self.save_btn.grid(column=0, row=0,columnspan=2, sticky='W', padx=20)
 
         self.footer_frame.pack(side='top', fill='both')
+
+        #Canvas holding scroll bar needs to be resized to fit line items.
+        screen_width = self.base_frame.winfo_screenwidth()
+        screen_height = self.base_frame.winfo_screenheight()
+
+        header_height = self.invoice_header_frame.winfo_height()
+        info_height = self.invoice_info_frame.info_frame.winfo_height()
+        lines_height = self.base_frame.winfo_height()
+        footer_height = self.footer_frame.winfo_height()
+        total_height = header_height + info_height + lines_height + footer_height
+
+
+        print("SCREEN HEIGHT")
+        print(screen_height)
+        print("FRAME HEIGHTS")
+        print(header_height)
+        print(info_height)
+        print(lines_height)
+        print(footer_height)
+        print(total_height)
+        self.canvas.itemconfig("baseFrame_2", height=total_height, width=screen_width)
 
         #self.invoice_lines_frame.pack(side='top', fill='both')
 
@@ -153,11 +180,22 @@ class AddInvoiceFrame():
             #Set shipto details
             oInvoice.set_shipto(self.shipto_frame.get_selected_entity_obj())
 
+            print(self.date_and_invoice_widg.get_invoice_date())
+            print(self.date_and_invoice_widg.get_delivery_date())
             oInvoice.set_invoice_date(self.date_and_invoice_widg.get_invoice_date())
             oInvoice.set_ship_date(self.date_and_invoice_widg.get_delivery_date())
-            oInvoice.set_due_date(self.date_and_invoice_widg.get_due_date())
 
-            oInvoice.set_note('')
+            #Set the ansillary details
+            oInvoice.set_payment_terms(self.invoice_info_frame.get_payment_terms())
+            oInvoice.set_due_date(self.invoice_info_frame.get_due_date())
+            oInvoice.set_po_number(self.invoice_info_frame.get_customer_po())
+            oInvoice.set_applied_credit_amount(self.invoice_info_frame.get_applied_credit_amount())
+            oInvoice.set_credit_invoice_number(self.invoice_info_frame.get_credit_invoice_num())
+            oInvoice.set_note(self.invoice_info_frame.get_note())
+
+            print(self.invoice_info_frame.get_payment_terms())
+            print(self.invoice_info_frame.get_customer_po())
+
 
             oIssuer = EntityObj(37, 'Green Paradise Farms', '2555', 'Guajome Lake Road', 'Vista', 'CA', '92084', 'USA', 1)
             oInvoice.set_issuer(oIssuer)
@@ -169,9 +207,6 @@ class AddInvoiceFrame():
             oInvoice.set_total(self.total_display.get())
 
             oInvoice.set_sales_tax(0)
-            oInvoice.set_applied_credit_amount()
-
-            oInvoice.set_credit_invoice_number(0)
 
             line_items = self.inv_lines_widget.get_all_line_items()
             #line_items.insert(0, current_inv_num)
@@ -181,8 +216,8 @@ class AddInvoiceFrame():
                 print(lines)
                 oInvoice.addInvoiceItem(invItemAsList=lines)
 
-            #print("From AddInvoiceFrame:save_invoice() InvoiceObj",the_invoice.asListForDBInsertion())
-            #print("From AddInvoiceFrame:save_invoice() InvoiceItemObj", the_invoice.toList())
+            print("From AddInvoiceFrame:save_invoice() InvoiceObj",oInvoice.asListForDBInsertion())
+            print("From AddInvoiceFrame:save_invoice() InvoiceItemObj", oInvoice.toList())
 
             self.coordinator.add_invoice(InvoiceObj=oInvoice)
             self.coordinator.insert_invoice_items(InvoiceObj=oInvoice)
@@ -195,6 +230,13 @@ class AddInvoiceFrame():
     def clear_display_frame(self):
         for children in self.base_frame.winfo_children():
             children.destroy()
+
+    def payment_terms_event(self, e):
+        selected = self.invoice_info_frame.get_payment_terms()
+        num = selected.split(' ')
+        num = num[1]    
+        self.invoice_info_frame.calculate_due_date(self.date_and_invoice_widg.get_delivery_date(), num)
+
 
     def cache_entity_data(self):
         data = self.coordinator.get_entities_simple()

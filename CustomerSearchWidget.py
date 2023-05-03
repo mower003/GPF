@@ -30,7 +30,7 @@ class CustomerSearchWidget(tk.Frame):
     def setup_frame(self):
         self.customer_frame = tk.Frame(self.base_frame, bg=self.bg_color, padx=20, pady=20, highlightbackground='black', highlightthickness=2)
         self.customer_listbox = tk.Listbox(self.customer_frame, height=3, width=40, font=(self.data_font, 13))
-        self.customer_display_label = tk.Label(self.customer_frame, text="", width=40, font=(self.data_font, 15))
+        self.customer_display_label = tk.Label(self.customer_frame, text="\n", width=40, font=(self.data_font, 15))
 
     def create_customer_widget(self):
         self.customer_search_lbl = tk.Label(self.customer_frame, text=self.customer_search_lbl_var.get(), font=(self.data_font, 12, 'bold'), bg=self.bg_color)

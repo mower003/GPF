@@ -37,14 +37,10 @@ class GPFUI():
         #Use window geometery and center
         root.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
 
-        def clear_display_frame(baseFrame):
-            for children in baseFrame.winfo_children():
-                children.destroy()
-
         #baseFrame = tk.Frame(root, bd = 5, bg = 'grey')
         #baseFrame.pack(fill=BOTH, expand=1)
 
-        #Star of canvas scrollbar experiment
+        #scrollbar set up
         baseFrame = tk.Frame(root,bg = '#FFFFFF')
         baseFrame.pack(fill=BOTH, expand=1)
 
@@ -54,13 +50,7 @@ class GPFUI():
         v_scroll = tk.Scrollbar(baseFrame, orient='vertical', command=baseCanvas.yview)
         v_scroll.pack(side='right', fill='y')
 
-        baseCanvas.configure(yscrollcommand=v_scroll.set)
-        baseCanvas.bind("<Configure>", lambda e: baseCanvas.configure(scrollregion= baseCanvas.bbox("all")))
-
         baseFrame_2 = tk.Frame(baseCanvas, bg="#FFFFFF")
-
-        baseCanvas.create_window((0,0), window=baseFrame_2, anchor='nw', tags="baseFrame_2")
-        baseCanvas.itemconfig("baseFrame_2", height=screen_height, width=screen_width)
 
         #Instantiate class objects for each menu option
         #Each object builds and controls UI widgets
@@ -69,8 +59,14 @@ class GPFUI():
         view_customer_frame = ViewCustomerFrame(baseFrame_2)
         add_product_frame = AddProductFrame(baseFrame_2)
         view_product_frame = ViewProductFrame(baseFrame_2)
-        add_invoice_frame = AddInvoiceFrame(baseFrame_2)
+        add_invoice_frame = AddInvoiceFrame(baseFrame_2, baseCanvas)
         view_invoice_frame = ViewInvoiceFrame(baseFrame_2)
+
+        baseCanvas.configure(yscrollcommand=v_scroll.set)
+        baseCanvas.bind("<Configure>", lambda e: baseCanvas.configure(scrollregion= baseCanvas.bbox("all")))
+
+        baseCanvas.create_window((0,0), window=baseFrame_2, anchor='nw', tags="baseFrame_2")
+        baseCanvas.itemconfig("baseFrame_2", height=screen_height, width=screen_width)
 
         #baseCanvas = tk.Canvas(baseFrame, scrollregion=(0,0, 1500, 1500))
         #vbar = tk.Scrollbar(baseFrame, orient='vertical')

@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkcalendar import Calendar, DateEntry
-from datetime import datetime
+from datetime import datetime, timedelta
 
 class DateAndInvoiceNumberWidget():
 
@@ -64,7 +64,7 @@ class DateAndInvoiceNumberWidget():
         return str(self.delivery_date_selection.get_date())
 
     def get_due_date(self):
-        ddate = datetime.datetime.strptime(str(self.delivery_date_selection.get_date()), '%m-%d-%Y') + datetime.timedelta(days=21)
+        ddate = datetime.strptime(str(self.delivery_date_selection.get_date()), '%Y-%m-%d') + timedelta(days=21)
         due_date = ddate.strftime('%m-%d-%Y')
         return str(due_date)
 

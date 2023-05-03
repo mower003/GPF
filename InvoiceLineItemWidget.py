@@ -48,6 +48,8 @@ class InvoiceLineItemWidget():
             element_list.append(str(self.note_entry.get('1.0', 'end-1c')))
             element_list.append(str(self.description_entry.get('1.0', 'end-1c')))
             element_list.append(float(self.line_total_entry.get()))
+
+            return element_list
         except ValueError as e:
             print("ValueError: Error returning list: InvoiceLineItemWidget: get_line_elements_as_list", e)
             self.errorPrompt.create_error_window(e)
@@ -57,8 +59,6 @@ class InvoiceLineItemWidget():
         except Error as e:
             print("Error returning list: InvoiceLineItemWidget: get_line_elements_as_list", e)
             self.errorPrompt.create_error_window(e)
-
-        return element_list
 
     def get_line_total(self):
         line_tot = self.line_total_entry.get()
@@ -132,7 +132,6 @@ class InvoiceLineItemWidget():
         except Error as e:
             print("Something went wrong")
             self.errorPrompt.create_error_window(e)
-
 
     def monitor_quantity_and_price_box(self, e):
         try:

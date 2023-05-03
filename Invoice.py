@@ -46,34 +46,50 @@ class InvoiceObjEnum(Enum):
 class InvoiceObj:
     locale.setlocale(locale.LC_ALL, 'en_US')
 
-    def __init__(self, invList=None):
+    def __init__(self, inv_num = -999, inv_date = '01-01-0001', ship_date='01-01-0001', due_date='01-01-0001', issuer_id=37, buyer_id=-1, shiptoid=-1, status=-1, sales_tax=-1, subtotal=-1, discount=-1, total=-1, customerpo='', paymentterms='', creditamnt=-1, creditnum=-1, note ='', *, invList=None):
 
         if invList is None:
-            invList = [-999, '01/01/0001', '01/01/0001', '4/29/23', -1, -1, -1, 1, 0.00, 0.00, 0.00, 0, '', '', 0.00, 0, '' ]
-
-        self.invoice_number = invList[InvoiceObjEnum.INVOICE_NUMBER.value]
-        self.invoice_date = invList[InvoiceObjEnum.INVOICE_DATE.value]
-        self.ship_date = invList[InvoiceObjEnum.SHIP_DATE.value]
-        self.due_date = invList[InvoiceObjEnum.DUE_DATE.value]
-        self.issuer_id = invList[InvoiceObjEnum.ISSUER_ID.value]
-        self.buyer_id = invList[InvoiceObjEnum.BUYER_ID.value]
-        self.ship_to_id = invList[InvoiceObjEnum.SHIP_TO_ID.value]
-        self.status = invList[InvoiceObjEnum.STATUS.value]
-        self.sales_tax = invList[InvoiceObjEnum.SALES_TAX.value]
-        self.subtotal = locale.currency(float(invList[InvoiceObjEnum.SUBTOTAL.value]), False, False, False)
-        self.discount_amount = locale.currency(float(invList[InvoiceObjEnum.DISCOUNT_AMOUNT.value]), False, False, False)
-        self.total = locale.currency(0.0, False, False, False)
-        self.customer_po_number = invList[InvoiceObjEnum.CUSTOMER_PO_NUM.value]
-        self.payment_terms = invList[InvoiceObjEnum.PAYMENT_TERMS.value]
-        self.applied_credit_amount = locale.currency(float(invList[InvoiceObjEnum.APPLIED_CREDIT_AMOUNT.value]), False, False, False)
-        self.credit_inv_num = invList[InvoiceObjEnum.CREDIT_INVOICE_NUMBER.value]
-        self.note = invList[InvoiceObjEnum.NOTE.value]
+            self.invoice_number = inv_num
+            self.invoice_date = inv_date
+            self.ship_date = ship_date
+            self.due_date = due_date
+            self.issuer_id = issuer_id
+            self.buyer_id = buyer_id
+            self.ship_to_id = shiptoid
+            self.status = status
+            self.sales_tax = sales_tax
+            self.subtotal = subtotal
+            self.discount_amount = discount
+            self.total = total
+            self.customer_po_number = customerpo
+            self.payment_terms = paymentterms
+            self.applied_credit_amount = creditamnt
+            self.credit_inv_num = creditnum
+            self.note = note
+        else:
+            self.invoice_number = invList[InvoiceObjEnum.INVOICE_NUMBER.value]
+            self.invoice_date = invList[InvoiceObjEnum.INVOICE_DATE.value]
+            self.ship_date = invList[InvoiceObjEnum.SHIP_DATE.value]
+            self.due_date = invList[InvoiceObjEnum.DUE_DATE.value]
+            self.issuer_id = invList[InvoiceObjEnum.ISSUER_ID.value]
+            self.buyer_id = invList[InvoiceObjEnum.BUYER_ID.value]
+            self.ship_to_id = invList[InvoiceObjEnum.SHIP_TO_ID.value]
+            self.status = invList[InvoiceObjEnum.STATUS.value]
+            self.sales_tax = invList[InvoiceObjEnum.SALES_TAX.value]
+            self.subtotal = locale.currency(float(invList[InvoiceObjEnum.SUBTOTAL.value]), False, False, False)
+            self.discount_amount = locale.currency(float(invList[InvoiceObjEnum.DISCOUNT_AMOUNT.value]), False, False, False)
+            self.total = locale.currency(0.0, False, False, False)
+            self.customer_po_number = invList[InvoiceObjEnum.CUSTOMER_PO_NUM.value]
+            self.payment_terms = invList[InvoiceObjEnum.PAYMENT_TERMS.value]
+            self.applied_credit_amount = locale.currency(float(invList[InvoiceObjEnum.APPLIED_CREDIT_AMOUNT.value]), False, False, False)
+            self.credit_inv_num = invList[InvoiceObjEnum.CREDIT_INVOICE_NUMBER.value]
+            self.note = invList[InvoiceObjEnum.NOTE.value]
+        
         self.invItemsObjList = []
 
         self.issuer = EntityObj()
         self.buyer = EntityObj()
         self.shipto = EntityObj()
-        print(self.toList())
 
         self.calculate_invoice_total()
         print("######################Invoice Object created######################"+'\n'+self.__repr__())
@@ -170,7 +186,6 @@ class InvoiceObj:
         list.append(self.applied_credit_amount)
         list.append(self.credit_inv_num)
         list.append(self.note)
-        list.append(self.invoice_number)
         return list
     
     def asListForDBUpdate(self):
@@ -198,10 +213,11 @@ class InvoiceObj:
     def addInvoiceItem(self, line_id = -999, invoice_id=-1, product_id=-1, case_quantity='', quantity=-1, unit_price=-1, line_note='', *, invItemAsList=None):
 
         if invItemAsList is None:
-            iio = invItemObj(line_id, invoice_id, product_id, case_quantity, quantity, unit_price, line_note)
+            iio = invItemObj(line_id, self.invoice_number, product_id, case_quantity, quantity, unit_price, line_note)
             self.invItemsObjList.append(iio)
         else:
             iio = invItemObj()
+            invItemAsList.insert(1, self.invoice_number)
             print("from addinvoiceitem",invItemAsList)
             iio.addInvoiceItemAsList(invItemAsList)
             self.invItemsObjList.append(iio)
@@ -212,15 +228,15 @@ class InvoiceObj:
         print(self.invoice_number)
 
     def set_invoice_date(self, date):
-        self.creation_date = date
-        print(self.creation_date)
+        self.invoice_date = str(date)
+        print(self.invoice_date)
 
     def set_ship_date(self, date):
-        self.delivery_date = date
-        print(self.delivery_date)
+        self.ship_date = str(date)
+        print(self.ship_date)
 
     def set_due_date(self, date):
-        self.due_date = date
+        self.due_date = str(date)
         print(self.due_date)
 
     def set_note(self, note):
@@ -277,11 +293,11 @@ class InvoiceObj:
         print(self.status)
 
     def set_po_number(self, po_num):
-        self.customer_po_number
+        self.customer_po_number = po_num
         print(self.customer_po_number)
 
     def set_applied_credit_amount(self, credit_amnt):
-        self.applied_credit_amount = locale.currency(float(credit_amnt), False, False, False)
+        self.applied_credit_amount = round(float(credit_amnt),2)
         print(self.applied_credit_amount)
 
     def set_payment_terms(self, payment_terms):
@@ -317,10 +333,10 @@ class InvoiceObj:
         return self.invoice_number
 
     def get_creation_date(self):
-        return self.creation_date
+        return self.invoice_date
 
     def get_delivery_date(self):
-        return self.delivery_date
+        return self.ship_date
     
     def get_due_date(self):
         return self.due_date

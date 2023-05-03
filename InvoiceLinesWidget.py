@@ -29,9 +29,12 @@ class InvoiceLinesWidget():
         self.cache_product_data()
 
     def setup_frame(self):
-        self.lines_frame = tk.Frame(self.base_frame, bg=self.bg_color, padx=45)
+        self.lines_frame = tk.Frame(self.base_frame, bg=self.bg_color, padx=45, highlightbackground='black', highlightthickness=2)
         self.lines_frame.grid_columnconfigure((0,1,2,3,4,5,6), weight=1, uniform='column')
         self.lines_frame.grid_rowconfigure((1,2,3,4,5,6,7,8,9,10,11,12,13,14,15), weight=1, uniform='row')
+
+    def get_frame_height(self):
+        return self.lines_frame.winfo_height()
 
     def create_column_headers(self):
         row = 0
@@ -49,7 +52,7 @@ class InvoiceLinesWidget():
         for obs in self.productObjList:
             print(obs.asList())
 
-    def create_lines(self, max_lines=10):
+    def create_lines(self, max_lines=15):
         """
         line1 = InvoiceLineItemWidget(self.lines_frame)
         line1.place_line_item(1)
@@ -125,7 +128,7 @@ class InvoiceLinesWidget():
         for lines in self.line_item_list:
             peb = lines.get_price_entry_box()
             qeb = lines.get_quantity_entry_box()
-            print(type(peb))
+            #print(type(peb))
             peb.bind("<FocusOut>", self.recalculation_wrapper)
             qeb.bind("<FocusOut>", self.recalculation_wrapper)
 
@@ -141,16 +144,20 @@ class InvoiceLinesWidget():
         self.totvar = totvar
         self.discvar = discvar
 
+    def set_applied_credit_var(self, app_cred):
+        self.applied_credit_var = app_cred
+
     def set_invoice_object(self, invObject):
         self.oInvoice = invObject
 
     def get_all_line_items(self):
         line_items = []
-        #print("wholelist ", self.line_item_list)
+        print("wholelist ", self.line_item_list)
         for lines in self.line_item_list:
             line = lines.get_line_elements_as_list()
+            print("A LINE ITEM", line)
             #Check for lines that have not had data added to them.
-            if line[0] == '' or line[0] == ' ':
+            if (line is None) or (line[0] == '') or (line[0] == ' '):
                 continue
             else:
                 print("from getalllineitems ",line)
@@ -170,6 +177,7 @@ class InvoiceLinesWidget():
         self.update_line_totals()
         self.update_subtotal()
         self.update_total()
+        self.update_applied_credit_var()
 
     def update_line_totals(self, ):
         for lines in self.line_item_list:
@@ -184,6 +192,15 @@ class InvoiceLinesWidget():
                 inv_subtotal += round(float(lines.get_line_total()), 2)
 
         self.subtotvar.set(inv_subtotal)
+
+    def update_applied_credit_var(self):
+        applied_credit = 0
+        for lines in self.line_item_list:
+            if '-' in str(lines.get_line_total()):
+                applied_credit += round(float(lines.get_line_total()), 2)
+
+        self.applied_credit_var.set(applied_credit)
+
 
     def update_total(self):
         self.totvar.set(self.subtotvar.get() - self.discvar.get())

@@ -85,8 +85,8 @@ class db_Invoice_procedures:
         else:
             try:
                 self.create_connection()
-                sql_statement = """ INSERT INTO invoice (invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, customer_po_number, payment_terms, applied_credit_amount, credit_invoice_number)
-                                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)"""
+                sql_statement = """ INSERT INTO invoice (invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, customer_po_number, payment_terms, applied_credit_amount, credit_invoice_number, note)
+                                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"""
                 cur = self.conn.cursor()
                 cur.execute(sql_statement, invoiceParamList)
                 self.conn.commit()
