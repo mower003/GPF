@@ -53,12 +53,12 @@ class ViewInvoiceFrame():
 
             for invObj in self.invoice_object_list:
                 visw = ViewInvoiceSummaryWidget(self.invoice_view_frame)
-                visw.set_widget_values(invObj.get_inv_num(), invObj.get_buyer_name(), invObj.get_total(), invObj.get_status())
+                visw.set_widget_values(invObj.get_inv_num(), invObj.get_buyer_name(), invObj.get_ship_to_name(), invObj.get_total(), invObj.get_status())
                 visw.setup_frame()
         else:
             for invObj in self.invoice_object_list:
                 visw = ViewInvoiceSummaryWidget(self.invoice_view_frame)
-                visw.set_widget_values(invObj.get_inv_num(), invObj.get_buyer_name(), invObj.get_total(), invObj.get_status())
+                visw.set_widget_values(invObj.get_inv_num(), invObj.get_buyer_name(), invObj.get_ship_to_name(), invObj.get_total(), invObj.get_status())
                 visw.setup_frame()
         #View will automatically get the most recent 50 invoices. (maybe?)
         #If invoices beyond that are required user will have to use the search function

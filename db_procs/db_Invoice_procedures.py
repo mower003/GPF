@@ -96,7 +96,9 @@ class db_Invoice_procedures:
                 
     def update_invoice(self, invoiceList=None):
         self.create_connection()
-        sql_statement = """ UPDATE invoice_date = ?,
+        print("updating")
+        sql_statement = """ UPDATE invoice SET 
+                            invoice_date = ?,
                             ship_date = ?,
                             due_date = ?,
                             issuer_id = ?,
@@ -110,11 +112,12 @@ class db_Invoice_procedures:
                             payment_terms = ?,
                             applied_credit_amount = ?,
                             credit_invoice_number = ?,
-                            modified_date =  = ? 
+                            note = ?
                         WHERE id = ? """
         cur = self.conn.cursor()
         cur.execute(sql_statement, invoiceList)
         self.conn.commit()
+        print("updated")
         
 
     def next_invoice_number(self):
@@ -165,9 +168,20 @@ class db_Invoice_procedures:
 
         return rows
     
+    def Statements_get_invoices(self, selected_cust, start_date, end_date):
+        self.create_connection()
+        sql_statement = """SELECT * FROM invoice WHERE invoice_date BETWEEN ? AND ? AND buyer_id = ?"""
+        cur = self.conn.cursor()
+        cur.execute(sql_statement, [start_date, end_date, selected_cust])
+        rows = cur.fetchall()
+
+        return rows
+    
     def get_recent_invoices(self, todaysDate):
         self.create_connection()
-        sql_statement = """ SELECT * FROM invoice WHERE invoice_date <= ? LIMIT 50 """
+        sql_statement = """ SELECT id, invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, customer_po_number, payment_terms, applied_credit_amount, credit_invoice_number, note, modified_date
+                            FROM invoice 
+                            WHERE invoice_date <= ? LIMIT 50 """
         cur = self.conn.cursor()
         cur.execute(sql_statement, [todaysDate])
         rows = cur.fetchall()

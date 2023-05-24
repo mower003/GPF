@@ -62,9 +62,7 @@ class db_InvoiceItem_procedures:
         sql_statement = """ DELETE FROM invoice_item WHERE invoice_id = ? """
         cur = self.conn.cursor()
         cur.execute(sql_statement, [inv_num])
-        self.conn.commit()
-        
-
+        self.conn.commit() 
 
     def get_invoice_items_by_invoice_id(self, inv_num):
         self.create_connection()

@@ -138,6 +138,31 @@ class GPFISCoordinator:
         next_inv_num = int(next_inv_num[0]) + 1
         return next_inv_num
     
+    def get_invoices_for_statement_search(self, customer_id, date_range):
+        try:
+            invoice_conn = db_conn_invoice(self.db_location)
+            start_date = date_range[0]
+            end_date = date_range[1]
+
+            invObjList = []
+            invoiceList = invoice_conn.Statements_get_invoices(customer_id, start_date, end_date)
+
+            for invoice in invoiceList:
+                print(invoice)
+                oInvoice = InvObj(invList = list(invoice))
+                oInvoice.set_issuer(self.get_entity_by_id(oInvoice.get_issuer_id()))
+                oInvoice.set_buyer(self.get_entity_by_id(oInvoice.get_buyer_id()))
+                oInvoice.set_shipto(self.get_entity_by_id(oInvoice.get_ship_to_id()))
+                invObjList.append(oInvoice)
+
+            return invObjList
+
+        except Error as e:
+            err_msg = e
+            print(err_msg)
+        finally:
+            invoice_conn.close_connection()
+    
     def get_invoices_using_search_params(self, selected_cust, date_range, paid_status ):
         customer_id = self.get_entity_id_by_name(selected_cust, exactMatch=False)
 
@@ -152,11 +177,11 @@ class GPFISCoordinator:
 
             for invoice in invoiceList:
                 #print(invoice)
-                io = InvObj(invList=invoice)
-                buyer_name = self.get_entity_name_by_id(io.get_buyer_id())
-                io.set_buyer_name(buyer_name)
-                #io.calculate_invoice_total()
-                invObjList.append(io)
+                oInvoice = InvObj(invList = list(invoice))
+                oInvoice.set_issuer(self.get_entity_by_id(oInvoice.get_issuer_id()))
+                oInvoice.set_buyer(self.get_entity_by_id(oInvoice.get_buyer_id()))
+                oInvoice.set_shipto(self.get_entity_by_id(oInvoice.get_ship_to_id()))
+                invObjList.append(oInvoice)
 
             return invObjList
 
@@ -170,12 +195,15 @@ class GPFISCoordinator:
         try:
             invoice_conn = db_conn_invoice(self.db_location)
             rawInvList = invoice_conn.get_recent_invoices(todaysDate)
+            #print("RAWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",rawInvList)
             invObjList = []
             for invoice in rawInvList:
-                io = InvObj(invList = invoice)
-                buyer_name = self.get_entity_name_by_id(io.get_buyer_id())
-                io.set_buyer_name(buyer_name)
-                invObjList.append(io)
+                print("AN INVOICE###########################", invoice)
+                oInvoice = InvObj(invList = list(invoice))
+                oInvoice.set_issuer(self.get_entity_by_id(oInvoice.get_issuer_id()))
+                oInvoice.set_buyer(self.get_entity_by_id(oInvoice.get_buyer_id()))
+                oInvoice.set_shipto(self.get_entity_by_id(oInvoice.get_ship_to_id()))
+                invObjList.append(oInvoice)
             return invObjList
         except Error as e:
             err_msg = e
@@ -208,15 +236,17 @@ class GPFISCoordinator:
             print(inv_line_item_data)
 
             oInvoice = InvObj(invList=inv_data)
-            buyer_name = self.get_entity_name_by_id(oInvoice.get_buyer_id())
-            oInvoice.set_buyer_name(buyer_name)
+            #Populate entity objects
+            oInvoice.set_issuer(self.get_entity_by_id(oInvoice.get_issuer_id()))
+            oInvoice.set_buyer(self.get_entity_by_id(oInvoice.get_buyer_id()))
+            oInvoice.set_shipto(self.get_entity_by_id(oInvoice.get_ship_to_id()))
 
             for lines in inv_line_item_data:
-                print(lines)
-                oInvoice.addInvoiceItem(invItemAsList=lines)
+                print("FROM COORDINATOR PRINTING INVOICE LINE ITEM DATA",lines)
+                oInvoice.addInvoiceItem(invItemAsList=list(lines))
 
             for items in oInvoice.invItemsObjList:
-                print(items)
+                print("printing items after addition to invoice object inside coordinator",items)
                 print("ITEMS ID: ", items.getProductID())
                 product = self.get_product_by_id(items.getProductID())
                 print("after fetch ", product)
@@ -337,7 +367,7 @@ class GPFISCoordinator:
             #entityObj.addEntityAsTuple(entities)
             entityObjList.append(entityObj)
 
-        print(entityObjList)
+        #print(entityObjList)
         return entityObjList
     
     def get_entity_name_by_id(self, id):

@@ -119,8 +119,20 @@ class OrderBoardFrame():
         print("ORDER BOARD FRAME")
         print("##########Caching Customer Data######")
         self.customerObjList = self.coordinator.get_entities()
-            
+        self.remove_GPF_from_list()
         print("CACHED  CUSTOMER LIST: ", self.customerObjList)
+
+    def remove_GPF_from_list(self):
+        tempList = list(self.customerObjList)
+        foundInd=0
+        for i in range(0, len(tempList)):
+            print(tempList[i].getID())
+            if tempList[i].getID() == 33:   
+                foundInd = i
+        tempList.remove(tempList[foundInd])
+        self.customerObjList.clear()
+        self.customerObjList = tuple(tempList)
+
 
     def clear_display_frame(self):
         for children in self.base_frame.winfo_children():

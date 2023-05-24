@@ -58,10 +58,14 @@ class DateAndInvoiceNumberWidget():
         return date_list
 
     def get_invoice_date(self):
-        return str(self.invoice_date_selection.get_date())
+        ddate = datetime.strptime(str(self.invoice_date_selection.get_date()), '%Y-%m-%d')
+        date = ddate.strftime('%m-%d-%Y')
+        return str(date)
 
     def get_delivery_date(self):
-        return str(self.delivery_date_selection.get_date())
+        ddate = datetime.strptime(str(self.delivery_date_selection.get_date()), '%Y-%m-%d')
+        date = ddate.strftime('%m-%d-%Y')
+        return str(date)
 
     def get_due_date(self):
         ddate = datetime.strptime(str(self.delivery_date_selection.get_date()), '%Y-%m-%d') + timedelta(days=21)
@@ -78,7 +82,7 @@ class DateAndInvoiceNumberWidget():
     def set_invoice_object(self, invObject):
         self.oInvoice = invObject
 
-    def set_creation_date(self, date):
+    def set_invoice_date(self, date):
         self.invoice_date_selection.set_date(datetime.strptime(date, "%m-%d-%Y"))
 
     def set_delivery_date(self, date):

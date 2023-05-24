@@ -73,11 +73,8 @@ class InvoiceInfoWidget():
         for children in self.info_frame.winfo_children():
             children.destroy()
 
-    def set_due_date(self, due_date):
-        self.due_date_var.set(due_date)
-
     def calculate_due_date(self, date, num_days):
-        ddate = datetime.strptime(str(date), '%Y-%m-%d') + timedelta(days=int(num_days))
+        ddate = datetime.strptime(str(date), '%m-%d-%Y') + timedelta(days=int(num_days))
         due_date = ddate.strftime('%m-%d-%Y')
         self.set_due_date(due_date=due_date)
 
@@ -101,6 +98,24 @@ class InvoiceInfoWidget():
     
     def get_note(self):
         return str(self.note.get())
+    
+    def set_payment_terms(self, pymnt_trms):
+        self.payment_terms.set(pymnt_trms)
+
+    def set_due_date(self, due_date):
+        self.due_date_var.set(due_date)
+
+    def set_customer_po(self, po):
+        self.customer_po_var.set(po)
+
+    def set_applied_credit_amount(self, amnt):
+        self.applied_credit_var.set(amnt)
+
+    def set_credit_inv_number(self, num):
+        self.credit_invoice_num_var.set(num)
+
+    def set_inv_note(self, note):
+        self.note_var.set(note)
 
 
     

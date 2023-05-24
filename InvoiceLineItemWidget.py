@@ -78,7 +78,7 @@ class InvoiceLineItemWidget():
         self.description_entry.insert("1.0", str(lineItem[4]))
         self.note_entry.insert("1.0", str(lineItem[5]))
         self.price_entry.insert(0, locale.currency(float(lineItem[6]), False, False, False))
-        self.line_total_entry.insert(0, locale.currency(float(lineItem[7]), False, False, False))
+        self.line_total_entry.insert(0, round(float(lineItem[7]),2))
         self.disable_standard_item_attributes()
 
     def enable_line_item_attributes(self):

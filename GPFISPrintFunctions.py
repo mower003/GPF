@@ -23,7 +23,7 @@ class GPFIS2HTML():
         self.fetch_entity(self.invoiceObj.get_buyer_id())
 
     def set_file_name(self):
-        now = datetime.datetime.today().strftime("%Y%m%d-%H%M") 
+        now = datetime.datetime.today().strftime("%Y%m%d_%H%M") 
         self.file_name = str(self.invoiceObj.get_inv_num()) + "_" + now + ".html"
         self.completeFileName = os.path.join(self.document_location, self.file_name)
         print(self.completeFileName)
@@ -68,7 +68,7 @@ class GPFIS2HTML():
         <div class = "wrapper">
             <div class = "logoandinfo">
                 <img id="GPFLogo" src="%s">
-                <p id="GPFAddressTitle">GREEN PARADISE FARM <br>2555 GUAJOME LAKE ROAD<br>VISTA, CALIFORNIA, 92084-1610<br>Tel: (760) 724-1123<br>Fax: (760) 724-5566</p>
+                <p id="GPFAddressTitle">GREEN PARADISE FARM <br>2555 Guajome Lake Road<br>Vista, California, 92084-1610<br>Tel: (760) 724-1123<br>Fax: (760) 724-5566</p>
             </div>"""
         logo_and_address = html_string % (self.logo_path)
         self.file_handle.write(logo_and_address)
@@ -131,5 +131,105 @@ class GPFIS2HTML():
 
     def create_signature_line_and_close(self):
         html_string = """<div class ="signatureline"><p>X___________________________________________________</p></div></div></body></html>"""
+
+        self.file_handle.write(html_string)
+
+
+class GPFISStatment2HTML():
+
+    document_location = r"C:\Users\dunju\Documents\GPF\GPFISHTMLObjects\Invoices"
+    css_path = "./css/gpf_statement.css"
+    logo_path = "./imgs/gpf_logo.png"
+
+    def __init__(self, invoice_list, customer_name, begin_date, end_date, outstanding_balance, grand_total):
+        self.coordinator = GPFISCoordinator()
+        self.invoice_list = invoice_list
+        self.customer_name = customer_name
+        self.begin_date = begin_date
+        self.end_date = end_date
+        self.outstanding_balance = outstanding_balance
+        self.grand_total = grand_total
+
+    def build_HTML_statement(self):
+        self.set_file_name()
+        self.creater_header()
+        self.create_GPF_logo_and_address()
+        self.create_title(self.customer_name, self.begin_date, self.end_date)
+        self.create_static_item_table_info()
+
+        for invoice in self.invoice_list:
+            self.create_line_item(invoice.asTupleForHTMLStatement())
+
+        self.create_statement_total_line()
+
+        self.close_html_doc()
+
+        self.file_handle.close()
+
+        open_new_tab(self.completeFileName)
+
+    def create_statement_total_line(self):
+        line_tuple = ("", "", "","Outstanding Balance", self.outstanding_balance, "Total", self.grand_total)
+        self.create_line_item(line_tuple)
+
+    def set_file_name(self):
+        now = datetime.datetime.today().strftime("%Y%m%d_%H%M") 
+        self.file_name = str(self.customer_name) + "_" + now + ".html"
+        self.completeFileName = os.path.join(self.document_location, self.file_name)
+        print(self.completeFileName)
+        self.file_handle = open(self.completeFileName, 'w')
+
+    def creater_header(self):
+        html_string = """<!DOCTYPE HTML>
+        <html>
+            <head>
+                <title>Green Paradise Farms</title>
+                <meta charset="utf-8" />
+                <link rel="stylesheet" href="%s">
+            </head>"""
+        header = html_string % (self.css_path)
+        self.file_handle.write(header)
+        
+    def create_GPF_logo_and_address(self):
+        html_string = """   <body>
+        <div class = "wrapper">
+            <div class = "logoandinfo">
+                <img id="GPFLogo" src="%s">
+                <p id="GPFAddressTitle">2555 Guajome Lake Road<br>Vista, California, 92084-1610<br>Tel: (760) 724-1123<br>Fax: (760) 724-5566</p>
+            </div>"""
+        logo_and_address = html_string % (self.logo_path)
+        self.file_handle.write(logo_and_address)
+
+    def create_title(self, customer_name, date_begin, date_end):
+        html_string = """<div class = "title">
+        <p id="statement_title">Statement for %s from %s to %s.</p>
+        </div>"""
+        title = html_string % (customer_name, date_begin, date_end)
+        self.file_handle.write(title)
+
+    def create_static_item_table_info(self):
+        html_string = """<div class = "itemtable">
+            <table id = "theitemtable">
+                <tr id="headervalues">
+                    <th>Invoice #</th>
+                    <th>Bill To</th>
+                    <th>Ship To</th>
+                    <th>Invoice Date</th>
+                    <th>Delivery Date</th>
+                    <th>Payment Status</th>
+                    <th>Invoice Total</th>
+                </tr>"""
+
+        self.file_handle.write(html_string)
+        
+    def create_line_item(self, lineItemTuple):
+        #inv_num, bill to, ship tp, invoice date, delivery date, payment status, invoice total
+        html_string = """<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>$%s</td></tr>"""
+        line_item = html_string % lineItemTuple
+
+        self.file_handle.write(line_item)
+
+    def close_html_doc(self):
+        html_string = """</div></body></html>"""
 
         self.file_handle.write(html_string)

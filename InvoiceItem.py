@@ -91,7 +91,7 @@ class InvoiceItemObj:
     def calculateLineTotal(self):
         self.line_total = int(self.quantity) * float(self.unit_price)
         print("Line Total Calculation -> ", locale.currency(float(self.line_total), False, False, False))
-        self.line_total = locale.currency(float(self.line_total), False, False, False)
+        self.line_total = round(float(self.line_total), 2)
         return self.line_total
     
     def setDescription(self, product_description):

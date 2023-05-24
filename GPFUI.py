@@ -8,6 +8,7 @@ from ViewProductFrame import ViewProductFrame
 from AddInvoiceFrame import AddInvoiceFrame
 from ViewInvoiceFrame import ViewInvoiceFrame
 from OrderBoardFrame import OrderBoardFrame
+from StatementsFrame import Statements
 from tkinter import BOTH, LEFT, Menu
 
 class GPFUI():
@@ -50,7 +51,7 @@ class GPFUI():
         v_scroll = tk.Scrollbar(baseFrame, orient='vertical', command=baseCanvas.yview)
         v_scroll.pack(side='right', fill='y')
 
-        baseFrame_2 = tk.Frame(baseCanvas, bg="#FFFFFF")
+        baseFrame_2 = tk.Frame(baseCanvas, bg="#FFFFFF", highlightbackground='green', highlightthickness=2)
 
         #Instantiate class objects for each menu option
         #Each object builds and controls UI widgets
@@ -61,6 +62,7 @@ class GPFUI():
         view_product_frame = ViewProductFrame(baseFrame_2)
         add_invoice_frame = AddInvoiceFrame(baseFrame_2, baseCanvas)
         view_invoice_frame = ViewInvoiceFrame(baseFrame_2)
+        statement_frame = Statements(baseFrame_2, baseCanvas)
 
         baseCanvas.configure(yscrollcommand=v_scroll.set)
         baseCanvas.bind("<Configure>", lambda e: baseCanvas.configure(scrollregion= baseCanvas.bbox("all")))
@@ -89,7 +91,8 @@ class GPFUI():
                                             view_product_frame= view_product_frame, 
                                             add_invoice_frame= add_invoice_frame, 
                                             view_invoice_frame= view_invoice_frame,
-                                            order_board_frame= order_board_frame)
+                                            order_board_frame= order_board_frame,
+                                            statement_frame= statement_frame)
         root.config(menu=baseMenu.getMenuBar())
 
         root.mainloop()

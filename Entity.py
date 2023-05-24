@@ -37,7 +37,7 @@ class EntityObj:
             self.country = entityList[EntityObjEnum.COUNTRY.value]
             self.is_active = entityList[EntityObjEnum.IS_ACTIVE.value]
 
-        print("######################Entity Object created######################"+'\n'+self.__repr__())
+        #print("######################Entity Object created######################"+'\n'+self.__repr__())
 
     def __repr__(self) -> str:
         entity_representation = '\n' + "Entity ID: " + str(self.id) + '\n' + "Name: " + str(self.name) + '\n' + "Street Number: " + str(self.street_number) + '\n' + "Street Name: " + str(self.street_name) + '\n' + "City: " + str(self.city) + '\n' + "State: " + str(self.state) + '\n' + "Zip Code: " + str(self.zip) + '\n' + "Country: " + str(self.country) + '\n' + "Is Active: " + str(self.is_active)

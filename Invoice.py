@@ -36,12 +36,12 @@ class InvoiceObjEnum(Enum):
     SALES_TAX = 8
     SUBTOTAL = 9
     DISCOUNT_AMOUNT = 10
-    TOTAL = 11 #NOT IN INVOICE DB
-    CUSTOMER_PO_NUM = 12
-    PAYMENT_TERMS = 13
-    APPLIED_CREDIT_AMOUNT = 14
-    CREDIT_INVOICE_NUMBER = 15
-    NOTE = 16
+    #TOTAL = 11 #NOT IN INVOICE DB
+    CUSTOMER_PO_NUM = 11
+    PAYMENT_TERMS = 12
+    APPLIED_CREDIT_AMOUNT = 13
+    CREDIT_INVOICE_NUMBER = 14
+    NOTE = 15
 
 class InvoiceObj:
     locale.setlocale(locale.LC_ALL, 'en_US')
@@ -81,7 +81,7 @@ class InvoiceObj:
             self.total = locale.currency(0.0, False, False, False)
             self.customer_po_number = invList[InvoiceObjEnum.CUSTOMER_PO_NUM.value]
             self.payment_terms = invList[InvoiceObjEnum.PAYMENT_TERMS.value]
-            self.applied_credit_amount = locale.currency(float(invList[InvoiceObjEnum.APPLIED_CREDIT_AMOUNT.value]), False, False, False)
+            self.applied_credit_amount = round(float(invList[InvoiceObjEnum.APPLIED_CREDIT_AMOUNT.value]),2)
             self.credit_inv_num = invList[InvoiceObjEnum.CREDIT_INVOICE_NUMBER.value]
             self.note = invList[InvoiceObjEnum.NOTE.value]
         
@@ -92,7 +92,7 @@ class InvoiceObj:
         self.shipto = EntityObj()
 
         self.calculate_invoice_total()
-        print("######################Invoice Object created######################"+'\n'+self.__repr__())
+        #print("######################Invoice Object created######################"+'\n'+self.__repr__())
 
     def __repr__(self) -> str:
         invoice_representation = '\n' \
@@ -137,7 +137,7 @@ class InvoiceObj:
             return 0
         else:
             for items in self.invItemsObjList:
-                #print(items.calculateLineTotal())
+                print(items.calculateLineTotal())
                 self.subtotal = round(float(self.subtotal) + float(items.calculateLineTotal()),2)
                 self.subtotal = locale.currency(self.subtotal, False, False, False)
             return self.subtotal
@@ -196,6 +196,7 @@ class InvoiceObj:
         list.append(self.get_issuer_id())
         list.append(self.get_buyer_id())
         list.append(self.get_ship_to_id())
+        list.append(self.status)
         list.append(self.sales_tax)
         list.append(self.subtotal)
         list.append(self.discount_amount) 
@@ -206,6 +207,9 @@ class InvoiceObj:
         list.append(self.note)
         list.append(self.invoice_number)
         return list
+    
+    def asTupleForHTMLStatement(self):
+        return (self.invoice_number, self.get_buyer_name(), self.get_ship_to_name(), self.invoice_date, self.ship_date, self.get_paid_as_str(self.status), self.total)
 
     def getInvoiceItemList(self):
         return self.invItemsObjList
@@ -213,11 +217,10 @@ class InvoiceObj:
     def addInvoiceItem(self, line_id = -999, invoice_id=-1, product_id=-1, case_quantity='', quantity=-1, unit_price=-1, line_note='', *, invItemAsList=None):
 
         if invItemAsList is None:
-            iio = invItemObj(line_id, self.invoice_number, product_id, case_quantity, quantity, unit_price, line_note)
+            iio = invItemObj(line_id, invoice_id, product_id, case_quantity, quantity, unit_price, line_note)
             self.invItemsObjList.append(iio)
         else:
             iio = invItemObj()
-            invItemAsList.insert(1, self.invoice_number)
             print("from addinvoiceitem",invItemAsList)
             iio.addInvoiceItemAsList(invItemAsList)
             self.invItemsObjList.append(iio)
@@ -260,6 +263,7 @@ class InvoiceObj:
 
     def set_buyer(self, buyer_object):
         self.buyer = buyer_object
+        self.buyer_id = buyer_object.getID()
 
     def set_buyer_id(self, buyer_id):
         self.buyer_id = buyer_id
@@ -275,6 +279,7 @@ class InvoiceObj:
 
     def set_shipto(self, shipto_object):
         self.shipto = shipto_object
+        self.ship_to_id = shipto_object.getID()
 
     def set_ship_to_id(self, shipto_id):
         self.ship_to_id = shipto_id
@@ -332,7 +337,7 @@ class InvoiceObj:
     def get_inv_num(self):
         return self.invoice_number
 
-    def get_creation_date(self):
+    def get_invoice_date(self):
         return self.invoice_date
 
     def get_delivery_date(self):
@@ -341,20 +346,23 @@ class InvoiceObj:
     def get_due_date(self):
         return self.due_date
 
-    def get_note(self, note):
+    def get_note(self):
         return self.note
 
     def get_issuer_id(self):
-        return self.issuer.getID()
+        return self.issuer_id
     
     def get_issuer_name(self):
         return self.issuer.getName()
     
     def get_issuer_address(self):
         return self.issuer.getAsAddressString()
+    
+    def get_buyer_obj(self):
+        return self.buyer
 
     def get_buyer_id(self):
-        return self.buyer.getID()
+        return self.buyer_id
     
     def get_buyer_name(self):
         return self.buyer.getName()
@@ -362,8 +370,11 @@ class InvoiceObj:
     def get_buyer_address(self):
         return self.buyer.getAsAddressString()
     
+    def get_shipto_obj(self):
+        return self.shipto
+    
     def get_ship_to_id(self):
-        return self.shipto.getID()
+        return self.ship_to_id
     
     def get_ship_to_name(self):
         return self.shipto.getName()
@@ -390,9 +401,11 @@ class InvoiceObj:
         return self.sales_tax
 
     def get_subtotal(self):
+        self.calculate_invoice_subtotal()
         return self.subtotal 
 
     def get_total(self):
+        self.calculate_invoice_total()
         return self.total
     
     def get_note(self):
@@ -400,3 +413,13 @@ class InvoiceObj:
     
     def get_credit_inv_num(self):
         return self.credit_inv_num
+    
+
+    def get_paid_as_str(self, paid_status):
+        status = ""
+        if paid_status == 0:
+            status = "Unpaid"
+        if paid_status == 1:
+            status = "Paid"
+
+        return status

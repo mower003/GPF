@@ -126,9 +126,12 @@ class CustomerSearchWidget(tk.Frame):
     def get_selected_entity_obj(self):
         return self.selected_entity_obj
     
-    def set_customer(self, customerName):
+    def set_customer(self, entityObj):
         self.customer_listbox.delete(0, tk.END)
-        self.customer_listbox.insert(tk.END, customerName)
+        self.customer_listbox.insert(tk.END, entityObj.getName())
+        self.customer_listbox.activate(0)
+        self.current_customer = entityObj.getName()
+        self.selected_entity_obj = entityObj
         self.populate_customer_label(e=None)
 
     def clear_display_frame(self):
@@ -137,6 +140,10 @@ class CustomerSearchWidget(tk.Frame):
 
     def set_top_label(self, label_description):
         self.customer_search_lbl_var.set(label_description)
+
+    def set_searchbox_and_label(self, entityObj):
+        self.customer_search_entrybox.insert(0, entityObj.getName())
+        self.customer_display_label.configure(text=entityObj.getAsCustomerWidgetDisplay())
 
     def build_frame(self):
         self.setup_frame()

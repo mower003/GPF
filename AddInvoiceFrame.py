@@ -41,7 +41,7 @@ class AddInvoiceFrame():
         totvar = tk.DoubleVar(0.00)
         discvar = tk.DoubleVar(0.00)
 
-        self.invoice_header_frame = tk.Frame(self.base_frame, bg=self.invoice_bg_color, padx=5, pady=5)
+        self.invoice_header_frame = tk.Frame(self.base_frame, bg=self.invoice_bg_color, padx=5, pady=5, highlightbackground='red', highlightthickness=2)
 
         self.billto_frame = CustomerSearchWidget(self.invoice_header_frame)
         self.billto_frame.set_top_label("Bill To:")
@@ -112,7 +112,7 @@ class AddInvoiceFrame():
 
         self.save_btn.grid(column=0, row=0,columnspan=2, sticky='W', padx=20)
 
-        self.footer_frame.pack(side='top', fill='both')
+        self.footer_frame.pack(side='top', fill='both', expand=True)
 
         #Canvas holding scroll bar needs to be resized to fit line items.
         screen_width = self.base_frame.winfo_screenwidth()
@@ -124,15 +124,6 @@ class AddInvoiceFrame():
         footer_height = self.footer_frame.winfo_height()
         total_height = header_height + info_height + lines_height + footer_height
 
-
-        print("SCREEN HEIGHT")
-        print(screen_height)
-        print("FRAME HEIGHTS")
-        print(header_height)
-        print(info_height)
-        print(lines_height)
-        print(footer_height)
-        print(total_height)
         self.canvas.itemconfig("baseFrame_2", height=total_height, width=screen_width)
 
         #self.invoice_lines_frame.pack(side='top', fill='both')
@@ -147,9 +138,6 @@ class AddInvoiceFrame():
                 subtotal = self.inv_lines_widget.get_all_line_totals()
                 print(subtotal)
                 total = float(subtotal) - float(typed)
-
-                print("TESTING IF OBJECT WORKS: ",self.oInvoice.get_buyer_name())
-                print("TESTING AGAIN", self.oInvoice.get_ship_to_name())
 
                 #readonly entry boxes have to bet set to normal before you can update
                 self.subtotal_display.configure(state='normal')
@@ -200,7 +188,7 @@ class AddInvoiceFrame():
             oIssuer = EntityObj(37, 'Green Paradise Farms', '2555', 'Guajome Lake Road', 'Vista', 'CA', '92084', 'USA', 1)
             oInvoice.set_issuer(oIssuer)
 
-            oInvoice.set_status(1)
+            oInvoice.set_status(0)
 
             oInvoice.set_discount_amount(self.discount_display.get())
             oInvoice.set_subtotal(self.subtotal_display.get())
@@ -212,7 +200,7 @@ class AddInvoiceFrame():
             #line_items.insert(0, current_inv_num)
 
             for lines in line_items:
-                #lines.insert(1, oInvoice.get_inv_num())
+                lines.insert(1, oInvoice.get_inv_num())
                 print(lines)
                 oInvoice.addInvoiceItem(invItemAsList=lines)
 
@@ -236,7 +224,6 @@ class AddInvoiceFrame():
         num = selected.split(' ')
         num = num[1]    
         self.invoice_info_frame.calculate_due_date(self.date_and_invoice_widg.get_delivery_date(), num)
-
 
     def cache_entity_data(self):
         data = self.coordinator.get_entities_simple()
