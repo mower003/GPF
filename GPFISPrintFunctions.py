@@ -12,7 +12,8 @@ class GPFIS2HTML():
     logo_path = "./imgs/gpf_logo.png"
 
     def __init__(self, inv_num):
-        self.entityObj = None
+        self.shiptoObj = None
+        self.billtoObj = None
         self.invoiceObj = None
         self.coordinator = GPFISCoordinator()
         self.set_up_objects(inv_num)
@@ -20,7 +21,8 @@ class GPFIS2HTML():
 
     def set_up_objects(self, invoice_number):
         self.invoiceObj = self.coordinator.fetch_invoice_for_edit(invoice_number)
-        self.fetch_entity(self.invoiceObj.get_buyer_id())
+        self.billtoObj = self.fetch_entity(self.invoiceObj.get_buyer_id())
+        self.shiptoObj = self.fetch_entity(self.invoiceObj.get_ship_to_id())
 
     def set_file_name(self):
         now = datetime.datetime.today().strftime("%Y%m%d_%H%M") 
@@ -33,30 +35,34 @@ class GPFIS2HTML():
         self.creater_header(self.invoiceObj.get_inv_num())
         self.create_GPF_logo_and_address()
         self.create_invoice_num(self.invoiceObj.get_inv_num())
-        self.create_date(self.invoiceObj.get_creation_date())
-        self.create_shipto(self.entityObj.getName(), self.entityObj.getStreetNumber(), self.entityObj.getStreetName(), self.entityObj.getCity(), self.entityObj.getState(), self.entityObj.getZip())
+        self.create_date(self.invoiceObj.get_invoice_date())
+        self.create_subheader(self.invoiceObj.get_payment_terms(), self.invoiceObj.get_due_date(), self.invoiceObj.get_po_number(), self.invoiceObj.get_applied_credit_amount(), '', self.invoiceObj.get_note())
+        self.create_billto(self.billtoObj.getName(), self.billtoObj.getStreetNumber(), self.billtoObj.getStreetName(), self.billtoObj.getCity(), self.billtoObj.getState(), self.billtoObj.getZip())
+        self.create_shipto(self.shiptoObj.getName(), self.shiptoObj.getStreetNumber(), self.shiptoObj.getStreetName(), self.shiptoObj.getCity(), self.shiptoObj.getState(), self.shiptoObj.getZip())
         self.create_static_item_table_info()
 
         for itemObjs in self.invoiceObj.invItemsObjList:
             self.create_line_item(itemObjs.asTupleForHTML())
 
-        self.create_subtotal(self.invoiceObj.get_subtotal())
-        self.create_discount(self.invoiceObj.get_discount_rate())
-        self.create_total(self.invoiceObj.get_total())
+        self.create_subtotal(self.invoiceObj.no_calc_get_subtotal())
+        self.create_discount(self.invoiceObj.get_discount_amount())
+        self.create_total(self.invoiceObj.no_calc_get_total())
         self.create_signature_line_and_close()
         self.file_handle.close()
 
         open_new_tab(self.completeFileName)
 
     def fetch_entity(self, entity_id):
-        self.entityObj = self.coordinator.get_entity_by_id(entity_id)
-        print("FROM GPFIS2HTML ENTITY", self.entityObj)
+        entityObj = self.coordinator.get_entity_by_id(entity_id)
+        print("FROM GPFIS2HTML ENTITY", entityObj)
+
+        return entityObj
 
     def creater_header(self, inv_num):
         html_string = """<!DOCTYPE HTML>
         <html>
             <head>
-                <title>Green Paradise Farms %s</title>
+                <title>Green Paradise Farms - %s</title>
                 <meta charset="utf-8" />
                 <link rel="stylesheet" href="%s">
             </head>"""
@@ -68,7 +74,7 @@ class GPFIS2HTML():
         <div class = "wrapper">
             <div class = "logoandinfo">
                 <img id="GPFLogo" src="%s">
-                <p id="GPFAddressTitle">GREEN PARADISE FARM <br>2555 Guajome Lake Road<br>Vista, California, 92084-1610<br>Tel: (760) 724-1123<br>Fax: (760) 724-5566</p>
+                <p id="GPFAddressTitle">GREEN PARADISE FARM <br>2555 Guajome Lake Road<br>Vista, CA, 92084<br>Tel: (760) 724-1123<br>Fax: (760) 724-5566</p>
             </div>"""
         logo_and_address = html_string % (self.logo_path)
         self.file_handle.write(logo_and_address)
@@ -79,7 +85,7 @@ class GPFIS2HTML():
         self.file_handle.write(invoice_area)
 
     def create_date(self, date):
-        html_string = """<div class = "datefield"><p>Date: </p> <p id="datevalue">%s</p></div>"""
+        html_string = """<div class = "datefield"><p>Invoice Date: </p> <p id="datevalue">%s</p></div>"""
         date_area = html_string % (date)
         self.file_handle.write(date_area)
 
@@ -89,6 +95,28 @@ class GPFIS2HTML():
         shipto = html_string % (customer_name, street_num, street_name, city, state, zip)
 
         self.file_handle.write(shipto)
+
+    def create_billto(self, customer_name, street_num, street_name, city, state, zip):
+        #customer name, address (street_num + street_name), city, state, zip
+        html_string = """<div class = "billto"><p>Bill to: </p> <p id = "storename" >%s<br> %s %s,<br> %s, %s, %s</p></div>"""
+        billto = html_string % (customer_name, street_num, street_name, city, state, zip)
+
+        self.file_handle.write(billto)
+
+    def create_subheader(self, terms, due_date, po, credit_amnt, credit_inv, notes):
+        html_string = """
+        <div class = "subheader">
+            <table id = "subheader_table">
+                <tr><th>Payment Terms</th><th>Due Date</th><th>Customer PO</th></tr>
+                <tr><td>%s</td><td>%s</td><td>%s</td></tr>
+                
+                <tr><th>Credit Total</th><th>Credit Invoice Number</th><th>Notes</th></tr>
+                <tr><td>$%s</td><td>%s</td><td>%s</td></tr>
+            </table>
+        </div>"""
+        subheader = html_string % (terms, due_date, po, credit_amnt, credit_inv, notes)
+
+        self.file_handle.write(subheader)
 
     def create_static_item_table_info(self):
         html_string = """<div class = "itemtable">

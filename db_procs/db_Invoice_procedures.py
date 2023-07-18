@@ -8,7 +8,7 @@ class db_Invoice_procedures:
     def __init__(self, db_location):
         self.db_location = db_location
         self.conn = None
-        print(self.db_location)
+        #print(self.db_location)
 
     def create_invoice_table(self):
         self.create_connection()
@@ -96,7 +96,7 @@ class db_Invoice_procedures:
                 
     def update_invoice(self, invoiceList=None):
         self.create_connection()
-        print("updating")
+        print("updating invoice")
         sql_statement = """ UPDATE invoice SET 
                             invoice_date = ?,
                             ship_date = ?,

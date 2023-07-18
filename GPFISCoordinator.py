@@ -148,7 +148,7 @@ class GPFISCoordinator:
             invoiceList = invoice_conn.Statements_get_invoices(customer_id, start_date, end_date)
 
             for invoice in invoiceList:
-                print(invoice)
+                #print(invoice)
                 oInvoice = InvObj(invList = list(invoice))
                 oInvoice.set_issuer(self.get_entity_by_id(oInvoice.get_issuer_id()))
                 oInvoice.set_buyer(self.get_entity_by_id(oInvoice.get_buyer_id()))
@@ -198,7 +198,7 @@ class GPFISCoordinator:
             #print("RAWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",rawInvList)
             invObjList = []
             for invoice in rawInvList:
-                print("AN INVOICE###########################", invoice)
+                #print("AN INVOICE###########################", invoice)
                 oInvoice = InvObj(invList = list(invoice))
                 oInvoice.set_issuer(self.get_entity_by_id(oInvoice.get_issuer_id()))
                 oInvoice.set_buyer(self.get_entity_by_id(oInvoice.get_buyer_id()))
@@ -242,14 +242,14 @@ class GPFISCoordinator:
             oInvoice.set_shipto(self.get_entity_by_id(oInvoice.get_ship_to_id()))
 
             for lines in inv_line_item_data:
-                print("FROM COORDINATOR PRINTING INVOICE LINE ITEM DATA",lines)
+                #print("FROM COORDINATOR PRINTING INVOICE LINE ITEM DATA",lines)
                 oInvoice.addInvoiceItem(invItemAsList=list(lines))
 
             for items in oInvoice.invItemsObjList:
-                print("printing items after addition to invoice object inside coordinator",items)
-                print("ITEMS ID: ", items.getProductID())
+                #print("printing items after addition to invoice object inside coordinator",items)
+                #print("ITEMS ID: ", items.getProductID())
                 product = self.get_product_by_id(items.getProductID())
-                print("after fetch ", product)
+                #print("after fetch ", product)
                 items.setDescription(product.getDescription())
                 items.calculateLineTotal()
 
@@ -265,12 +265,6 @@ class GPFISCoordinator:
         finally:
             inv_conn.close_connection()
             inv_item_conn.close_connection()
-
-    def modify_invoice(self):
-        print("todo")
-
-    def search_invoice_by_number(self):
-        print("todo")
 
 #*************************************************************
 ############################## Entity #######################
@@ -296,14 +290,14 @@ class GPFISCoordinator:
             entity_conn.close_connection()
 
     def insert_entity(self, * ,EntityObj=None):
-        print("From inside insert entity ",EntityObj.asListForDBInsertion())
+        #print("From inside insert entity ",EntityObj.asListForDBInsertion())
         if isinstance(EntityObj, EntObj):
             try:
                 entity_conn = db_conn_entity(self.db_location)
                 ret = entity_conn.insert_entity(EntityObj.asListForDBInsertion())
                 msg = "EntityObj inside GPFISCoordinator.py -> insert_entity() inserted into DB" + repr(EntityObj)
                 print(msg)
-                print("RETURNED", ret)
+                #print("RETURNED", ret)
             except sqlite3.IntegrityError as e:
                 print("Error: ", e)
                 ErrorPopUpWindow().create_error_window(e)
@@ -345,11 +339,11 @@ class GPFISCoordinator:
             entityObjList = []
             if exactMatch is True:
                 entity = entity_conn.get_entity_by_name(current_customer)
-                print(entity)
+                #print(entity)
                 return entity[0]
             else:
                 entity = entity_conn.get_entity_by_name_approx(current_customer)
-                print(entity)
+                #print(entity)
                 return entity[0]
         except Error as e:
             print(e)
@@ -374,7 +368,7 @@ class GPFISCoordinator:
         try:
             entity_conn = db_conn_entity(self.db_location)
             entity_name = entity_conn.get_entity_name_by_id(id)
-            print("FROM ENTITYNAMEID: ",entity_name)
+            #print("FROM ENTITYNAMEID: ",entity_name)
             return entity_name
         except Error as e:
             msg = e
@@ -398,6 +392,7 @@ class GPFISCoordinator:
             entity_conn = db_conn_entity(self.db_location)
             entity = entity_conn.get_entity_by_id(entity_id)
             oEntity = EntObj(entityList=entity)
+            return oEntity
         except Error as e:
             print(e)
         finally:
@@ -413,7 +408,7 @@ class GPFISCoordinator:
     def insert_product(self, * ,ProductObj=None):
         try: 
             product_conn = db_conn_product(self.db_location)
-            print("From inside insert_product ",ProductObj.asListForDBInsertion())
+            #print("From inside insert_product ",ProductObj.asListForDBInsertion())
             if isinstance(ProductObj, ProdObj):
                 product_conn.insert_product(ProductObj.asListForDBInsertion())
                 print("The following ProductObj from GPFISCoordinator -> insert_product() inserted into DB: ", repr(ProductObj))
@@ -430,7 +425,7 @@ class GPFISCoordinator:
         try:
 
             product_conn = db_conn_product(self.db_location)
-            print("From inside update_product ",ProductObj.asListForDBUpdate())      
+            #print("From inside update_product ",ProductObj.asListForDBUpdate())      
             if isinstance(ProductObj, ProdObj):
                 product_conn.update_product(ProductObj.asListForDBUpdate())
                 print("The following ProductObj from GPFISCoordinator -> update_product() updated in DB: ", repr(ProductObj))
@@ -458,7 +453,7 @@ class GPFISCoordinator:
         try:
             product_conn = db_conn_product(self.db_location)
             product = product_conn.get_product_by_id(product_id)
-            print(product)
+            #print(product)
             oProduct = ProdObj(productList= product)
             
             return oProduct
@@ -486,27 +481,3 @@ class GPFISCoordinator:
         else:
             print("Something has gone horribly wrong")
         return inv_status
-
-
-
-
-#db1 = GPFISCoordinator()
-
-#t = datetime.now()
-# dd/mm/YY H:M:S
-#dt_string = t.strftime("%Y-%m-%d %H:%M:%S")
-#invObj = InvObj(creation_date= dt_string, delivery_date=dt_string, buyer_id=62, note='I am now created correctly')
-#invObj.addInvoiceItem(4, 12, 24, 2.56)
-#invObj.addInvoiceItem(4, 13, 25, 2.57)
-#invObj.addInvoiceItem(4, 14, 26, 2.58)
-
-#prodObj = ProdObj(23, 'Tokyo Negi 23', '23 Jumbo Tokyo Negi, packed 24 to a box.', 2.50, '24 per case 23')
-
-#db1.insert_product(ProductObj=prodObj)
-#prodsfromdb = db1.get_products()
-#for prods in prodsfromdb:
-#    print(prods.toString())
-
-#db1.add_invoice()
-#db1.create_database_tables()
-#db1.insert_country("US", "United States of America")

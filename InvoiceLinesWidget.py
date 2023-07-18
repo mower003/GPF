@@ -29,7 +29,7 @@ class InvoiceLinesWidget():
         self.cache_product_data()
 
     def setup_frame(self):
-        self.lines_frame = tk.Frame(self.base_frame, bg=self.bg_color, padx=45, highlightbackground='black', highlightthickness=2)
+        self.lines_frame = tk.Frame(self.base_frame, bg=self.bg_color, padx=45)
         self.lines_frame.grid_columnconfigure((0,1,2,3,4,5,6), weight=1, uniform='column')
         self.lines_frame.grid_rowconfigure((1,2,3,4,5,6,7,8,9,10,11,12,13,14,15), weight=1, uniform='row')
 

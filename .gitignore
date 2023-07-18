@@ -1,2 +1,3 @@
 -- SQLite.sql
+*.html
 __pycache__/

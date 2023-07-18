@@ -51,7 +51,7 @@ class GPFUI():
         v_scroll = tk.Scrollbar(baseFrame, orient='vertical', command=baseCanvas.yview)
         v_scroll.pack(side='right', fill='y')
 
-        baseFrame_2 = tk.Frame(baseCanvas, bg="#FFFFFF", highlightbackground='green', highlightthickness=2)
+        baseFrame_2 = tk.Frame(baseCanvas, bg="#FFFFFF")
 
         #Instantiate class objects for each menu option
         #Each object builds and controls UI widgets

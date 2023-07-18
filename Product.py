@@ -30,7 +30,7 @@ class ProductObj:
             self.note = productList[ProductObjEnum.NOTE.value]
 
         product_representation = "######################Product Object created######################"+'\n'+"Product ID: " + str(self.id) + '\n' + "Name: " + str(self.name) + '\n' + "Description: " + str(self.description) + '\n' + "Unit Price: " + str(self.unit_price) + '\n' + "Note: " + str(self.note) + '\n' + "Case Style: " + str(self.case_style)
-        print("######################Product Object created######################"+'\n'+self.__repr__())
+        #print("######################Product Object created######################"+'\n'+self.__repr__())
         #print("ProductObj __init__ called with params: %i, %s, %s, %f, %s, %s." % (self.id, self.name, self.description, float(self.unit_price),  self.note, self.case_style))
 
 

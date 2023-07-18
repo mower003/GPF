@@ -403,9 +403,15 @@ class InvoiceObj:
     def get_subtotal(self):
         self.calculate_invoice_subtotal()
         return self.subtotal 
+    
+    def no_calc_get_subtotal(self):
+        return self.subtotal
 
     def get_total(self):
         self.calculate_invoice_total()
+        return self.total
+    
+    def no_calc_get_total(self):
         return self.total
     
     def get_note(self):

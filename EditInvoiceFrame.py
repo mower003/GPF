@@ -74,7 +74,7 @@ class EditInvoiceFrame():
         totvar = tk.DoubleVar(0.00)
         discvar = tk.DoubleVar(0.00)
 
-        self.invoice_header_frame = tk.Frame(self.base_frame, bg=self.invoice_bg_color, padx=5, pady=5, highlightbackground='red', highlightthickness=2)
+        self.invoice_header_frame = tk.Frame(self.base_frame, bg=self.invoice_bg_color, padx=5, pady=5)
 
         self.billto_frame = CustomerSearchWidget(self.invoice_header_frame)
         self.billto_frame.set_top_label("Bill To:")
@@ -140,9 +140,9 @@ class EditInvoiceFrame():
         self.discount_lbl = tk.Label(self.footer_frame, text="Discount: ")
         self.save_btn = tk.Button(self.footer_frame, text="Save", padx=5, width=15, command=lambda: self.save_invoice())
 
-        subtotvar.set(self.oInvoice.get_subtotal())
+        subtotvar.set(self.oInvoice.no_calc_get_subtotal())
         discvar.set(self.oInvoice.get_discount_amount())
-        totvar.set(self.oInvoice.get_total())
+        totvar.set(self.oInvoice.no_calc_get_total())
 
         self.subtotal_display = tk.Entry(self.footer_frame, state='readonly', textvariable=subtotvar)
         self.total_display = tk.Entry(self.footer_frame, state='readonly', textvariable=totvar)

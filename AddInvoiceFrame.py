@@ -41,7 +41,7 @@ class AddInvoiceFrame():
         totvar = tk.DoubleVar(0.00)
         discvar = tk.DoubleVar(0.00)
 
-        self.invoice_header_frame = tk.Frame(self.base_frame, bg=self.invoice_bg_color, padx=5, pady=5, highlightbackground='red', highlightthickness=2)
+        self.invoice_header_frame = tk.Frame(self.base_frame, bg=self.invoice_bg_color, padx=5, pady=5)
 
         self.billto_frame = CustomerSearchWidget(self.invoice_header_frame)
         self.billto_frame.set_top_label("Bill To:")
@@ -122,7 +122,7 @@ class AddInvoiceFrame():
         info_height = self.invoice_info_frame.info_frame.winfo_height()
         lines_height = self.base_frame.winfo_height()
         footer_height = self.footer_frame.winfo_height()
-        total_height = header_height + info_height + lines_height + footer_height
+        total_height = screen_height + header_height + info_height + lines_height + footer_height
 
         self.canvas.itemconfig("baseFrame_2", height=total_height, width=screen_width)
 

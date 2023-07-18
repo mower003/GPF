@@ -22,7 +22,7 @@ class DateAndInvoiceNumberWidget():
         self.base_frame = parent_frame
 
     def setup_frame(self):
-        self.invoice_data_frame = tk.Frame(self.base_frame, bg=self.bg_color, padx=5, pady=20, highlightbackground='black', highlightthickness=2)
+        self.invoice_data_frame = tk.Frame(self.base_frame, bg=self.bg_color, padx=5, pady=20)
 
     def create_ui_elements(self):
         self.invoice_desc_label = tk.Label(self.invoice_data_frame, text="Invoice Number: ", bg=self.label_color, font=(self.label_font,16))

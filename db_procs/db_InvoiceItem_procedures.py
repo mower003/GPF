@@ -7,7 +7,7 @@ class db_InvoiceItem_procedures:
     def __init__(self, db_location):
         self.db_location = db_location
         self.conn = None
-        print(self.db_location)
+        #print(self.db_location)
 
     def create_base_table(self):
         self.create_connection()

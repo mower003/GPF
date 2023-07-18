@@ -41,7 +41,7 @@ class db_Product_procedures:
             print("from insert_product: No product parameters supplied!")
         else:
             try:
-                print("INSIDE DB INSERT: ", productParamList)
+                #print("INSIDE DB INSERT: ", productParamList)
                 self.create_connection()
                 sql_statement = """ INSERT INTO product (id, name, description, unit_price, case_style, note) VALUES (?,?,?,?,?,?) """
                 cur = self.conn.cursor()
@@ -77,7 +77,7 @@ class db_Product_procedures:
 
     def update_product(self, productObjAsList):
         self.create_connection()
-        print("INSIDE DB CONN UPDATE", productObjAsList)
+        #print("INSIDE DB CONN UPDATE", productObjAsList)
         sql_statement = """ UPDATE product SET 
             name = ?, 
             description = ?,

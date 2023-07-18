@@ -26,7 +26,7 @@ class InvoiceInfoWidget():
         self.applied_credit_var = tk.DoubleVar(0.00)
         self.credit_invoice_num_var = tk.StringVar("")
         self.note_var = tk.StringVar("")
-        self.info_frame = tk.Frame(self.base_frame, padx=15, pady=10, bg=self.bg_color, highlightbackground='black', highlightthickness=2)
+        self.info_frame = tk.Frame(self.base_frame, padx=15, pady=10, bg=self.bg_color)
 
     def create_ui_elements(self):
         self.payment_terms_lbl = tk.Label(self.info_frame, text="Payment Terms", bg=self.label_color, font=(self.label_font, 12, 'bold'))
