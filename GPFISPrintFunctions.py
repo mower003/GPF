@@ -152,13 +152,13 @@ class GPFIS2HTML():
         self.file_handle.write(discount)
 
     def create_total(self, total):
-        html_string = """<tr><td> </td> <td> </td> <td> </td> <td> </td> <td></td> <td>Total: </td> <td>$%s</td></tr></table></div>"""
+        html_string = """<tr><td> </td> <td> </td> <td> </td> <td> </td> <td></td> <td>Total: </td> <td>$%s</td></tr></div>"""
         total = html_string % (total)
 
         self.file_handle.write(total)
 
     def create_signature_line_and_close(self):
-        html_string = """<div class ="signatureline"><p>X___________________________________________________</p></div></div></body></html>"""
+        html_string = """<tr style="height:50px;"><td style="border:none"><i><b>Signature</i></b></td></tr></table></div></div></body></html>"""
 
         self.file_handle.write(html_string)
 

@@ -52,13 +52,13 @@ class InvoiceLineItemWidget():
             return element_list
         except ValueError as e:
             print("ValueError: Error returning list: InvoiceLineItemWidget: get_line_elements_as_list", e)
-            self.errorPrompt.create_error_window(e)
+            #self.errorPrompt.create_error_window(e)
         except TypeError as e:
             print("TypeError: Error returning list: InvoiceLineItemWidget: get_line_elements_as_list", e)
-            self.errorPrompt.create_error_window(e)
+            #self.errorPrompt.create_error_window(e)
         except Error as e:
             print("Error returning list: InvoiceLineItemWidget: get_line_elements_as_list", e)
-            self.errorPrompt.create_error_window(e)
+            #self.errorPrompt.create_error_window(e)
 
     def get_line_total(self):
         line_tot = self.line_total_entry.get()
@@ -102,7 +102,7 @@ class InvoiceLineItemWidget():
         #calculate total
         total = int(self.quantity_entry.get()) * float(self.price_entry.get())
         total = round(float(total),2)
-        print("(Invoice Line Item Widget) Line Total Calculation -> ", total)
+        #print("(Invoice Line Item Widget) Line Total Calculation -> ", total)
         self.line_total_entry.config(state='normal')
         self.line_total_entry.delete(0, tk.END)
         self.line_total_entry.insert(0, total)
@@ -137,8 +137,8 @@ class InvoiceLineItemWidget():
         try:
             qty = self.quantity_entry.get()
             price = self.price_entry.get()
-            print("quantity", qty)
-            print("price", price)
+            #print("quantity", qty)
+            #print("price", price)
             if qty == '' or price == '':
                 qty = 0
                 price = 0 

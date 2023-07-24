@@ -9,15 +9,19 @@
 .logoandinfo{
     border-radius: 25px;
     /*border: 2px solid #000000;*/
-    padding: 20px; 
+    /*padding: 20px; */
     grid-column: 1/5;
     grid-row: 1;
+}
+
+#GPFAddressTitle {
+    margin-top: 30px;
 }
 
 #GPFLogo{
     border-radius: 25px;
     /*border: 2px solid #000000;*/
-    padding: 20px; 
+    /*padding: 20px; */
     padding-right:15px;
     width:150px;
     height:150px;
@@ -103,7 +107,7 @@ td,tr{
 
 .signatureline{
     border-radius: 25px;
-    /*border: 2px solid #000000;*/
+    border: 2px solid #000000;
     padding: 20px; 
     grid-column:1/4;
     grid-row: 11;
