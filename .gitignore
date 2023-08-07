@@ -1,3 +1,4 @@
 -- SQLite.sql
 *.html
-__pycache__/
+__pycache__/*
+db_procs/__pycache__/*
