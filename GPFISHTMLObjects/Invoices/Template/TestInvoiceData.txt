@@ -1,0 +1,499 @@
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');
+
+INSERT INTO invoice 
+(invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, payment_terms, applied_credit_amount, modified_date) 
+VALUES ('08-01-2023', '08-01-2023', '08-22-2023', 37, 107, 107, 0, 0.0, 12345.67, 0.0, 'NET 21 DAYS', 0.0, '2023-08-01 16:42:18');

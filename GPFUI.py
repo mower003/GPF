@@ -9,22 +9,47 @@ from AddInvoiceFrame import AddInvoiceFrame
 from ViewInvoiceFrame import ViewInvoiceFrame
 from OrderBoardFrame import OrderBoardFrame
 from StatementsFrame import Statements
+from ProductBreakdownFrame import ProductBreakdownFrame
 from tkinter import BOTH, LEFT, Menu
 
 class GPFUI():
-    def start():
+    def __init__(self):
+        self.root = tk.Tk()
+        #self.baseFrame = tk.Frame(self.root,bg = '#FFFFFF')
+        self.baseCanvas = tk.Canvas(self.root, bg='#FFFFFF')
+        self.baseFrame_2 = tk.Frame(self.baseCanvas, bg='#FFFFFF')
+        self.sbHorizontalScrollBar = tk.Scrollbar(self.root)
+        self.sbVerticalScrollBar = tk.Scrollbar(self.root)
 
-        root = tk.Tk()
+    def create_scrollable_container(self):
+        self.baseCanvas.config(xscrollcommand=self.sbHorizontalScrollBar.set,yscrollcommand=self.sbVerticalScrollBar.set, highlightthickness=0)
+        self.sbHorizontalScrollBar.config(orient=tk.HORIZONTAL, command=self.baseCanvas.xview)
+        self.sbVerticalScrollBar.config(orient=tk.VERTICAL, command=self.baseCanvas.yview)
 
-        root.title('Green Paradise Farms')
-        root.iconbitmap('GPFISHTMLObjects\Invoices\imgs\gpf_logo.ico')
+        self.sbHorizontalScrollBar.pack(fill=tk.X, side=tk.BOTTOM, expand=tk.FALSE)
+        self.sbVerticalScrollBar.pack(fill=tk.Y, side=tk.RIGHT, expand=tk.FALSE)
+
+        self.baseCanvas.pack(fill=tk.BOTH, side=tk.LEFT, expand=tk.TRUE)
+        self.baseCanvas.create_window(0, 0, window=self.baseFrame_2, anchor=tk.NW)
+
+    def update_scrollable_region(self):
+        self.baseCanvas.update_idletasks()
+        self.baseCanvas.config(scrollregion=self.baseFrame_2.bbox())
+
+    def start(self):
+
+        #root = tk.Tk()
+
+        self.root.title('Green Paradise Farms')
+        self.root.iconbitmap('GPFISHTMLObjects\Invoices\imgs\gpf_logo.ico')
 
         window_width = 700
         window_height = 500
 
         # get the screen dimension
-        screen_width = root.winfo_screenwidth()
-        screen_height = root.winfo_screenheight()
+        screen_width = self.root.winfo_screenwidth()
+        screen_height = self.root.winfo_screenheight()
+        print("SCREEN HEIGHT:      " + str(screen_height) + " SCREEN WIDTH:      " + str(screen_width))
 
         # find the center point
         center_x = int(screen_width/2 - window_width / 2)
@@ -32,43 +57,50 @@ class GPFUI():
 
         #Window controls
         #Fullscreen no top toolbar
-        #root.attributes('-fullscreen', True)
+        self.root.attributes('-fullscreen', True)
+        self.root.update_idletasks()
         #Full screen with right top toolbar
         #root.geometry("%dx%d" % (screen_width, screen_height))
         #Use window geometery and center
-        root.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
-
+        #self.root.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
         #baseFrame = tk.Frame(root, bd = 5, bg = 'grey')
         #baseFrame.pack(fill=BOTH, expand=1)
 
         #scrollbar set up
-        baseFrame = tk.Frame(root,bg = '#FFFFFF')
-        baseFrame.pack(fill=BOTH, expand=1)
+        #baseFrame = tk.Frame(self.root,bg = '#FFFFFF')
+        #self.baseFrame.pack()
+        self.baseFrame_2.pack()
 
-        baseCanvas = tk.Canvas(baseFrame, bg="#FFFFFF")
-        baseCanvas.pack(side='left', fill=BOTH, expand=1)
+        #baseCanvas = tk.Canvas(self.baseFrame, bg="#FFFFFF")
+        #self.baseCanvas.pack(side='left', fill=BOTH, expand=1)
 
-        v_scroll = tk.Scrollbar(baseFrame, orient='vertical', command=baseCanvas.yview)
-        v_scroll.pack(side='right', fill='y')
+        #v_scroll = tk.Scrollbar(self.baseFrame, orient='vertical', command=self.baseCanvas.yview)
+        #v_scroll.pack(side='right', fill='y')
 
-        baseFrame_2 = tk.Frame(baseCanvas, bg="#FFFFFF")
+        #baseFrame_2 = tk.Frame(self.baseCanvas, bg="#FFFFFF")
 
         #Instantiate class objects for each menu option
         #Each object builds and controls UI widgets
-        order_board_frame = OrderBoardFrame(baseFrame_2)
-        add_customer_frame = AddCustomerFrame(baseFrame_2)
-        view_customer_frame = ViewCustomerFrame(baseFrame_2)
-        add_product_frame = AddProductFrame(baseFrame_2)
-        view_product_frame = ViewProductFrame(baseFrame_2)
-        add_invoice_frame = AddInvoiceFrame(baseFrame_2, baseCanvas)
-        view_invoice_frame = ViewInvoiceFrame(baseFrame_2)
-        statement_frame = Statements(baseFrame_2, baseCanvas)
+        order_board_frame = OrderBoardFrame(self.baseFrame_2)
+        add_customer_frame = AddCustomerFrame(self.baseFrame_2)
+        view_customer_frame = ViewCustomerFrame(self.baseFrame_2, self.baseCanvas, self.root)
+        add_product_frame = AddProductFrame(self.baseFrame_2)
+        view_product_frame = ViewProductFrame(self.baseFrame_2)
+        add_invoice_frame = AddInvoiceFrame(self.baseFrame_2, self.baseCanvas)
+        view_invoice_frame = ViewInvoiceFrame(self.baseFrame_2, self.baseCanvas, self.root)
+        statement_frame = Statements(self.baseFrame_2, self.baseCanvas, self.root)
+        product_breakdown_frame = ProductBreakdownFrame(self.baseFrame_2, self.baseCanvas, self.root)
 
-        baseCanvas.configure(yscrollcommand=v_scroll.set)
-        baseCanvas.bind("<Configure>", lambda e: baseCanvas.configure(scrollregion= baseCanvas.bbox("all")))
+        self.baseFrame_2.configure(bg='#E5E4E2')
+        self.baseCanvas.configure(bg='#E5E4E2')
 
-        baseCanvas.create_window((0,0), window=baseFrame_2, anchor='nw', tags="baseFrame_2")
-        baseCanvas.itemconfig("baseFrame_2", height=screen_height, width=screen_width)
+        self.create_scrollable_container()
+        self.update_scrollable_region()
+        #baseCanvas.configure(yscrollcommand=v_scroll.set)
+        #baseCanvas.bind("<Configure>", lambda e: baseCanvas.configure(scrollregion= baseCanvas.bbox("all")))
+
+        #baseCanvas.create_window((0,0), window=baseFrame_2, anchor='nw', tags="baseFrame_2")
+        #baseCanvas.itemconfig("baseFrame_2", height=screen_height, width=screen_width)
 
         #baseCanvas = tk.Canvas(baseFrame, scrollregion=(0,0, 1500, 1500))
         #vbar = tk.Scrollbar(baseFrame, orient='vertical')
@@ -84,7 +116,7 @@ class GPFUI():
         #WILL NOT handle any of that themselves, beyond making a call asks for or sends data. Data that is sent or comes in should be in list or tuple form. 
         # (possible that it may be lists or tuples of appropriate objects e.g. Product, Customer classes)
 
-        baseMenu = OptionsMenu.GPF_OptionsMenu(root, 
+        baseMenu = OptionsMenu.GPF_OptionsMenu(self.root, 
                                             add_customer_frame = add_customer_frame, 
                                             view_customer_frame= view_customer_frame, 
                                             add_product_frame= add_product_frame, 
@@ -92,8 +124,8 @@ class GPFUI():
                                             add_invoice_frame= add_invoice_frame, 
                                             view_invoice_frame= view_invoice_frame,
                                             order_board_frame= order_board_frame,
-                                            statement_frame= statement_frame)
-        root.config(menu=baseMenu.getMenuBar())
+                                            statement_frame= statement_frame,
+                                            product_breakdown_frame = product_breakdown_frame)
+        self.root.config(menu=baseMenu.getMenuBar())
 
-        root.mainloop()
-
+        self.root.mainloop()

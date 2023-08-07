@@ -1,4 +1,5 @@
 import tkinter as tk
+import locale
 
 from tkinter import ttk
 from GPFISCoordinator import GPFISCoordinator
@@ -9,6 +10,7 @@ from tkcalendar import DateEntry
 from datetime import datetime
 
 class Statements(tk.Frame):
+    locale.setlocale(locale.LC_ALL, 'en_US')
     #Static Settings
     #Color theme
     bg_color = '#FFFFFF'
@@ -23,9 +25,10 @@ class Statements(tk.Frame):
     #Controls the title of the frame.
     frame_title = "Statements"
 
-    def __init__(self, parent_frame, canvas):
+    def __init__(self, parent_frame, canvas, root):
         self.base_frame = parent_frame
         self.canvas = canvas
+        self.root = root
         self.coordinator = GPFISCoordinator()
 
     def fetch_customer_objects(self):
@@ -36,7 +39,7 @@ class Statements(tk.Frame):
         self.build_frame()
 
     def fetch_statement(self):
-        self.oustanding_balance = 0
+        self.outstanding_balance = 0
         self.grand_total = 0
         start_date, end_date = self.get_formatted_dates()
         print(start_date, end_date)
@@ -58,15 +61,18 @@ class Statements(tk.Frame):
             sisw.setup_frame()
 
             if invObj.get_status() == 0:
-                self.oustanding_balance += round(float(invObj.get_total()),2)
+                self.outstanding_balance += round(float(invObj.get_total()),2)
                 self.grand_total += round(float(invObj.get_total()),2)
             if invObj.get_status() == 1:
                 self.grand_total += round(float(invObj.get_total()),2)
 
         fsisw = StatementInvoiceSummaryWidget(self.statements_frame)
-        fsisw.create_as_footer(self.oustanding_balance, self.grand_total)
+        self.outstanding_balance = locale.currency(float(self.outstanding_balance), True, True, False)
+        self.grand_total = locale.currency(float(self.grand_total), True, True, False)
+        fsisw.create_as_footer(self.outstanding_balance, self.grand_total)
 
-        self.update_canvas_size()
+        self.update_scroll_region()
+        #self.update_canvas_size()
     
     def create_customer_name_list(self):
         for customer in self.oCustomer_list:
@@ -136,7 +142,7 @@ class Statements(tk.Frame):
         self.clear_frame_button = tk.Button(self.statements_frame, text="Clear", command= lambda: self.rebuild_frame())
         self.clear_frame_button.pack(side='left', anchor='nw', padx=20, pady=5)
 
-        self.statements_frame.pack(side='top', expand=True, fill='x', anchor= 'nw')  
+        self.statements_frame.pack(side='top', anchor= 'nw')  
 
         self.update_canvas_size()
 
@@ -146,11 +152,38 @@ class Statements(tk.Frame):
         print("BEFORE PRINT")
         print(customer_name)
         print(begin_date, end_date)
-        printer = GPFISStatment2HTML(self.invoice_list, customer_name, begin_date, end_date, self.oustanding_balance, self.grand_total)
+        printer = GPFISStatment2HTML(self.invoice_list, customer_name, begin_date, end_date, self.outstanding_balance, self.grand_total)
         printer.build_HTML_statement()
+
+    def update_scroll_region(self):
+        #Canvas holding scroll bar needs to be resized to fit line items.
+        self.statements_frame.update()
+        self.base_frame.update()
+
+        scrollable_frame_height = self.statements_frame.winfo_reqheight()
+        scrollable_frame_width = self.statements_frame.winfo_reqwidth()
+
+        total_height = scrollable_frame_height
+        total_width = scrollable_frame_width
+        screen_width = self.root.winfo_screenwidth()
+
+        print("h         " + str(total_height) + "w      " + str(screen_width) + " tw      " + str(scrollable_frame_width))
+
+        #self.canvas.itemconfig("baseFrame_2", height=total_height, width=screen_width)
+        #self.canvas.update_idletasks()
+        #self.wrapper_frame.update()
+        #self.entity_lines_frame.update_idletasks()
+        #self.base_frame.update_idletasks()
+        #bbox = self.base_frame.bbox("all")
+        #bboxa = self.entity_lines_frame.bbox("all")
+
+        #print("bbox   " + str(bbox) + "   bboxa     " + str(bboxa))
+        #bbox is bound by topmost coords (0,0) and bottom rightmost coords (frame width, frame height)
+        self.canvas.config(scrollregion=(0,0,scrollable_frame_width, total_height))
     
     def update_canvas_size(self):
         #Canvas holding scroll bar needs to be resized to fit line items.
+        self.statements_frame.update()
         screen_width = self.base_frame.winfo_screenwidth()
         screen_height = self.base_frame.winfo_screenheight()
 
@@ -160,7 +193,7 @@ class Statements(tk.Frame):
         print("STATEMENTHEIGHT: ", statement_height)
         total_height = screen_height 
 
-        self.canvas.itemconfig("baseFrame_2", height=total_height, width=screen_width) 
+        self.canvas.config(scrollregion=(0,0,screen_width, total_height))
 
     def build_frame(self):
         self.clear_display_frame()

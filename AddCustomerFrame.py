@@ -10,7 +10,7 @@ class AddCustomerFrame():
     #Controls the number and name of form elements
     customer_compositional_elements = ['Customer ID:', 'Name', 'Address Number', 'Street Name',  'City', 'State', 'Zip', 'Country', 'Active']
     #Color theme
-    bg_color = '#FFFFFF'
+    bg_color = '#E5E4E2'
     label_color = '#FFFFFF'
     data_color = '#AA8B56'
     header_color = '#F0EBCE'
@@ -40,7 +40,7 @@ class AddCustomerFrame():
         self.clear_product_data()
 
     def add_title_label(self):
-        self.title = tk.Label(self.entity_frame, text=self.frame_title, bg=self.label_color)
+        self.title = tk.Label(self.entity_frame, text=self.frame_title, bg=self.bg_color)
         self.title.config(font=(self.title_font,25))
         self.title.grid(row=0, column = 0, columnspan=3, ipady=5, pady=5, sticky="N,S,E,W")
         #self.entity_frame.grid_columnconfigure(0, weight=1)

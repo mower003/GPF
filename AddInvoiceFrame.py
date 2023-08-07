@@ -166,7 +166,10 @@ class AddInvoiceFrame():
             oInvoice.set_buyer(self.billto_frame.get_selected_entity_obj())
 
             #Set shipto details
-            oInvoice.set_shipto(self.shipto_frame.get_selected_entity_obj())
+            if self.shipto_frame.get_selected_entity_obj() is None:
+                oInvoice.set_shipto(self.billto_frame.get_selected_entity_obj())
+            else:
+                oInvoice.set_shipto(self.shipto_frame.get_selected_entity_obj())
 
             print(self.date_and_invoice_widg.get_invoice_date())
             print(self.date_and_invoice_widg.get_delivery_date())

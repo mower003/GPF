@@ -6,7 +6,10 @@ from webbrowser import open_new_tab
 
 class GPFIS2HTML():
 
-    document_location = r"C:\Users\dunju\Documents\GPF\GPFISHTMLObjects\Invoices"
+    absolute_path = os.path.dirname(__file__)
+    relative_path = "GPFISHTMLObjects\Invoices"
+    full_path = os.path.join(absolute_path, relative_path)
+    #document_location = r"C:\Users\dunju\Documents\GPF\GPFISHTMLObjects\Invoices"
     #css_path = 'GPFISHTMLObjects\css\gpf.css'
     css_path = "./css/gpf.css"
     logo_path = "./imgs/gpf_logo.png"
@@ -27,7 +30,7 @@ class GPFIS2HTML():
     def set_file_name(self):
         now = datetime.datetime.today().strftime("%Y%m%d_%H%M") 
         self.file_name = str(self.invoiceObj.get_inv_num()) + "_" + now + ".html"
-        self.completeFileName = os.path.join(self.document_location, self.file_name)
+        self.completeFileName = os.path.join(self.full_path, self.file_name)
         print(self.completeFileName)
         self.file_handle = open(self.completeFileName, 'w')
 
@@ -44,6 +47,7 @@ class GPFIS2HTML():
         for itemObjs in self.invoiceObj.invItemsObjList:
             self.create_line_item(itemObjs.asTupleForHTML())
 
+        self.create_filler_line_in_table()
         self.create_subtotal(self.invoiceObj.no_calc_get_subtotal())
         self.create_discount(self.invoiceObj.get_discount_amount())
         self.create_total(self.invoiceObj.no_calc_get_total())
@@ -134,10 +138,15 @@ class GPFIS2HTML():
         
     def create_line_item(self, lineItemTuple):
         #qty, cases, itemnum, description, note, price, total
-        html_string = """<tr id="lineitem"><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>$%s</td><td>$%s</td></tr>"""
+        html_string = """<tr id="lineitem"><td>%s</td><td>%s</td><td>%s</td><td class="tdbreak">%s</td><td class="tdbreak">%s</td><td>$%s</td><td>$%s</td></tr>"""
         line_item = html_string % lineItemTuple
 
         self.file_handle.write(line_item)
+
+    def create_filler_line_in_table(self):
+        html_string = """<tr style="background-color:#E5E4E2"><td> </td> <td> </td> <td> </td> <td> </td> <td> </td> <td> </td> <td> </td></tr>"""
+
+        self.file_handle.write(html_string)
 
     def create_subtotal(self, subtotal):
         html_string = """<tr><td> </td> <td> </td> <td> </td> <td> </td> <td></td> <td>Subtotal: </td> <td>$%s</td></tr>"""
@@ -158,14 +167,17 @@ class GPFIS2HTML():
         self.file_handle.write(total)
 
     def create_signature_line_and_close(self):
-        html_string = """<tr style="height:50px;"><td style="border:none"><i><b>Signature</i></b></td></tr></table></div></div></body></html>"""
+        html_string = """<tr style="height:70px;"><td style="border:none"><i><b>Signature</i></b></td></tr></table></div></div></body></html>"""
 
         self.file_handle.write(html_string)
 
 
 class GPFISStatment2HTML():
 
-    document_location = r"C:\Users\dunju\Documents\GPF\GPFISHTMLObjects\Invoices"
+    absolute_path = os.path.dirname(__file__)
+    relative_path = "GPFISHTMLObjects\Invoices"
+    full_path = os.path.join(absolute_path, relative_path)
+    #document_location = r"C:\Users\dunju\Documents\GPF\GPFISHTMLObjects\Invoices"
     css_path = "./css/gpf_statement.css"
     logo_path = "./imgs/gpf_logo.png"
 
@@ -203,7 +215,7 @@ class GPFISStatment2HTML():
     def set_file_name(self):
         now = datetime.datetime.today().strftime("%Y%m%d_%H%M") 
         self.file_name = str(self.customer_name) + "_" + now + ".html"
-        self.completeFileName = os.path.join(self.document_location, self.file_name)
+        self.completeFileName = os.path.join(self.full_path, self.file_name)
         print(self.completeFileName)
         self.file_handle = open(self.completeFileName, 'w')
 
@@ -252,7 +264,7 @@ class GPFISStatment2HTML():
         
     def create_line_item(self, lineItemTuple):
         #inv_num, bill to, ship tp, invoice date, delivery date, payment status, invoice total
-        html_string = """<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>$%s</td></tr>"""
+        html_string = """<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>"""
         line_item = html_string % lineItemTuple
 
         self.file_handle.write(line_item)

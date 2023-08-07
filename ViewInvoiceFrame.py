@@ -25,8 +25,10 @@ class ViewInvoiceFrame():
     #Controls the title of the frame.
     frame_title = "View Invoices Frame"
 
-    def __init__(self, parent_frame):
+    def __init__(self, parent_frame, canvas, root):
         self.base_frame = parent_frame
+        self.canvas = canvas
+        self.root = root
         self.coordinator = GPFISCoordinator()
         self.invoice_object_list = []
 
@@ -53,13 +55,14 @@ class ViewInvoiceFrame():
 
             for invObj in self.invoice_object_list:
                 visw = ViewInvoiceSummaryWidget(self.invoice_view_frame)
-                visw.set_widget_values(invObj.get_inv_num(), invObj.get_buyer_name(), invObj.get_ship_to_name(), invObj.get_total(), invObj.get_status())
+                visw.set_widget_values(invObj.get_inv_num(), invObj.get_delivery_date(), invObj.get_buyer_name(), invObj.get_ship_to_name(), invObj.get_total(), invObj.get_status())
                 visw.setup_frame()
         else:
             for invObj in self.invoice_object_list:
                 visw = ViewInvoiceSummaryWidget(self.invoice_view_frame)
-                visw.set_widget_values(invObj.get_inv_num(), invObj.get_buyer_name(), invObj.get_ship_to_name(), invObj.get_total(), invObj.get_status())
+                visw.set_widget_values(invObj.get_inv_num(), invObj.get_delivery_date(), invObj.get_buyer_name(), invObj.get_ship_to_name(), invObj.get_total(), invObj.get_status())
                 visw.setup_frame()
+        self.update_scroll_region()
         #View will automatically get the most recent 50 invoices. (maybe?)
         #If invoices beyond that are required user will have to use the search function
         #Search can only be done by date or customer and combo of paid/unpaid.
@@ -73,6 +76,7 @@ class ViewInvoiceFrame():
         date_range = self.isw.get_date_selections()
         #returns as [paid, unpaid]
         paid_status = self.isw.get_paid_unpaid()
+        print(selected_cust + " " + str(date_range) + " " + str(paid_status))
 
         #self.cache_invoice_data(selected_cust, date_range, paid_status)
 
@@ -87,7 +91,36 @@ class ViewInvoiceFrame():
     def fetch_invoice_results(self, selected_cust, date_range, paid_status):
         self.invoice_object_list.clear()
         self.invoice_object_list = self.coordinator.get_invoices_using_search_params(selected_cust, date_range, paid_status)
+        print("INVOIVE OBJECT LIST")
+        print(self.invoice_object_list)
         #print(customerInvList)
+
+    def update_scroll_region(self):
+        #Canvas holding scroll bar needs to be resized to fit line items.
+        self.invoice_view_frame.update()
+        self.base_frame.update()
+
+        frame_height = self.invoice_view_frame.winfo_reqheight()
+        frame_width = self.invoice_view_frame.winfo_reqwidth()
+
+        total_height = frame_height
+        total_width = frame_width
+        screen_width = self.root.winfo_screenwidth()
+
+        print("h         " + str(frame_height))
+
+        #self.canvas.itemconfig("baseFrame_2", height=total_height, width=screen_width)
+        #self.canvas.update_idletasks()
+        #self.wrapper_frame.update()
+        #self.entity_lines_frame.update_idletasks()
+        #self.base_frame.update_idletasks()
+        #bbox = self.base_frame.bbox("all")
+        #bboxa = self.entity_lines_frame.bbox("all")
+
+        #print("bbox   " + str(bbox) + "   bboxa     " + str(bboxa))
+        #bbox is bound by topmost coords (0,0) and bottom rightmost coords (frame width, frame height)
+        self.canvas.config(scrollregion=(0,0,screen_width, total_height))
+        #self.canvas.config(scrollregion=(self.entity_lines_frame.bbox("all")))
 
     def clear_display_frame(self):
         for children in self.base_frame.winfo_children():

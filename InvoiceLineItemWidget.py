@@ -15,8 +15,8 @@ class InvoiceLineItemWidget():
         self.quantity_entry = tk.Entry(self.base_frame, width=7, background='#E5E4E2')
         self.cases_entry = tk.Entry(self.base_frame, width=10, background='#E5E4E2')
         self.item_no_entry = tk.Entry(self.base_frame, width=5, background='#E5E4E2')
-        self.description_entry = tk.Text(self.base_frame, width=20, height=2, background='#E5E4E2', wrap= tk.WORD)
-        self.note_entry = tk.Text(self.base_frame, width=20, height=2, background='#E5E4E2', wrap= tk.WORD)
+        self.description_entry = tk.Text(self.base_frame, width=20, height=1, background='#E5E4E2', wrap= tk.WORD)
+        self.note_entry = tk.Entry(self.base_frame, width=20, background='#E5E4E2')
         self.price_entry = tk.Entry(self.base_frame, width=10, background='#E5E4E2')
         self.line_total_entry = tk.Entry(self.base_frame, width=10, background='#E5E4E2')
 
@@ -29,13 +29,14 @@ class InvoiceLineItemWidget():
 
     def place_line_item(self, theRow):
         self.line_id = theRow
-        self.quantity_entry.grid(row=theRow, column=0, sticky='N,E,W', pady=2, ipady=8)
-        self.cases_entry.grid(row=theRow, column=1, sticky='N,E,W',pady=2, ipady=8)
-        self.item_no_entry.grid(row=theRow, column=2, sticky='N,E,W', ipady=8, pady=2)
+        #, ipady=8 cnp from below attributes.
+        self.quantity_entry.grid(row=theRow, column=0, sticky='N,E,W', pady=2)
+        self.cases_entry.grid(row=theRow, column=1, sticky='N,E,W',pady=2)
+        self.item_no_entry.grid(row=theRow, column=2, sticky='N,E,W', pady=2)
         self.description_entry.grid(row=theRow, column=3, sticky='N,E,W', pady=2)
         self.note_entry.grid(row=theRow, column=4, sticky='N,E,W', pady=2)
-        self.price_entry.grid(row=theRow, column=5, sticky='N,E,W', ipady=8, pady=2)
-        self.line_total_entry.grid(row=theRow, column=6, sticky='N,E,W', ipady=8, pady=2)
+        self.price_entry.grid(row=theRow, column=5, sticky='N,E,W', pady=2)
+        self.line_total_entry.grid(row=theRow, column=6, sticky='N,E,W', pady=2)
 
     def get_line_elements_as_list(self):
         try:
@@ -45,7 +46,7 @@ class InvoiceLineItemWidget():
             element_list.append(str(self.cases_entry.get()))
             element_list.append(int(self.quantity_entry.get()))
             element_list.append(float(self.price_entry.get()))
-            element_list.append(str(self.note_entry.get('1.0', 'end-1c')))
+            element_list.append(str(self.note_entry.get()))
             element_list.append(str(self.description_entry.get('1.0', 'end-1c')))
             element_list.append(float(self.line_total_entry.get()))
 
@@ -76,7 +77,7 @@ class InvoiceLineItemWidget():
         self.cases_entry.insert(0, str(lineItem[2]))
         self.item_no_entry.insert(0, int(lineItem[3]))
         self.description_entry.insert("1.0", str(lineItem[4]))
-        self.note_entry.insert("1.0", str(lineItem[5]))
+        self.note_entry.insert(0, str(lineItem[5]))
         self.price_entry.insert(0, locale.currency(float(lineItem[6]), False, False, False))
         self.line_total_entry.insert(0, round(float(lineItem[7]),2))
         self.disable_standard_item_attributes()
@@ -116,6 +117,9 @@ class InvoiceLineItemWidget():
     
     def get_quantity_entry_box(self):
         return self.quantity_entry
+    
+    def get_product_entry_box(self):
+        return self.item_no_entry
     
     def recalculate_line_total(self):
         try:
@@ -158,7 +162,7 @@ class InvoiceLineItemWidget():
         self.cases_entry.delete(0, tk.END)
         self.item_no_entry.delete(0, tk.END)
         self.description_entry.delete("1.0", tk.END)
-        self.note_entry.delete("1.0", tk.END)
+        self.note_entry.delete(0, tk.END)
         self.price_entry.delete(0, tk.END)
         self.line_total_entry.delete(0, tk.END)
         self.disable_standard_item_attributes()
@@ -180,9 +184,7 @@ class InvoiceLineItemWidget():
                         product_price = products.getUnitPrice()
                         #print("INSIDEIF", description, product_price)
                 #data = self.product_dict.get(typed)
-                #NOTE: Possible that maybe a lookup into the database is better for this rather than
-                #populating a dictionary. Prices will also have to be populated in this call and that would
-                #require two dictionaries or two db calls.
+
                 #print(data)
 
                 #populate description field

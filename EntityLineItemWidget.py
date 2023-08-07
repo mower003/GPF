@@ -87,16 +87,16 @@ class EntityLineItemWidget():
         self.is_active.config(state='active')
 
     def create_ui_elements(self):
-        self.entity_id = tk.Text(self.base_frame, bg=self.bg_color, font=(self.label_font, 12), width=20, height=2, wrap=tk.WORD)
-        self.entity_name = tk.Text(self.base_frame, bg=self.bg_color, font=(self.label_font, 12), width=20, height=2, wrap=tk.WORD)
-        self.st_name = tk.Text(self.base_frame, bg=self.bg_color, font=(self.label_font, 12), width=20, height=2, wrap=tk.WORD)
-        self.st_number = tk.Text(self.base_frame, bg=self.bg_color, font=(self.label_font, 12), width=20, height=2, wrap=tk.WORD)
-        self.city = tk.Text(self.base_frame, bg=self.bg_color, font=(self.label_font, 12), width=20, height=2, wrap=tk.WORD)
-        self.state = tk.Text(self.base_frame, bg=self.bg_color, font=(self.label_font, 12), width=20, height=2, wrap=tk.WORD)
-        self.zip = tk.Text(self.base_frame, bg=self.bg_color, font=(self.label_font, 12), width=20, height=2, wrap=tk.WORD)
-        self.country = tk.Text(self.base_frame, bg=self.bg_color, font=(self.label_font, 12), width=20, height=2, wrap=tk.WORD)
-        self.is_active = tk.Text(self.base_frame, bg=self.bg_color, font=(self.label_font, 12), width=20, height=2, wrap=tk.WORD)
-        self.edit_button = tk.Button(self.base_frame, text="Edit", command=lambda: self.spawn_edit_window(self.oEntity))
+        self.entity_id = tk.Text(self.base_frame, bg=self.bg_color, font=(self.label_font, 12), width=1, height=2, wrap=tk.WORD)
+        self.entity_name = tk.Text(self.base_frame, bg=self.bg_color, font=(self.label_font, 12), width=1, height=2, wrap=tk.WORD)
+        self.st_name = tk.Text(self.base_frame, bg=self.bg_color, font=(self.label_font, 12), width=1, height=2, wrap=tk.WORD)
+        self.st_number = tk.Text(self.base_frame, bg=self.bg_color, font=(self.label_font, 12), width=1, height=2, wrap=tk.WORD)
+        self.city = tk.Text(self.base_frame, bg=self.bg_color, font=(self.label_font, 12), width=1, height=2, wrap=tk.WORD)
+        self.state = tk.Text(self.base_frame, bg=self.bg_color, font=(self.label_font, 12), width=1, height=2, wrap=tk.WORD)
+        self.zip = tk.Text(self.base_frame, bg=self.bg_color, font=(self.label_font, 12), width=1, height=2, wrap=tk.WORD)
+        self.country = tk.Text(self.base_frame, bg=self.bg_color, font=(self.label_font, 12), width=1, height=2, wrap=tk.WORD)
+        self.is_active = tk.Text(self.base_frame, bg=self.bg_color, font=(self.label_font, 12), width=1, height=2, wrap=tk.WORD)
+        self.edit_button = tk.Button(self.base_frame, width=4, text="Edit", command=lambda: self.spawn_edit_window(self.oEntity))
 
     def populate_ui_elements_from_object(self, entityObj):
         self.entity_id.insert("1.0", entityObj.getID())
@@ -125,5 +125,4 @@ class EntityLineItemWidget():
     def clear_display_frame(self):
         for children in self.base_frame.winfo_children():
             children.destroy()
-
 

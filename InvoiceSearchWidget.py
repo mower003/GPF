@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkcalendar import Calendar, DateEntry
+from datetime import datetime, timedelta
 
 class InvoiceSearchWidget():
     #Static Settings
@@ -67,14 +68,20 @@ class InvoiceSearchWidget():
         else:
             customer = self.customer_search_box.get()
 
+        #print("returning customer search box " + customer)
         return customer
 
     def get_date_selections(self):
 
         date_list = []
 
-        date_list.append(self.date_selection_start.get_date())
-        date_list.append(self.date_selection_end.get_date())
+        ddate = datetime.strptime(str(self.date_selection_start.get_date()), '%Y-%m-%d')
+        date = ddate.strftime('%m-%d-%Y')
+        date_list.append(date)
+
+        ddate = datetime.strptime(str(self.date_selection_end.get_date()), '%Y-%m-%d')
+        date = ddate.strftime('%m-%d-%Y')
+        date_list.append(date)
 
         return date_list
 

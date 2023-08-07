@@ -85,10 +85,21 @@ th{
     border:1px solid black;
     background-color:green;
 }
-td,tr{
+tr {
     border:1px solid black;
     padding: 2px;
 }
+
+td {
+    border:1px solid black;
+    padding: 2px;
+}
+
+.tdbreak {
+    word-break: break-word;
+    max-width: 200px;
+}
+
 .subheader{
     grid-column: 1/6;
     grid-row: 3/4

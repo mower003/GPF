@@ -146,12 +146,13 @@ class db_Entity_procedures:
 
     def get_entity_by_name_approx(self, name):
         self.create_connection()
-        sql_statement = """ SELECT * FROM entity WHERE name LIKE ?"""
+        sql_statement = """ SELECT * FROM entity WHERE name LIKE ? """
         cur = self.conn.cursor()
         cur.row_factory = lambda cursor, row: row[0]
         cur.execute(sql_statement, [name+'%'])
         rows = cur.fetchall()
         cur.row_factory = None
+        #print("FROM DB CALL " + str(rows))
         return rows
     
 

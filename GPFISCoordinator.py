@@ -27,10 +27,19 @@ from sqlite3 import Error
 #.headers on
 #.mode columns
 
+#Reset the sequence id inside the invoice table because it uses the built one
+#SELECT * FROM `sqlite_sequence`;
+#UPDATE `sqlite_sequence` SET `seq` = 0 WHERE `name` = 'table_name';
+
+#dlm_fanatik@msn.com
+
+#auto-py-to-exe
+
 class GPFISCoordinator:
     absolute_path = os.path.dirname(__file__)
     relative_path = "database\sqlite\db\gpfdb.db"
     full_path = os.path.join(absolute_path, relative_path)
+
 
     def __init__(self):
         self.db_location = self.full_path
@@ -135,7 +144,11 @@ class GPFISCoordinator:
     def get_next_invoice(self):
         invoice_conn = db_conn_invoice(self.db_location)
         next_inv_num = invoice_conn.next_invoice_number()
-        next_inv_num = int(next_inv_num[0]) + 1
+        print(next_inv_num[0])
+        if (next_inv_num[0] is None):
+            next_inv_num = 0
+        else:
+            next_inv_num = int(next_inv_num[0]) + 1
         return next_inv_num
     
     def get_invoices_for_statement_search(self, customer_id, date_range):
@@ -173,6 +186,8 @@ class GPFISCoordinator:
             invoice_status = self.determine_invoice_status(paid_status)
 
             invObjList = []
+            #print("FROM COORDINATOR")
+            #print(str(customer_id), start_date, end_date, invoice_status)
             invoiceList = invoice_conn.get_invoices_by_search_params(customer_id, start_date, end_date, invoice_status)
 
             for invoice in invoiceList:
@@ -481,3 +496,19 @@ class GPFISCoordinator:
         else:
             print("Something has gone horribly wrong")
         return inv_status
+    
+#SELECT invoice.id, invoice.ship_date, invoice_item.product_id, invoice_item.case_quantity, invoice_item.quantity, invoice_item.unit_price, invoice_item.product_id, (invoice_item.quantity * invoice_item.unit_price) AS line_total 
+#FROM invoice JOIN invoice_item 
+#ON invoice.id = invoice_item.invoice_id 
+#WHERE invoice.invoice_date BETWEEN '08-01-2023' AND '08-31-2023';
+
+    def get_product_sales_data_for_current_year(self):
+        try:
+            invoice_item_conn = db_conn_invoiceItem(self.db_location)
+
+
+            
+        except Error as e:
+            print(e)
+        finally:
+            invoice_item_conn.close_connection()

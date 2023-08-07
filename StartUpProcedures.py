@@ -8,6 +8,7 @@ class StartUpProcedures():
     css_relative_path = "GPFISHTMLObjects\Invoices\css\gpf.css"
     template_relative_path = "GPFISHTMLObjects\Invoices\\template\gpf.html"
     images_relative_path = "GPFISHTMLObjects\Invoices\imgs\green-leaf-logo-vector.jpg"
+    invoice_write_relative_path = "GPFISHTMLObjects\Invoices"
 
     db_full_path = os.path.join(absolute_path, db_relative_path)
     css_full_path = os.path.join(absolute_path, css_relative_path)

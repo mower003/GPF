@@ -1,0 +1,104 @@
+PHK Produce
+408 Stanford Ave, Los Angeles, CA 90013
+
+Nagatoshi Produce
+340 N Myers St, Los Angeles, CA 90033
+
+Saiya Products
+1234 Placeholder Avenue, Los Angeles, CA 12345
+
+Niitakaya #1
+1801 Aeros Way Montebello, CA 90640
+
+DM Produce Inc.
+2312 Damon St, Los Angeles, CA 90021
+
+Japan Creek INT’L
+1234 Placeholder Avenue, Los Angeles, CA 12345
+
+Seiwa Market (Costa Mesa)
+3151 Harbor Blvd, Costa Mesa, CA 92626
+
+Golden Ginger
+5860 Bandini Blvd, Commerce, CA 90040?
+
+Nijiya Central Kitchen
+1234 Placeholder Avenue, Los Angeles, CA 12345
+
+Nijiya Torrance
+2121 W 182nd St, Torrance, CA 90504
+
+Times Produce
+1700 Bay St, Los Angeles, CA 90021
+
+Tokyo Central (Yorba Linda)
+18171 Imperial Hwy., Yorba Linda, CA 92886
+
+Marukai (Little Tokyo)
+123 Astronaut Ellison S Onizuka St #105, Los Angeles, CA 90012
+
+Mitsuwa (San Diego)
+4240 Kearny Mesa Rd, San Diego, CA 92111
+
+Nijiya (San Diego) 
+3860 Convoy St, San Diego, CA 92111
+
+Marukai (San Diego)
+8151 Balboa Ave #2421, San Diego, CA 92111
+
+Marukai (Gardena)
+1740 Artesia Blvd, Gardena, CA 90248
+
+Tokyo Central (Torrance)
+3832 Sepulveda Blvd, Torrance, CA 90505
+
+Tokyo Central (Costa Mesa)
+2975 Harbor Blvd, Costa Mesa, CA 92626
+
+Marukai (West Los Ángeles)
+12121 W Pico Blvd, Los Angeles, CA 90064
+
+Mitsuwa (Costa Mesa)
+665 Paularino Ave, Costa Mesa, CA 92626
+
+Mitsuwa (Santa Monica)
+3760 S Centinela Ave, Los Angeles, CA 90066
+
+Select 7
+1234 Placeholder Avenue, Los Angeles, CA 12345
+
+Mitsuwa (Irvine) 
+14230 Culver Dr, Irvine, CA 92604
+
+
+
+
+INSERT INTO entity (id, name, street_number, street_name, city, state, zip, country, is_active) VALUES (?,?,?,?,?,?,?,?,?)
+
+INSERT INTO entity (id, name, street_number, street_name, city, state, zip, country, is_active) VALUES (100, 'PHK Produce', '408', 'Stanford Ave', 'Los Angeles', 'CA', '90013', 'USA', 1);
+INSERT INTO entity (id, name, street_number, street_name, city, state, zip, country, is_active) VALUES (101, 'Nagatoshi Produce', '340', 'N Myers St', 'Los Angeles', 'CA', '90033', 'USA', 1);
+INSERT INTO entity (id, name, street_number, street_name, city, state, zip, country, is_active) VALUES (102, 'Saiya Products', '1234', 'Placeholder Avenue', 'Los Angeles', 'CA', '12345', 'USA', 1);
+INSERT INTO entity (id, name, street_number, street_name, city, state, zip, country, is_active) VALUES (103, 'Niitakaya #1', '1801', 'Aeros Way', 'Montebello', 'CA', '90640', 'USA', 1);
+INSERT INTO entity (id, name, street_number, street_name, city, state, zip, country, is_active) VALUES (104, 'DM Produce Inc.', '2312', 'Damon St', 'Los Angeles', 'CA', '90021', 'USA', 1);
+INSERT INTO entity (id, name, street_number, street_name, city, state, zip, country, is_active) VALUES (105, 'Japan Creek INT''L', '1234', 'Placeholder Avenue', 'Los Angeles', 'CA', '12345', 'USA', 1);
+INSERT INTO entity (id, name, street_number, street_name, city, state, zip, country, is_active) VALUES (200, 'Seiwa Market (Costa Mesa)', '3151', 'Harbor Blvd', 'Costa Mesa', 'CA', '92626', 'USA', 1);
+INSERT INTO entity (id, name, street_number, street_name, city, state, zip, country, is_active) VALUES (106, 'Golden Ginger', '5860', 'Bandini Blvd', 'Commerce', 'CA', '90040', 'USA', 1);
+INSERT INTO entity (id, name, street_number, street_name, city, state, zip, country, is_active) VALUES (201, 'Nijiya Central Kitchen', '1234', 'Placeholder Avenue', 'Los Angeles', 'CA', '12345', 'USA', 1);
+INSERT INTO entity (id, name, street_number, street_name, city, state, zip, country, is_active) VALUES (202, 'Nijiya Torrance', '2121', 'W 182nd St', 'Torrance', 'CA', '90504', 'USA', 1);
+INSERT INTO entity (id, name, street_number, street_name, city, state, zip, country, is_active) VALUES (107, 'Times Produce', '1700', 'Bay St', 'Los Angeles', 'CA', '90021', 'USA', 1);
+INSERT INTO entity (id, name, street_number, street_name, city, state, zip, country, is_active) VALUES (203, 'Tokyo Central (Yorba Linda)', '18171', 'Imperial Hwy.', 'Yorba Linda', 'CA', '92886', 'USA', 1);
+INSERT INTO entity (id, name, street_number, street_name, city, state, zip, country, is_active) VALUES (204, 'Marukai (Little Tokyo)', '123', 'Astronaut Ellison S Onizuka St #105', 'Los Angeles', 'CA', '90012', 'USA', 1);
+INSERT INTO entity (id, name, street_number, street_name, city, state, zip, country, is_active) VALUES (205, 'Mitsuwa (San Diego)', '4240', 'Kearny Mesa Rd', 'San Diego', 'CA', '92111', 'USA', 1);
+INSERT INTO entity (id, name, street_number, street_name, city, state, zip, country, is_active) VALUES (206, 'Nijiya (San Diego)', '3860', 'Convoy St', 'San Diego', 'CA', '92111', 'USA', 1);
+INSERT INTO entity (id, name, street_number, street_name, city, state, zip, country, is_active) VALUES (207, 'Marukai (San Diego)', '8151', 'Balboa Ave #2421', 'San Diego', 'CA', '92111', 'USA', 1);
+INSERT INTO entity (id, name, street_number, street_name, city, state, zip, country, is_active) VALUES (208, 'Marukai (Gardena)', '1740', 'Artesia Blvd', 'Gardena', 'CA', '90248', 'USA', 1);
+INSERT INTO entity (id, name, street_number, street_name, city, state, zip, country, is_active) VALUES (209, 'Tokyo Central (Torrance)', '3832', 'Sepulveda Blvd', 'Torrance', 'CA', '90505', 'USA', 1);
+INSERT INTO entity (id, name, street_number, street_name, city, state, zip, country, is_active) VALUES (210, 'Tokyo Central (Costa Mesa)', '2975', 'Harbor Blvd', 'Costa Mesa', 'CA', '92626', 'USA', 1);
+INSERT INTO entity (id, name, street_number, street_name, city, state, zip, country, is_active) VALUES (211, 'Marukai (West Los Ángeles)', '12121', 'W Pico Blvd', 'Los Angeles', 'CA', '90064', 'USA', 1);
+INSERT INTO entity (id, name, street_number, street_name, city, state, zip, country, is_active) VALUES (212, 'Mitsuwa (Costa Mesa)', '665', 'Paularino Ave', 'Costa Mesa', 'CA', '92626', 'USA', 1);
+INSERT INTO entity (id, name, street_number, street_name, city, state, zip, country, is_active) VALUES (213, 'Mitsuwa (Santa Monica)', '3760', 'S Centinela Ave', 'Los Angeles', 'CA', '90066', 'USA', 1);
+INSERT INTO entity (id, name, street_number, street_name, city, state, zip, country, is_active) VALUES (108, 'Select 7', '1234', 'Placeholder Avenue', 'Los Angeles', 'CA', '12345', 'USA', 1);
+INSERT INTO entity (id, name, street_number, street_name, city, state, zip, country, is_active) VALUES (214, 'Mitsuwa (Irvine)', '14230', 'Culver Dr', 'Irvine', 'CA', '92604', 'USA', 1);
+
+
+

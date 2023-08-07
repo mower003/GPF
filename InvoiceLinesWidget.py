@@ -48,6 +48,7 @@ class InvoiceLinesWidget():
     def cache_product_data(self):
         self.productObjList = self.coordinator.get_products()
 
+        print("####From InvoiceLinesWidget####")
         print("#####Caching Product Data#####")
         for obs in self.productObjList:
             print(obs.asList())
@@ -128,9 +129,11 @@ class InvoiceLinesWidget():
         for lines in self.line_item_list:
             peb = lines.get_price_entry_box()
             qeb = lines.get_quantity_entry_box()
+            preb = lines.get_product_entry_box()
             #print(type(peb))
             peb.bind("<FocusOut>", self.recalculation_wrapper)
             qeb.bind("<FocusOut>", self.recalculation_wrapper)
+            preb.bind("<FocusOut>", self.recalculation_wrapper)
 
     def populate_lines(self, invObj):
         invoice_item_list = invObj.getInvoiceItemList()
