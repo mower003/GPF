@@ -4,8 +4,8 @@ from enum import Enum
 class EntityObjEnum(Enum):
     ENTITY_ID = 0
     ENTITY_NAME = 1
-    STREET_NUMBER = 2
-    STREET_NAME = 3
+    STREET_NAME = 2
+    STREET_NUMBER = 3
     CITY = 4
     STATE = 5
     ZIP = 6

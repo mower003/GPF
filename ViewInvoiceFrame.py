@@ -45,7 +45,7 @@ class ViewInvoiceFrame():
         self.search_btn = tk.Button(self.search_frame, text="Search...", width = 20, command=lambda: self.search_and_filter_by_customer())
         self.search_btn.pack(side='top')
         #self.search_frame.pack(side='top', anchor='nw')
-        self.search_frame.grid(row=0, column=0)
+        self.search_frame.grid(row=0, column=0, sticky='nw')
 
     def create_invoice_view(self, customer_name=None):
         tdy = date.today()

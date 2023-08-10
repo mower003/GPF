@@ -49,7 +49,7 @@ class ViewCustomerFrame():
     def create_entity_lines(self):
         row = 1
         for entities in self.entity_list:
-            print(entities.asList())
+            #print(entities.asList())
             eo = EntityLineItemWidget(self.entity_lines_frame, self, entityObj = entities)
             eo.place_entity_lines(row)
             self.entity_lines_list.append(eo)
@@ -62,7 +62,7 @@ class ViewCustomerFrame():
         row = 0
         col = 0
         for headers in self.customer_compositional_elements:
-            print(headers)
+            #print(headers)
             lbl = tk.Label(self.entity_lines_frame, text = headers, font=(self.header_font,20), bg=self.bg_color)
             lbl.grid(row = row, column = col, sticky = "W,E")
             col += 1
@@ -77,17 +77,18 @@ class ViewCustomerFrame():
         self.title.pack()
 
     def build_frame(self):
+
         self.clear_display_frame()
         self.cache_entity_data()
         self.set_up_frame()
         self.add_title_label()
 
         entity_rows = []
-        print("entity list: ",self.entity_list)
+        #print("entity list: ",self.entity_list)
         for entities in self.entity_list:
             entity_rows.append(entities.asList())
 
-        print(entity_rows)
+        #print(entity_rows)
         self.create_view_form(entity_rows)
 
     def update_scroll_region(self):
@@ -104,25 +105,13 @@ class ViewCustomerFrame():
         total_width = header_width + lines_width
         screen_width = self.root.winfo_screenwidth()
 
-        print("h         " + str(header_height) + "l        " + str(lines_height) + " w      " + str(lines_width))
-
-        #self.canvas.itemconfig("baseFrame_2", height=total_height, width=screen_width)
-        #self.canvas.update_idletasks()
-        #self.wrapper_frame.update()
-        #self.entity_lines_frame.update_idletasks()
-        #self.base_frame.update_idletasks()
-        #bbox = self.base_frame.bbox("all")
-        #bboxa = self.entity_lines_frame.bbox("all")
-
-        #print("bbox   " + str(bbox) + "   bboxa     " + str(bboxa))
-        #bbox is bound by topmost coords (0,0) and bottom rightmost coords (frame width, frame height)
+        #print("h         " + str(header_height) + "l        " + str(lines_height) + " w      " + str(lines_width))
         self.canvas.config(scrollregion=(0,0,screen_width, total_height))
-        #self.canvas.config(scrollregion=(self.entity_lines_frame.bbox("all")))
 
 
     def cache_entity_data(self):
         self.entity_list = self.coordinator.get_entities()
-        print(self.entity_list)
+        #print(self.entity_list)
 
     def clear_display_frame(self):
         for children in self.base_frame.winfo_children():

@@ -96,7 +96,7 @@ class db_Entity_procedures:
             cur = self.conn.cursor()
             cur.execute(sql_statement)
             rows = cur.fetchall()
-            print(rows)
+            #print(rows)
             return rows
         except Error as e:
             print(e)

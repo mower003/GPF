@@ -1,0 +1,17 @@
+INSERT INTO product (id, name, description, unit_price, case_style, note) VALUES (10, 'Test Product #1', 'Test Product - #1', 2.00, 'XX lb box', 'A note for more detail');
+INSERT INTO product (id, name, description, unit_price, case_style, note) VALUES (11, 'Test Product #2', 'Test Product - #2', 2.00, 'XX lb box', 'A note for more detail');
+INSERT INTO product (id, name, description, unit_price, case_style, note) VALUES (12, 'Test Product #3', 'Test Product - #3', 2.00, 'XX lb box', 'A note for more detail');
+INSERT INTO product (id, name, description, unit_price, case_style, note) VALUES (13, 'Test Product #4', 'Test Product - #4', 2.00, 'XX lb box', 'A note for more detail');
+INSERT INTO product (id, name, description, unit_price, case_style, note) VALUES (14, 'Test Product #5', 'Test Product - #5', 2.00, 'XX lb box', 'A note for more detail');
+INSERT INTO product (id, name, description, unit_price, case_style, note) VALUES (15, 'Test Product #6', 'Test Product - #6', 2.00, 'XX lb box', 'A note for more detail');
+INSERT INTO product (id, name, description, unit_price, case_style, note) VALUES (16, 'Test Product #7', 'Test Product - #7', 2.00, 'XX lb box', 'A note for more detail');
+INSERT INTO product (id, name, description, unit_price, case_style, note) VALUES (17, 'Test Product #8', 'Test Product - #8', 2.00, 'XX lb box', 'A note for more detail');
+INSERT INTO product (id, name, description, unit_price, case_style, note) VALUES (18, 'Test Product #9', 'Test Product - #9', 2.00, 'XX lb box', 'A note for more detail');
+INSERT INTO product (id, name, description, unit_price, case_style, note) VALUES (19, 'Test Product #10', 'Test Product - #10', 2.00, 'XX lb box', 'A note for more detail');
+INSERT INTO product (id, name, description, unit_price, case_style, note) VALUES (20, 'Test Product #11', 'Test Product - #11', 2.00, 'XX lb box', 'A note for more detail');
+INSERT INTO product (id, name, description, unit_price, case_style, note) VALUES (21, 'Test Product #12', 'Test Product - #12', 2.00, 'XX lb box', 'A note for more detail');
+INSERT INTO product (id, name, description, unit_price, case_style, note) VALUES (22, 'Test Product #13', 'Test Product - #13', 2.00, 'XX lb box', 'A note for more detail');
+INSERT INTO product (id, name, description, unit_price, case_style, note) VALUES (23, 'Test Product #14', 'Test Product - #14', 2.00, 'XX lb box', 'A note for more detail');
+INSERT INTO product (id, name, description, unit_price, case_style, note) VALUES (24, 'Test Product #15', 'Test Product - #15', 2.00, 'XX lb box', 'A note for more detail');
+INSERT INTO product (id, name, description, unit_price, case_style, note) VALUES (25, 'Test Product #16', 'Test Product - #16', 2.00, 'XX lb box', 'A note for more detail');
+INSERT INTO product (id, name, description, unit_price, case_style, note) VALUES (26, 'Test Product #17', 'Test Product - #17', 2.00, 'XX lb box', 'A note for more detail');

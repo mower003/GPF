@@ -16,6 +16,7 @@ from db_procs.db_InvoiceStatus_procedures import db_InvoiceStatus_procedures as 
 from db_procs.db_InvoiceItem_procedures import db_InvoiceItem_procedures as db_conn_invoiceItem
 from db_procs.db_Invoice_procedures import db_Invoice_procedures as db_conn_invoice
 from db_procs.db_Product_procedures import db_Product_procedures as db_conn_product
+from db_procs.db_multi_table_procedures import db_multi_table_procedures as db_conn_multi_table
 
 from sqlite3 import Error
 
@@ -369,10 +370,11 @@ class GPFISCoordinator:
         entity_conn = db_conn_entity(self.db_location)
         entityObjList = []
         entityList = entity_conn.get_all_entities_simple()
-        print("FROM GPFISCoordinator:get_entities_simple()",entityList)
-
+        #print("FROM GPFISCoordinator:get_entities_simple()",entityList)
+        print("GPFISCoordinator:get_entities_simple() called. Results: ")
         for entities in entityList:
             entityObj = EntObj(entityList=entities)
+            print(repr(entityObj))
             #entityObj.addEntityAsTuple(entities)
             entityObjList.append(entityObj)
 
@@ -456,9 +458,11 @@ class GPFISCoordinator:
         product_conn = db_conn_product(self.db_location)
         productObjList = []
         productList = product_conn.get_products()
-        #print(productList)
+        #print("FROM GPFISCoordinator:get_products() \n", productList)
+        print("GPFISCoordinator:get_products() called. Results: ")
         for product in productList:
             po = ProdObj(productList=product)
+            print(repr(po))
             #po.addProductAsList(productList=product)
             productObjList.append(po)
 
@@ -497,18 +501,19 @@ class GPFISCoordinator:
             print("Something has gone horribly wrong")
         return inv_status
     
-#SELECT invoice.id, invoice.ship_date, invoice_item.product_id, invoice_item.case_quantity, invoice_item.quantity, invoice_item.unit_price, invoice_item.product_id, (invoice_item.quantity * invoice_item.unit_price) AS line_total 
-#FROM invoice JOIN invoice_item 
-#ON invoice.id = invoice_item.invoice_id 
-#WHERE invoice.invoice_date BETWEEN '08-01-2023' AND '08-31-2023';
+#**********************************************************************************
+################################# MULTI TABLE QUERIES #############################
+#**********************************************************************************
 
-    def get_product_sales_data_for_current_year(self):
+    def get_product_sales_data_by_month(self):
         try:
-            invoice_item_conn = db_conn_invoiceItem(self.db_location)
+            dates = []
+            multi_table_conn = db_conn_multi_table(self.db_location)
+            product_sales_data = multi_table_conn.get_product_breakdown_data(dates)
+            print(product_sales_data)
 
-
-            
+            return product_sales_data
         except Error as e:
             print(e)
         finally:
-            invoice_item_conn.close_connection()
+            multi_table_conn.close_connection()

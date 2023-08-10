@@ -23,8 +23,10 @@ class ViewProductFrame():
     #Controls the title of the frame.
     frame_title = "Product List"
 
-    def __init__(self, parent_frame):
+    def __init__(self, parent_frame, canvas, root):
         self.base_frame = parent_frame
+        self.canvas = canvas
+        self.root = root
         self.coordinator = GPFISCoordinator()
         self.product_list = []
         self.product_lines_list = []
@@ -55,6 +57,7 @@ class ViewProductFrame():
             lbl.grid(row = row, column = col, sticky = "W,E")
             col += 1
         self.create_product_lines()
+        self.update_scroll_region()
         
         self.title_frame.pack(side='top', fill='x')
         self.product_lines_frame.pack(side='top', fill='both', expand=True)
@@ -63,6 +66,35 @@ class ViewProductFrame():
         self.title = tk.Label(self.title_frame, text=self.frame_title)
         self.title.config(font=(self.title_font,38),bg=self.bg_color)
         self.title.pack(side='top', fill='x')
+
+    def update_scroll_region(self):
+        #Canvas holding scroll bar needs to be resized to fit line items.
+        self.product_lines_frame.update()
+        self.base_frame.update()
+
+        header_height = self.title_frame.winfo_reqheight()
+        header_width = self.title_frame.winfo_reqwidth()
+        lines_height = self.product_lines_frame.winfo_reqheight()
+        lines_width = self.product_lines_frame.winfo_reqwidth()
+
+        total_height = header_height + lines_height
+        total_width = header_width + lines_width
+        screen_width = self.root.winfo_screenwidth()
+
+        print("h         " + str(header_height) + "l        " + str(lines_height) + " w      " + str(lines_width))
+
+        #self.canvas.itemconfig("baseFrame_2", height=total_height, width=screen_width)
+        #self.canvas.update_idletasks()
+        #self.wrapper_frame.update()
+        #self.entity_lines_frame.update_idletasks()
+        #self.base_frame.update_idletasks()
+        #bbox = self.base_frame.bbox("all")
+        #bboxa = self.entity_lines_frame.bbox("all")
+
+        #print("bbox   " + str(bbox) + "   bboxa     " + str(bboxa))
+        #bbox is bound by topmost coords (0,0) and bottom rightmost coords (frame width, frame height)
+        self.canvas.config(scrollregion=(0,0,screen_width, total_height))
+        #self.canvas.config(scrollregion=(self.entity_lines_frame.bbox("all")))
 
     def build_frame(self):
         self.clear_display_frame()

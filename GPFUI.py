@@ -49,7 +49,7 @@ class GPFUI():
         # get the screen dimension
         screen_width = self.root.winfo_screenwidth()
         screen_height = self.root.winfo_screenheight()
-        print("SCREEN HEIGHT:      " + str(screen_height) + " SCREEN WIDTH:      " + str(screen_width))
+        #print("SCREEN HEIGHT:      " + str(screen_height) + " SCREEN WIDTH:      " + str(screen_width))
 
         # find the center point
         center_x = int(screen_width/2 - window_width / 2)
@@ -85,7 +85,7 @@ class GPFUI():
         add_customer_frame = AddCustomerFrame(self.baseFrame_2)
         view_customer_frame = ViewCustomerFrame(self.baseFrame_2, self.baseCanvas, self.root)
         add_product_frame = AddProductFrame(self.baseFrame_2)
-        view_product_frame = ViewProductFrame(self.baseFrame_2)
+        view_product_frame = ViewProductFrame(self.baseFrame_2, self.baseCanvas, self.root)
         add_invoice_frame = AddInvoiceFrame(self.baseFrame_2, self.baseCanvas)
         view_invoice_frame = ViewInvoiceFrame(self.baseFrame_2, self.baseCanvas, self.root)
         statement_frame = Statements(self.baseFrame_2, self.baseCanvas, self.root)
