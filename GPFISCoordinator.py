@@ -1,7 +1,7 @@
 from asyncio.windows_events import NULL
 import sqlite3
 import os
-from datetime import datetime
+from datetime import date, datetime, timedelta
 from Invoice import InvoiceObj as InvObj
 from Entity import EntityObj as EntObj
 from Product import ProductObj as ProdObj
@@ -501,18 +501,38 @@ class GPFISCoordinator:
             print("Something has gone horribly wrong")
         return inv_status
     
+    def determine_month_dates(self, month_num):
+        tdy = date.today()
+        cur_year = tdy.year
+
+        if month_num == 12:
+            last_date = datetime(cur_year, month_num, 31)
+        else:
+            last_date = datetime(cur_year, month_num + 1, 1) + timedelta(days=-1)
+
+        first_date = datetime(cur_year, month_num, 1)
+
+        first_date = first_date.strftime('%m-%d-%Y')
+        last_date = last_date.strftime('%m-%d-%Y')
+        
+        return [first_date, last_date]
+    
 #**********************************************************************************
 ################################# MULTI TABLE QUERIES #############################
 #**********************************************************************************
 
-    def get_product_sales_data_by_month(self):
+    def get_product_sales_data_by_month(self, product_id, month_num):
         try:
-            dates = []
+            dates = self.determine_month_dates(month_num)
+            print(dates)
             multi_table_conn = db_conn_multi_table(self.db_location)
-            product_sales_data = multi_table_conn.get_product_breakdown_data(dates)
-            print(product_sales_data)
-
-            return product_sales_data
+            product_sales_data = multi_table_conn.get_product_breakdown_data_by_product_and_date_range(product_id, dates)
+            
+            if len(product_sales_data) == 0:
+                return None
+            else:
+                print(product_sales_data)
+                return product_sales_data
         except Error as e:
             print(e)
         finally:

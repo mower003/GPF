@@ -54,67 +54,6 @@ class InvoiceLinesWidget():
             print(obs.asList())
 
     def create_lines(self, max_lines=15):
-        """
-        line1 = InvoiceLineItemWidget(self.lines_frame)
-        line1.place_line_item(1)
-        self.line_item_list.append(line1)
-
-        line2 = InvoiceLineItemWidget(self.lines_frame)
-        line2.place_line_item(2)
-        self.line_item_list.append(line2)
-
-        line3 = InvoiceLineItemWidget(self.lines_frame)
-        line3.place_line_item(3)
-        self.line_item_list.append(line3)
-
-        line4 = InvoiceLineItemWidget(self.lines_frame)
-        line4.place_line_item(4)
-        self.line_item_list.append(line4)
-
-        line5 = InvoiceLineItemWidget(self.lines_frame)
-        line5.place_line_item(5)
-        self.line_item_list.append(line5)
-
-        line6 = InvoiceLineItemWidget(self.lines_frame)
-        line6.place_line_item(6)
-        self.line_item_list.append(line6)
-
-        line7 = InvoiceLineItemWidget(self.lines_frame)
-        line7.place_line_item(7)
-        self.line_item_list.append(line7)
-
-        line8 = InvoiceLineItemWidget(self.lines_frame)
-        line8.place_line_item(8)
-        self.line_item_list.append(line8)
-
-        line9 = InvoiceLineItemWidget(self.lines_frame)
-        line9.place_line_item(9)
-        self.line_item_list.append(line9)
-
-        line10 = InvoiceLineItemWidget(self.lines_frame)
-        line10.place_line_item(10)
-        self.line_item_list.append(line10)
-
-        line11 = InvoiceLineItemWidget(self.lines_frame)
-        line11.place_line_item(11)
-        self.line_item_list.append(line11)
-
-        line12 = InvoiceLineItemWidget(self.lines_frame)
-        line12.place_line_item(12)
-        self.line_item_list.append(line12)
-
-        line13 = InvoiceLineItemWidget(self.lines_frame)
-        line13.place_line_item(13)
-        self.line_item_list.append(line13)
-
-        line14 = InvoiceLineItemWidget(self.lines_frame)
-        line14.place_line_item(14)
-        self.line_item_list.append(line14)
-
-        line15 = InvoiceLineItemWidget(self.lines_frame)
-        line15.place_line_item(15)
-        self.line_item_list.append(line15)
-        """
 
         for i in range(1, max_lines+1):
             line = InvoiceLineItemWidget(self.lines_frame)

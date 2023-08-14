@@ -55,3 +55,19 @@ class db_multi_table_procedures():
         row = cur.fetchall()
         print("FROM DB",row)
         return row
+    
+    def get_product_breakdown_data_by_product_and_date_range(self, product_id, date_range):
+
+        self.create_connection()
+        sql_statement = """ SELECT invoice_item.product_id, SUM(invoice_item.quantity) AS product_qty_total, SUM(invoice_item.quantity * invoice_item.unit_price) AS product_dollar_total
+                            FROM invoice JOIN invoice_item
+                            ON invoice.id = invoice_item.invoice_id 
+                            WHERE invoice.invoice_date BETWEEN ? AND ?
+                            AND invoice_item.product_id = ?; """
+        dbargs = date_range + [product_id]
+        #print("DB ARGS ", dbargs)
+        cur = self.conn.cursor()
+        cur.execute(sql_statement, dbargs)
+        row = cur.fetchall()
+        #print("FROM DB",row)
+        return row
