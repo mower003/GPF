@@ -64,7 +64,7 @@ class EditCustomerFrame():
         self.entity_name_lbl.grid(row = 2, column = 0, sticky='W')
         self.entity_name_entry.grid(row = 2, column= 1, sticky='E,W')
 
-        self.street_number_lbl = tk.Label(self.edit_entity_frame, text = "Address Number:", font=(self.data_font, 12, 'bold'), bg=self.bg_color)
+        self.street_number_lbl = tk.Label(self.edit_entity_frame, text = "Street Number:", font=(self.data_font, 12, 'bold'), bg=self.bg_color)
         self.street_number_entry = tk.Entry(self.edit_entity_frame, width=40, font=(self.data_font, 12))
         self.street_number_entry.insert(0, self.entity_list[EntityObjEnum.STREET_NUMBER.value])
         self.street_number_lbl.grid(row = 3, column = 0, sticky='W')

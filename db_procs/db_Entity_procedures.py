@@ -16,8 +16,8 @@ class db_Entity_procedures:
                                                 id INTEGER PRIMARY KEY NOT NULL,
                                                 name TEXT NOT NULL,
                                                 is_active INTEGER NOT NULL,
-                                                street_name TEXT,
                                                 street_number TEXT,
+                                                street_name TEXT,
                                                 city TEXT,
                                                 state TEXT,
                                                 zip TEXT,
@@ -175,7 +175,7 @@ class db_Entity_procedures:
     def get_all_entities_simple(self):
         try:
             self.create_connection()
-            sql_statement = """ SELECT id, name, street_name, street_number, city, state, zip, country, is_active FROM entity WHERE is_active = 1 """
+            sql_statement = """ SELECT id, name, street_number, street_name, city, state, zip, country, is_active FROM entity WHERE is_active = 1 """
             cur = self.conn.cursor()
             cur.execute(sql_statement)
             rows = cur.fetchall()

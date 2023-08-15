@@ -5,7 +5,7 @@ from EntityLineItemWidget import EntityLineItemWidget
 class ViewCustomerFrame():
     #Static Settings
     #Controls the number and name of form elements
-    customer_compositional_elements = ['ID', 'Name', 'Address No.', 'Street Name', 'City' ,'State' , 'Zip', 'Country', 'Active', '']
+    customer_compositional_elements = ['ID', 'Name', 'Street No.', 'Street Name', 'City' ,'State' , 'Zip', 'Country', 'Active', '']
     #Color theme
     #bg_color = '#395144'
     bg_color = '#FFFFFF'
