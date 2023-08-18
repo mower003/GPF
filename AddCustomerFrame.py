@@ -10,8 +10,8 @@ class AddCustomerFrame():
     #Controls the number and name of form elements
     customer_compositional_elements = ['Customer ID:', 'Name', 'Address Number', 'Street Name',  'City', 'State', 'Zip', 'Country', 'Active']
     #Color theme
-    bg_color = '#E5E4E2'
-    label_color = '#FFFFFF'
+    bg_color = '#cccccc'
+    label_color = '#cccccc'
     data_color = '#AA8B56'
     header_color = '#F0EBCE'
     #Fonts

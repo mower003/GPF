@@ -10,7 +10,7 @@ class AddProductFrame():
     #Controls the number and name of form elements
     product_compositional_elements = ['Product Number: ', 'Name: ', 'Description: ', 'Price: ', 'Note: ', 'Case Style: ']
     #Color theme
-    bg_color = '#FFFFFF'
+    bg_color = '#cccccc'
     label_color = '#FFFFFF'
     data_color = '#AA8B56'
     header_color = '#F0EBCE'

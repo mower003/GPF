@@ -6,7 +6,7 @@ class CustomerSearchWidget(tk.Frame):
     #Static Settings
 
     #Color theme
-    bg_color = '#FFFFFF'
+    bg_color = '#cccccc'
     label_color = '#4E6C50'
     data_color = '#AA8B56'
     header_color = '#F0EBCE'

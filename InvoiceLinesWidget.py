@@ -8,7 +8,7 @@ class InvoiceLinesWidget():
     invoice_line_compositional_elements = ['Quantity', 'Cases', 'Item Num', 'Description', 'Note', 'Price', 'Total']
     #Color theme
     #bg_color = '#395144'
-    bg_color = '#FFFFFF'
+    bg_color = '#cccccc'
     #bg_color = '#E5E4E2'
     label_color = '#4E6C50'
     data_color = '#AA8B56'
@@ -48,12 +48,12 @@ class InvoiceLinesWidget():
     def cache_product_data(self):
         self.productObjList = self.coordinator.get_products()
 
-        print("####From InvoiceLinesWidget####")
-        print("#####Caching Product Data#####")
-        for obs in self.productObjList:
-            print(obs.asList())
+        #print("####From InvoiceLinesWidget####")
+        #print("#####Caching Product Data#####")
+        #for obs in self.productObjList:
+        #    print(obs.asList())
 
-    def create_lines(self, max_lines=15):
+    def create_lines(self, max_lines=20):
 
         for i in range(1, max_lines+1):
             line = InvoiceLineItemWidget(self.lines_frame)

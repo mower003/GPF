@@ -8,7 +8,7 @@ class ViewCustomerFrame():
     customer_compositional_elements = ['ID', 'Name', 'Street No.', 'Street Name', 'City' ,'State' , 'Zip', 'Country', 'Active', '']
     #Color theme
     #bg_color = '#395144'
-    bg_color = '#FFFFFF'
+    bg_color = '#cccccc'
     #bg_color = '#E5E4E2'
     label_color = '#4E6C50'
     data_color = '#AA8B56'

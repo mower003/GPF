@@ -9,8 +9,10 @@ class EditCustomerFrame():
 
     #Static Settings
     customer_compositional_elements = ['Customer ID:', 'Name', 'Address Number', 'Street Name',  'City', 'State', 'Zip', 'Country', 'Active']
+    frame_title = "Edit Entity Frame"
+    #Style Configs
     #Color theme
-    bg_color = '#FFFFFF'
+    bg_color = '#cccccc'
     label_color = '#4E6C50'
     data_color = '#AA8B56'
     header_color = '#F0EBCE'
@@ -19,8 +21,8 @@ class EditCustomerFrame():
     header_font = 'Haettenschweiler'
     label_font = 'Haettenschweiler'
     data_font = 'MS Sans Serif'
-    #Controls the title of the frame.
-    frame_title = "Edit Entity Frame"
+
+
 
     def __init__(self, parent_frame, viewcustomerframeclass, entity_list):
         self.base_frame = parent_frame
@@ -35,7 +37,7 @@ class EditCustomerFrame():
 
     def save_entity_info_to_db(self):
         oEntity = EntityObj(entityList = self.getEntryElements())
-        #print(oProduct.asListForDBUpdate())
+
         self.coordinator.update_entity(EntityObj = oEntity)
         self.vcf.build_frame()
         
@@ -61,6 +63,7 @@ class EditCustomerFrame():
         self.entity_name_lbl = tk.Label(self.edit_entity_frame, text = "Customer Name:", font=(self.data_font, 12, 'bold'), bg=self.bg_color)
         self.entity_name_entry = tk.Entry(self.edit_entity_frame, width=40, font=(self.data_font, 12))
         self.entity_name_entry.insert(0, self.entity_list[EntityObjEnum.ENTITY_NAME.value])
+        self.entity_name_entry.config(state='disabled')
         self.entity_name_lbl.grid(row = 2, column = 0, sticky='W')
         self.entity_name_entry.grid(row = 2, column= 1, sticky='E,W')
 

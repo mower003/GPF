@@ -6,10 +6,10 @@ class DateAndInvoiceNumberWidget():
 
     #Static Settings
     #Color theme
-    bg_color = '#FFFFFF'
-    label_color = '#FFFFFF'
-    data_color = '#FFFFFF'
-    header_color = '#FFFFFF'
+    bg_color = '#cccccc'
+    label_color = '#cccccc'
+    data_color = '#cccccc'
+    header_color = '#cccccc'
     #Fonts
     title_font = 'Haettenschweiler'
     header_font = 'Haettenschweiler'

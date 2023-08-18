@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 class InvoiceInfoWidget():
     #Static Settings
     #Color theme
-    bg_color = '#FFFFFF'
+    bg_color = '#cccccc'
     label_color = '#F0EBCE'
     data_color = '#FFFFFF'
     header_color = '#F0EBCE'

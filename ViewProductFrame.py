@@ -10,7 +10,7 @@ class ViewProductFrame():
     product_compositional_elements = ['Product ID ', 'Name ', 'Description ', 'Price ', 'Case Style ', 'Note ', '']
     #Color theme
     #bg_color = '#395144'
-    bg_color = '#FFFFFF'
+    bg_color = '#cccccc'
     #bg_color = '#E5E4E2'
     label_color = '#4E6C50'
     data_color = '#AA8B56'

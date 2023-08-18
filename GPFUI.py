@@ -91,8 +91,8 @@ class GPFUI():
         statement_frame = Statements(self.baseFrame_2, self.baseCanvas, self.root)
         product_breakdown_frame = ProductBreakdownFrame(self.baseFrame_2, self.baseCanvas, self.root)
 
-        self.baseFrame_2.configure(bg='#E5E4E2')
-        self.baseCanvas.configure(bg='#E5E4E2')
+        self.baseFrame_2.configure(bg='#cccccc')
+        self.baseCanvas.configure(bg='#cccccc')
 
         self.create_scrollable_container()
         self.update_scrollable_region()

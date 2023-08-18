@@ -70,7 +70,7 @@ class InvoiceLineItemWidget():
         return line_tot
     
     def set_line_item_attributes(self, lineItem):
-        print("from inside setlineitemattr: ", lineItem)
+        #print("from inside setlineitemattr: ", lineItem)
         self.enable_line_item_attributes()
         self.line_id = lineItem[0]
         self.quantity_entry.insert(0, int(lineItem[1]))

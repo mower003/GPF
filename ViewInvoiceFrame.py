@@ -13,7 +13,7 @@ from Invoice import InvoiceObj
 class ViewInvoiceFrame():
     #Static Settings
     #Color theme
-    bg_color = '#FFFFFF'
+    bg_color = '#cccccc'
     label_color = '#FFFFFF'
     data_color = '#FFFFFF'
     header_color = '#FFFFFF'

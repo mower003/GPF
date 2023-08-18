@@ -16,8 +16,8 @@ class AddInvoiceFrame():
     #Controls the number and name of form elements
     invoice_compositional_elements = ['invoice Number: ', 'Name: ', 'Description: ', 'Price: ', 'Note: ', 'Case Style: ']
     #Color theme
-    invoice_bg_color = '#FFFFFF'
-    invoice_label_color = '#4E6C50'
+    invoice_bg_color = '#cccccc'
+    invoice_label_color = '#cccccc'
     invoice_data_color = '#AA8B56'
     invoice_header_color = '#F0EBCE'
     #Fonts
@@ -72,9 +72,9 @@ class AddInvoiceFrame():
         self.inv_lines_widget.set_applied_credit_var(applied_credit)
 
         self.footer_frame = tk.Frame(self.invoice_lines_frame, bg=self.invoice_bg_color, padx=5, pady=5)
-        self.subtotal_lbl = tk.Label(self.footer_frame, text="Subtotal: ")
-        self.total_lbl = tk.Label(self.footer_frame, text="Total: ")
-        self.discount_lbl = tk.Label(self.footer_frame, text="Discount: ")
+        self.subtotal_lbl = tk.Label(self.footer_frame, bg=self.invoice_bg_color, text="Subtotal: ")
+        self.total_lbl = tk.Label(self.footer_frame, bg=self.invoice_bg_color,text="Total: ")
+        self.discount_lbl = tk.Label(self.footer_frame, bg=self.invoice_bg_color,text="Discount: ")
         self.save_btn = tk.Button(self.footer_frame, text="Save", padx=5, width=15, command=lambda: self.save_invoice())
 
 
