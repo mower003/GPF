@@ -1,0 +1,1 @@
+INSERT INTO product (id, name, description, unit_price, case_style, note) VALUES (1, '', '', 2.00, '', '');

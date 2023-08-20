@@ -20,22 +20,6 @@ from db_procs.db_multi_table_procedures import db_multi_table_procedures as db_c
 
 from sqlite3 import Error
 
-#Connect to DB from command line use below from C:\Users\User\Desktop\GPF_Project\GPF\database\sqlite> directory
-#sqlite3 c:\Users\User\Desktop\GPF_Project\GPF\database\sqlite\db\gpfdb.db
-
-##C:\Users\dunju\Documents\GPF\database\sqlite
-#sqlite3 C:\Users\dunju\Documents\GPF\database\sqlite\db\gpfdb.db
-#.headers on
-#.mode columns
-
-#Reset the sequence id inside the invoice table because it uses the built one
-#SELECT * FROM `sqlite_sequence`;
-#UPDATE `sqlite_sequence` SET `seq` = 0 WHERE `name` = 'table_name';
-
-#dlm_fanatik@msn.com
-
-#auto-py-to-exe
-
 class GPFISCoordinator:
     absolute_path = os.path.dirname(__file__)
     relative_path = "database\sqlite\db\gpfdb.db"

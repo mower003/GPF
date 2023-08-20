@@ -16,7 +16,7 @@ class EditInvoiceFrame():
     #Controls the number and name of form elements
     invoice_compositional_elements = ['invoice Number: ', 'Name: ', 'Description: ', 'Price: ', 'Note: ', 'Case Style: ']
     #Color theme
-    invoice_bg_color = '#FFFFFF'
+    invoice_bg_color = '#cccccc'
     invoice_label_color = '#4E6C50'
     invoice_data_color = '#AA8B56'
     invoice_header_color = '#F0EBCE'
@@ -94,7 +94,7 @@ class EditInvoiceFrame():
         self.shipto_frame.build_frame()
 
 
-        print("verifying that names are correct before being set" + self.oInvoice.get_buyer_name() + self.oInvoice.get_ship_to_name())
+        #print("verifying that names are correct before being set" + self.oInvoice.get_buyer_name() + self.oInvoice.get_ship_to_name())
         self.billto_frame.set_searchbox_and_label(self.oInvoice.get_buyer_obj())
         self.billto_frame.set_customer(self.oInvoice.get_buyer_obj())
         self.shipto_frame.set_searchbox_and_label(self.oInvoice.get_shipto_obj())
@@ -254,11 +254,11 @@ class EditInvoiceFrame():
 
             for lines in line_items:
                 lines.insert(1, oInvoice.get_inv_num())
-                print(lines)
+                #print(lines)
                 oInvoice.addInvoiceItem(invItemAsList=lines)
 
-            print("From EditInvoiceFrame:save_invoice() InvoiceObj",oInvoice.asListForDBUpdate())
-            print("From EditInvoiceFrame:save_invoice() InvoiceItemObj", oInvoice.toList())
+            #print("From EditInvoiceFrame:save_invoice() InvoiceObj",oInvoice.asListForDBUpdate())
+            #print("From EditInvoiceFrame:save_invoice() InvoiceItemObj", oInvoice.toList())
 
             self.coordinator.update_invoice(InvoiceObj=oInvoice)
         except Error as e:
@@ -288,7 +288,4 @@ class EditInvoiceFrame():
 
     def build_frame(self):
         self.clear_display_frame()
-        self.createScrollableContainer()
         self.setup_frame()
-        self.updateScrollRegion()
-        #self.create_customer_widget()
