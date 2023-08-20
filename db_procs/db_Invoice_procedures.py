@@ -181,7 +181,7 @@ class db_Invoice_procedures:
         self.create_connection()
         sql_statement = """ SELECT id, invoice_date, ship_date, due_date, issuer_id, buyer_id, ship_to_id, status, sales_tax, subtotal, discount_amount, customer_po_number, payment_terms, applied_credit_amount, credit_invoice_number, note, modified_date
                             FROM invoice 
-                            WHERE invoice_date <= ? LIMIT 50 """
+                            WHERE invoice_date <= ? ORDER BY id DESC LIMIT 50"""
         cur = self.conn.cursor()
         cur.execute(sql_statement, [todaysDate])
         rows = cur.fetchall()

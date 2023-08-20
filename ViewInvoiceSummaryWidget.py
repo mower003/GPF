@@ -34,8 +34,8 @@ class ViewInvoiceSummaryWidget():
         self.shipto_name_lbl = tk.Label(self.invoice_summary_frame, text="Null", bg=self.data_color, font=(self.data_font, 12), borderwidth=1, relief='solid', anchor='w')
         self.invoice_total = tk.Label(self.invoice_summary_frame, text="Null", bg=self.data_color, font=(self.data_font, 12), borderwidth=1, relief='solid', anchor='w')
         self.paid_checkbox = tk.Checkbutton(self.invoice_summary_frame, text="Paid", variable=self.paid_status_var, command=lambda: self.update_paid_status(), borderwidth=1, relief='solid', activebackground='#D3D3D3')
-        self.edit_invoice_btn = tk.Button(self.invoice_summary_frame, text="Edit", bg=self.data_color, command=lambda: self.edit_invoice_window(), borderwidth=1, relief='solid', activebackground='#D3D3D3')
-        self.preview_invoice_btn = tk.Button(self.invoice_summary_frame, text="Print Preview", bg=self.data_color, command=lambda: self.print_preview(), borderwidth=1, relief='solid', activebackground='#D3D3D3')
+        self.edit_invoice_btn = tk.Button(self.invoice_summary_frame, text="Edit", bg=self.data_color, command=lambda: self.edit_invoice_window(), borderwidth=1, relief='raised', activebackground='#D3D3D3')
+        self.preview_invoice_btn = tk.Button(self.invoice_summary_frame, text="Print Preview", bg=self.data_color, command=lambda: self.print_preview(), borderwidth=1, relief='raised', activebackground='#D3D3D3')
 
     def setup_frame(self):
         self.inv_num_lbl.grid(column=0, row=0, sticky='E,W')
@@ -43,9 +43,9 @@ class ViewInvoiceSummaryWidget():
         self.buyer_name_lbl.grid(column=2, row=0, sticky='E,W')
         self.shipto_name_lbl.grid(column=3, row=0, sticky='E,W')
         self.invoice_total.grid(column=4, row=0, sticky='E,W')
-        self.paid_checkbox.grid(column=5, row=0, sticky='E,W')
-        self.edit_invoice_btn.grid(column=6, row=0, sticky='E,W')
-        self.preview_invoice_btn.grid(column=7, row=0, sticky='E,W')
+        self.paid_checkbox.grid(column=5, row=0, sticky='E,W', padx=2)
+        self.edit_invoice_btn.grid(column=6, row=0, sticky='E,W', padx=2)
+        self.preview_invoice_btn.grid(column=7, row=0, sticky='E,W', padx=2)
 
     def set_widget_values(self, inv_num, delivery_date, customer_name, shipto_name, invoice_total, paid_status=0):
         self.inv_num_lbl.config(text="Invoice #: " + str(inv_num))
