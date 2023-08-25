@@ -1,11 +1,12 @@
 
 import datetime
 import os.path
+import locale
 from GPFISCoordinator import GPFISCoordinator
 from webbrowser import open_new_tab
 
 class GPFIS2HTML():
-
+    locale.setlocale(locale.LC_ALL, 'en_US')
     absolute_path = os.path.dirname(__file__)
     relative_path = "GPFISHTMLObjects\Invoices"
     full_path = os.path.join(absolute_path, relative_path)
@@ -49,7 +50,7 @@ class GPFIS2HTML():
 
         self.create_filler_line_in_table()
         self.create_subtotal(self.invoiceObj.no_calc_get_subtotal())
-        self.create_discount(self.invoiceObj.get_discount_amount())
+        self.create_discount(locale.currency(round(float(self.invoiceObj.get_discount_amount()),2),True, True, False))
         self.create_total(self.invoiceObj.no_calc_get_total())
         self.create_signature_line_and_close()
         self.file_handle.close()
@@ -78,7 +79,7 @@ class GPFIS2HTML():
         <div class = "wrapper">
             <div class = "logoandinfo">
                 <img id="GPFLogo" src="%s">
-                <p id="GPFAddressTitle">GREEN PARADISE FARM <br>2555 Guajome Lake Road<br>Vista, CA, 92084<br>Tel: (760) 724-1123<br>Fax: (760) 724-5566</p>
+                <p id="GPFAddressTitle">GREEN PARADISE FARM <br>2555 Guajome Lake Road<br>Vista, CA 92084<br>Tel: (760) 724-1123<br>Fax: (760) 724-5566</p>
             </div>"""
         logo_and_address = html_string % (self.logo_path)
         self.file_handle.write(logo_and_address)
@@ -138,7 +139,7 @@ class GPFIS2HTML():
         
     def create_line_item(self, lineItemTuple):
         #qty, cases, itemnum, description, note, price, total
-        html_string = """<tr id="lineitem"><td>%s</td><td>%s</td><td>%s</td><td class="tdbreak">%s</td><td class="tdbreak">%s</td><td>$%s</td><td>$%s</td></tr>"""
+        html_string = """<tr id="lineitem"><td>%s</td><td>%s</td><td>%s</td><td class="tdbreak">%s</td><td class="tdbreak">%s</td><td>$%s</td><td>%s</td></tr>"""
         line_item = html_string % lineItemTuple
 
         self.file_handle.write(line_item)

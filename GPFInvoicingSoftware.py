@@ -19,7 +19,7 @@ from StartUpProcedures import StartUpProcedures
 #SELECT * FROM `sqlite_sequence`;
 #UPDATE `sqlite_sequence` SET `seq` = 0 WHERE `name` = 'table_name';
 
-#dlm_fanatik@msn.com
+#update sqlite_sequence set seq = 1000 where name = 'invoice';
 
 #auto-py-to-exe
 

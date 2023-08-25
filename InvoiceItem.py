@@ -82,7 +82,7 @@ class InvoiceItemObj:
         return list
     
     def asTupleForHTML(self):
-        return (self.quantity, self.case_quantity, self.product_id, self.product_description, self.line_note, self.unit_price, self.line_total)
+        return (self.quantity, self.case_quantity, self.product_id, self.product_description, self.line_note, self.unit_price, locale.currency(round(float(self.line_total),2), True, True, False))
 
     def toString(self):
         the_string = str(self.line_id) + " " + str(self.invoice_id) + " " + str(self.product_id) + " " + str(self.case_quantity) + " " + str(self.quantity) + " " + str(self.unit_price)

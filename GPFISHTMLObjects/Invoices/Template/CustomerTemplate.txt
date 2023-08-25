@@ -100,5 +100,7 @@ INSERT INTO entity (id, name, street_number, street_name, city, state, zip, coun
 INSERT INTO entity (id, name, street_number, street_name, city, state, zip, country, is_active) VALUES (108, 'Select 7', '1234', 'Placeholder Avenue', 'Los Angeles', 'CA', '12345', 'USA', 1);
 INSERT INTO entity (id, name, street_number, street_name, city, state, zip, country, is_active) VALUES (214, 'Mitsuwa (Irvine)', '14230', 'Culver Dr', 'Irvine', 'CA', '92604', 'USA', 1);
 
+INSERT INTO entity (id, name, street_number, street_name, city, state, zip, country, is_active) VALUES (37, 'Green Paradise Farm', '2555', 'Guajome Lake Rd', 'Vista', 'CA', '92084', 'USA', 1);
+
 
 
