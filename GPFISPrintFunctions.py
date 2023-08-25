@@ -40,7 +40,7 @@ class GPFIS2HTML():
         self.create_GPF_logo_and_address()
         self.create_invoice_num(self.invoiceObj.get_inv_num())
         self.create_date(self.invoiceObj.get_invoice_date())
-        self.create_subheader(self.invoiceObj.get_payment_terms(), self.invoiceObj.get_due_date(), self.invoiceObj.get_po_number(), self.invoiceObj.get_applied_credit_amount(), '', self.invoiceObj.get_note())
+        self.create_subheader(self.invoiceObj.get_payment_terms(), self.invoiceObj.get_due_date(), self.invoiceObj.get_po_number(), locale.currency(round(float(self.invoiceObj.get_applied_credit_amount()),2),True, True, False), '', self.invoiceObj.get_note())
         self.create_billto(self.billtoObj.getName(), self.billtoObj.getStreetNumber(), self.billtoObj.getStreetName(), self.billtoObj.getCity(), self.billtoObj.getState(), self.billtoObj.getZip())
         self.create_shipto(self.shiptoObj.getName(), self.shiptoObj.getStreetNumber(), self.shiptoObj.getStreetName(), self.shiptoObj.getCity(), self.shiptoObj.getState(), self.shiptoObj.getZip())
         self.create_static_item_table_info()
@@ -49,9 +49,9 @@ class GPFIS2HTML():
             self.create_line_item(itemObjs.asTupleForHTML())
 
         self.create_filler_line_in_table()
-        self.create_subtotal(self.invoiceObj.no_calc_get_subtotal())
+        self.create_subtotal(locale.currency(round(float(self.invoiceObj.no_calc_get_subtotal()),2),True, True, False))
         self.create_discount(locale.currency(round(float(self.invoiceObj.get_discount_amount()),2),True, True, False))
-        self.create_total(self.invoiceObj.no_calc_get_total())
+        self.create_total(locale.currency(round(float(self.invoiceObj.no_calc_get_total()),2),True, True, False))
         self.create_signature_line_and_close()
         self.file_handle.close()
 
@@ -116,7 +116,7 @@ class GPFIS2HTML():
                 <tr><td>%s</td><td>%s</td><td>%s</td></tr>
                 
                 <tr><th>Credit Total</th><th>Credit Invoice Number</th><th>Notes</th></tr>
-                <tr><td>$%s</td><td>%s</td><td>%s</td></tr>
+                <tr><td>%s</td><td>%s</td><td>%s</td></tr>
             </table>
         </div>"""
         subheader = html_string % (terms, due_date, po, credit_amnt, credit_inv, notes)
@@ -150,19 +150,19 @@ class GPFIS2HTML():
         self.file_handle.write(html_string)
 
     def create_subtotal(self, subtotal):
-        html_string = """<tr><td> </td> <td> </td> <td> </td> <td> </td> <td></td> <td>Subtotal: </td> <td>$%s</td></tr>"""
+        html_string = """<tr><td> </td> <td> </td> <td> </td> <td> </td> <td></td> <td>Subtotal: </td> <td>%s</td></tr>"""
         subtotal = html_string % (subtotal)
 
         self.file_handle.write(subtotal)
 
     def create_discount(self, discount):
-        html_string = """<tr><td> </td> <td> </td> <td> </td> <td> </td> <td></td> <td>Discount: </td> <td>$%s</td></tr>"""
+        html_string = """<tr><td> </td> <td> </td> <td> </td> <td> </td> <td></td> <td>Discount: </td> <td>%s</td></tr>"""
         discount = html_string % (discount)
 
         self.file_handle.write(discount)
 
     def create_total(self, total):
-        html_string = """<tr><td> </td> <td> </td> <td> </td> <td> </td> <td></td> <td>Total: </td> <td>$%s</td></tr></div>"""
+        html_string = """<tr><td> </td> <td> </td> <td> </td> <td> </td> <td></td> <td>Total: </td> <td>%s</td></tr></div>"""
         total = html_string % (total)
 
         self.file_handle.write(total)
